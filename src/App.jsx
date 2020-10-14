@@ -1,12 +1,13 @@
 import React from 'react';
 import logo from './logo.svg';
-import './App.css';
+import './assets/sass/common.scss';
+import TopBar from './components/common/TopBar/TopBar'
 import Dashboard from './components/Dashboard/Dashboard';
 
 function App() {
   return (
     <div className="App">
-     <h1>First Component</h1>
+      <TopBar/>
      <Dashboard/>
     </div>
   );
