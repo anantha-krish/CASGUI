@@ -1,14 +1,13 @@
-import React from 'react';
-import logo from './logo.svg';
-import './assets/sass/common.scss';
-import TopBar from './components/common/TopBar/TopBar'
-import Dashboard from './components/Dashboard/Dashboard';
+import React from "react";
+import "./assets/sass/common.scss";
+import Topbar from "./components/common/topbar/Topbar";
+import Dashboard from "./components/dashboard/Dashboard";
 
 function App() {
   return (
     <div className="App">
-      <TopBar/>
-     <Dashboard/>
+      <Topbar/>
+      <Dashboard/>
     </div>
   );
 }

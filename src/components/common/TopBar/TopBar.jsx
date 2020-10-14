@@ -1,11 +1,11 @@
 import React from 'react'
 
-function TopBar() {
+function Topbar() {
     return (
-        <div>
-            TopBar content
+        <div className="layout-topbar">
+            CAS Top Menu
         </div>
     )
 }
 
-export default TopBar;
+export default Topbar;
