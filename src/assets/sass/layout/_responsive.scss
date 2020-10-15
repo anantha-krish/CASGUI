@@ -1,29 +1,7 @@
+//for desktops
 @media (min-width: 1025px) {
     .layout-wrapper {
-        &.layout-overlay {
-            .layout-sidebar {
-                left: -250px;
-            }
-            
-            .layout-topbar {
-                left: 0;
-            }
-    
-            .layout-main, .layout-footer {
-                margin-left: 0;
-            }
-    
-            &.layout-overlay-sidebar-active {
-                .layout-sidebar {
-                    left: 0;
-                }
-    
-                .layout-topbar  {
-                    left: 250px;
-                }
-            }
-        }
-
+        //static sidemenu
         &.layout-static {
             .layout-sidebar {
                 left: 0;
@@ -54,6 +32,7 @@
     }
 }
 
+// for tablets & phones
 @media (max-width: 1024px) {
     .layout-wrapper {
         .layout-topbar {
