@@ -1,6 +1,6 @@
 import React from "react";
 import { shallow } from "enzyme";
-import Dashboard from "./Dashboard";
+import Dashboard from "./CasDashboard";
 
 describe("Test on Dashboard Component", () => {
   let wrapper;
@@ -9,8 +9,8 @@ describe("Test on Dashboard Component", () => {
     wrapper = shallow(<Dashboard />); //shallow allows you check the content component wise.
   });
 
-  test("renders wrapper class", () => {
+  test("renders initial text", () => {
     //  console.log(wrapper.debug()); <- use if you want to print the html
-    expect(wrapper.find(".dashboard-wrapper").text()).toBe("Dashboard text");
+    expect(wrapper.find("h1").text()).toBe("No User selected");
   });
 });

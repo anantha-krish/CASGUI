@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import "./assets/sass/common.scss";
-import Topbar from "./components/common/topbar/Topbar";
+import CasTopbar from "./components/common/topbar/CasTopbar";
 import AppMenu from "./components/common/menu/AppMenu";
 import UserProfile from "./components/common/userprofile/UserProfile";
-import Dashboard from "./components/dashboard/Dashboard";
+import CasDashboard from "./components/dashboard/CasDashboard";
 import classNames from "classnames";
 import "primereact/resources/themes/nova/theme.css";
 import "primereact/resources/primereact.min.css";
@@ -32,13 +32,13 @@ function App() {
   const sidebarClassName = classNames("layout-sidebar layout-sidebar-dark");
   return (
     <div className={wrapperClass}>
-      <Topbar onToggleMenu={onToggleMenu} />
+      <CasTopbar onToggleMenu={onToggleMenu} />
       <div className={sidebarClassName}>
         <UserProfile />
         <AppMenu model={menu} />
       </div>
       <div className="layout-main">
-        <Dashboard />
+        <CasDashboard/>
       </div>
     </div>
   );

@@ -1,43 +1,52 @@
 import React, { useState, useEffect } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
-import {InputText} from 'primereact/inputtext';
+import { InputText } from "primereact/inputtext";
 import data from "./dummyData.json";
 
-function Dashboard() {
+function CasDashboard() {
   const [userList, setuserList] = useState("");
   const [selectedUser, setselectedUser] = useState("");
-  const [globalFilter, setglobalFilter] = useState("")
+  const [globalFilter, setglobalFilter] = useState("");
 
   useEffect(() => {
     // Todo service API call
     setuserList(data);
   }, []);
 
-  let tableheader = (
-     <>
-    <div style={{textAlign:'right'}}>
-   <span style={{float:'left',fontSize:'25px'}}>List of users</span>
-        <InputText type="search" onInput={(e) => setglobalFilter(e.target.value)} placeholder="Global Search" size="30" />
-    </div>
-    </>
-);
-
   return (
     <div className="p-grid">
-      <div className="p-col-10">
+      <div className="p-col-12">
         <div className="card card-w-title">
-          <h1>
-            {selectedUser ? "User: " + selectedUser.name : "No User selected"}
-          </h1>
+          <div className="p-grid">
+            <div className="p-col-9">
+              {" "}
+              <h1>
+                {selectedUser
+                  ? "User -> " + selectedUser.name
+                  : "No User selected"}
+              </h1>
+            </div>
+            <div className="p-col">
+              <span className="p-input-icon-right">
+                <i className="pi pi-search" />
+                <InputText
+                  type="search"
+                  onInput={(e) => setglobalFilter(e.target.value)}
+                  placeholder="Search"
+                  size="30"
+                />
+              </span>
+            </div>
+          </div>
+
           <DataTable
             value={userList}
             selectionMode="single"
-            header={tableheader}
             selection={selectedUser}
             onSelectionChange={(event) => setselectedUser(event.value)}
             paginator
-            rows={3}
+            rows={5}
             paginatorPosition="both"
             responsive
             globalFilter={globalFilter}
@@ -55,4 +64,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+export default CasDashboard;

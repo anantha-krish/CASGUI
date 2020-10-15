@@ -2,7 +2,7 @@ import React from 'react'
 import {InputText} from 'primereact/inputtext';
 import PropTypes from 'prop-types';
 
-function Topbar(props) {
+function CasTopbar(props) {
     return (
         <div className="layout-topbar clearfix">
         <button className="p-link layout-menu-button" onClick={props.onToggleMenu}>
@@ -30,13 +30,13 @@ function Topbar(props) {
     </div>
     )
 }
-Topbar.defaultProps = {
+CasTopbar.defaultProps = {
     onToggleMenu: null
 }
 
-Topbar.propTypes = {
+CasTopbar.propTypes = {
     onToggleMenu: PropTypes.func.isRequired
 }
 
 
-export default Topbar;
+export default CasTopbar;
