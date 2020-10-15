@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "./assets/sass/common.scss";
 import CasTopbar from "./components/common/topbar/CasTopbar";
-import AppMenu from "./components/common/menu/AppMenu";
-import UserProfile from "./components/common/userprofile/UserProfile";
+import CasMainMenu from "./components/common/menu/CasMainMenu";
+import CasUserProfile from "./components/common/userprofile/CasUserProfile";
 import CasDashboard from "./components/dashboard/CasDashboard";
 import classNames from "classnames";
 import "primereact/resources/themes/nova/theme.css";
@@ -34,8 +34,8 @@ function App() {
     <div className={wrapperClass}>
       <CasTopbar onToggleMenu={onToggleMenu} />
       <div className={sidebarClassName}>
-        <UserProfile />
-        <AppMenu model={menu} />
+        <CasUserProfile />
+        <CasMainMenu model={menu} />
       </div>
       <div className="layout-main">
         <CasDashboard/>
