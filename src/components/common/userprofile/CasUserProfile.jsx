@@ -1,7 +1,7 @@
 import React, { useState} from 'react';
 import classNames from 'classnames';
 
-function UserProfile() {
+function CasUserProfile() {
     const[expanded,setExpanded] = useState(false);
     
     return  (
@@ -22,4 +22,4 @@ function UserProfile() {
     );
 }
 
-export default UserProfile;
+export default CasUserProfile;
