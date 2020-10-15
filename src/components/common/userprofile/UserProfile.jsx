@@ -10,7 +10,7 @@ function UserProfile() {
                 <img src="assets/images/profile.png" alt="" />
             </div>
             <button className="p-link layout-profile-link" onClick={() => setExpanded(!expanded)}>
-                <span className="username">Claire Williams</span>
+                <span className="username">Taro Sorano</span>
                 <i className="pi pi-fw pi-chevron-down"/>
             </button>
             <ul className={classNames({'layout-profile-expanded': expanded})}>
