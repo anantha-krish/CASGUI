@@ -9,8 +9,12 @@ function CasDashboard() {
   const [selectedUser, setselectedUser] = useState("");
   const [globalFilter, setglobalFilter] = useState("");
 
+  function setUserDetailsCallBack(data){
+    setuserList(data);
+  }
+
   useEffect(() => {
-   UserService.getUsers(setuserList);
+   UserService.getUsers(setUserDetailsCallBack);
   }, []);
 
   return (
