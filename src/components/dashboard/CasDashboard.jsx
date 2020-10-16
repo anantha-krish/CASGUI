@@ -5,7 +5,7 @@ import { InputText } from "primereact/inputtext";
 import { userService } from '../../service';
 
 function CasDashboard() {
-  const [userList, setuserList] = useState("");
+  const [userList, setuserList] = useState([]);
   const [selectedUser, setselectedUser] = useState("");
   const [globalFilter, setglobalFilter] = useState("");
 
