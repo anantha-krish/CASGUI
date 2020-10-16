@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { InputText } from "primereact/inputtext";
-import { userService } from '../../service';
+import { UserService } from '../../service/services';
 
 function CasDashboard() {
   const [userList, setuserList] = useState([]);
@@ -10,7 +10,7 @@ function CasDashboard() {
   const [globalFilter, setglobalFilter] = useState("");
 
   useEffect(() => {
-   userService.getUsers(setuserList);
+   UserService.getUsers(setuserList);
   }, []);
 
   return (
