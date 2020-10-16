@@ -20,6 +20,16 @@ function App() {
         window.location = "#/";
       },
     },
+    {
+      label: "Cancellation",
+      icon: "pi pi-fw pi-times-circle",
+      command: () => {
+        window.location = "#/";
+      },
+      items: [
+        {label: 'Reason Management', icon: 'pi pi-fw pi-bars',  command: () => {window.location = "#/";} },
+      ]
+    },
   ];
 
   const onToggleMenu = (event) => {
