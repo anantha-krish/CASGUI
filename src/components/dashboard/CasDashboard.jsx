@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { InputText } from "primereact/inputtext";
-import data from "./dummyData.json";
+import { userService } from '../../service';
 
 function CasDashboard() {
   const [userList, setuserList] = useState("");
@@ -10,8 +10,7 @@ function CasDashboard() {
   const [globalFilter, setglobalFilter] = useState("");
 
   useEffect(() => {
-    // Todo service API call
-    setuserList(data);
+   userService.getUsers(setuserList);
   }, []);
 
   return (
