@@ -1,12 +1,12 @@
 import React from "react";
-import App from "./App";
+import CasApp from "./CasApp";
 import { shallow } from "enzyme";
 
-describe("Test on App Component", () => {
+describe("Test on CasApp Component", () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = shallow(<App />);//shallow allows you to test only component not its child component
+    wrapper = shallow(<CasApp />);//shallow allows you to test only component not its child component
   });
 
   test("renders h1 tag", () => {
