@@ -23,12 +23,10 @@ function CasTopbar(props) {
           <span className="layout-topbar-badge">5</span>
         </button>
         <button className="p-link">
-          <span className="layout-topbar-item-text">Settings</span>
-          <span className="layout-topbar-icon pi pi-cog" />
-        </button>
-        <button className="p-link">
-          <span className="layout-topbar-item-text">User</span>
-          <span className="layout-topbar-icon pi pi-user" />
+         
+        <span className="layout-topbar-icon user-icon" > <img src="assets/images/profile.png" alt="" /> </span>
+         
+          <span className="layout-topbar-username">Taro Sorano</span>
         </button>
       </div>
     </div>
