@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import "./assets/sass/common.scss";
 import CasTopbar from "./components/common/topbar/CasTopbar";
 import CasMainMenu from "./components/common/menu/CasMainMenu";
-import CasUserProfile from "./components/common/userprofile/CasUserProfile";
 import CasDashboard from "./components/dashboard/CasDashboard";
 import classNames from "classnames";
 import "primereact/resources/themes/nova/theme.css";
@@ -57,12 +56,15 @@ class CasApp extends Component {
     });
 
     const sidebarClassName = classNames("layout-sidebar layout-sidebar-dark");
+    const logo = 'assets/images/CAS_Logo.png';
 
     return (
       <div className={wrapperClass}>
         <CasTopbar onToggleMenu={this.onToggleMenu} />
         <div className={sidebarClassName}>
-          <CasUserProfile />
+          <div className="layout-logo">
+            <img alt="Logo" src={logo} width="150" height="100" />
+          </div>
           <CasMainMenu model={menu} />
         </div>
         <div className="layout-main">
