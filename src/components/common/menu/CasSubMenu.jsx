@@ -1,11 +1,30 @@
-import React, { useState} from 'react';
+import React, { Component} from 'react';
 import {NavLink} from 'react-router-dom'
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
 
-const CasSubMenu =(props) => {
-    const[activeIndex,setActiveIndex] = useState(null);
+class CasSubMenu extends Component {
 
-    function onMenuItemClick(event, item, index) {
+    static defaultProps = {
+        className: null,
+        items: null,
+        onMenuItemClick: null,
+        root: false
+    }
+
+    static propTypes = {
+        className: PropTypes.string,
+        items: PropTypes.array,
+        onMenuItemClick: PropTypes.func,
+        root: PropTypes.bool
+    }
+    
+    constructor(props) {
+        super(props);
+        this.state = {activeIndex: null};
+    }
+    
+    onMenuItemClick(event, item, index) {
         //avoid processing disabled items
         if(item.disabled) {
             event.preventDefault();
@@ -17,20 +36,20 @@ const CasSubMenu =(props) => {
             item.command({originalEvent: event, item: item});
         }
 
-        if(index === activeIndex)
-            setActiveIndex(null);
+        if(index === this.state.activeIndex)
+            this.setState({activeIndex: null});    
         else
-            setActiveIndex(index);
+            this.setState({activeIndex: index});
 
-        if(props.onMenuItemClick) {
-            props.onMenuItemClick({
+        if(this.props.onMenuItemClick) {
+            this.props.onMenuItemClick({
                 originalEvent: event,
                 item: item
             });
         }
     }
 
-	function renderLinkContent(item) {
+	renderLinkContent(item) {
 		let submenuIcon = item.items && <i className="pi pi-fw pi-angle-down menuitem-toggle-icon"></i>;
 		let badge = item.badge && <span className="menuitem-badge">{item.badge}</span>;
 
@@ -44,19 +63,19 @@ const CasSubMenu =(props) => {
 		);
 	}
 
-	function renderLink(item, i) {
-		let content = renderLinkContent(item);
+	renderLink(item, i) {
+		let content = this.renderLinkContent(item);
 
 		if (item.to) {
 			return (
-				<NavLink activeClassName="active-route" to={item.to} onClick={(e) => onMenuItemClick(e, item, i)} exact target={item.target}>
+				<NavLink activeClassName="active-route" to={item.to} onClick={(e) => this.onMenuItemClick(e, item, i)} exact target={item.target}>
                     {content}
                 </NavLink>
 			)
 		}
 		else {
 			return (
-				<a href={item.url} onClick={(e) => onMenuItemClick(e, item, i)} target={item.target}>
+				<a href={item.url} onClick={(e) => this.onMenuItemClick(e, item, i)} target={item.target}>
 					{content}
 				</a>
 			);
@@ -64,22 +83,22 @@ const CasSubMenu =(props) => {
 		}
 	}
     
-    
-    let items = props.items && props.items.map((item, i) => {
-        let active = activeIndex === i;
-        let styleClass = classNames(item.badgeStyleClass, {'active-menuitem': active && !item.to});
+    render() {
+        let items = this.props.items && this.props.items.map((item, i) => {
+            let active = this.state.activeIndex === i;
+            let styleClass = classNames(item.badgeStyleClass, {'active-menuitem': active && !item.to});
 
-        return (
-            <li className={styleClass} key={i}>
-                {item.items && props.root===true && <div className='arrow'></div>}
-                {renderLink(item, i)}
-                <CasSubMenu items={item.items} onMenuItemClick={props.onMenuItemClick}/>
-            </li>
-        );
-    });
-    
-    return items ? <ul className={props.className}>{items}</ul> : null;    
-    
+            return (
+                <li className={styleClass} key={i}>
+                    {item.items && this.props.root===true && <div className='arrow'></div>}
+					{this.renderLink(item, i)}
+                    <CasSubMenu items={item.items} onMenuItemClick={this.props.onMenuItemClick}/>
+                </li>
+            );
+        });
+        
+        return items ? <ul className={this.props.className}>{items}</ul> : null;
+    }
 }
 
 export default CasSubMenu;
