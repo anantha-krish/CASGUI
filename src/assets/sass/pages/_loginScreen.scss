@@ -1,0 +1,48 @@
+
+.login-screen {
+  position: relative;
+  height: 100%;
+  background-image: url('../../../assets/images/CAS-Background.jpg');
+  background-size: cover;
+ 
+  .login-translate-button{
+    width: 100%;
+    text-align: center;
+  }
+
+  .cas-input-field{
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+  }
+
+  .p-card {
+    background-color: $color-white;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 10%);
+    padding: 2rem;
+    &-header {
+      position: relative;
+      img {
+       display: block;
+        height: auto;
+        width: 50%;
+        margin: 0 auto;
+      }
+      padding-bottom:1rem;
+    }
+
+    &-content{
+        padding: 2rem 0rem;
+       
+    }
+    &-footer{
+
+        .p-button{
+            margin-bottom: 2rem;
+        }
+    } 
+
+  }
+}

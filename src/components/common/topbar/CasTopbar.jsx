@@ -12,8 +12,7 @@ class CasTopbar extends Component {
       <div className="layout-topbar clearfix">
         <button
           className="p-link layout-menu-button"
-          onClick={this.props.onToggleMenu}
-        >
+          onClick={this.props.onToggleMenu}>
           <span className="pi pi-bars" />
         </button>
         <div className="layout-topbar-icons">
@@ -28,7 +27,7 @@ class CasTopbar extends Component {
           </button>
           <button className="p-link">
             <span className="layout-topbar-icon user-icon">
-              <img src="assets/images/profile.png" alt="User Profile" />
+              <img src={require('../../../assets/images/profile.png') } alt="User Profile" />
             </span>
             <span className="layout-topbar-username">Taro Sorano</span>
           </button>
