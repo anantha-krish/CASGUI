@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { InputText } from "primereact/inputtext";
+
 import { UserService } from "../../service/services";
 import CasDataTable from "../common/datatable/CasDataTable";
+import CasInputText from "../common/formfields/CasInputText";
 
 class CasUserList extends Component {
   constructor() {
@@ -24,6 +25,7 @@ class CasUserList extends Component {
   }
 
   handleChange(event) {
+    console.log("ffffffff",event);
     this.setState({
       [event.target.name]: event.target.value,
     });
@@ -61,13 +63,13 @@ class CasUserList extends Component {
               <div className="p-col">
                 <span className="p-input-icon-right">
                   <i className="pi pi-search" />
-                  <InputText
-                    type="search"
-                    onInput={this.handleChange}
+                  <CasInputText
+                    onChange={this.handleChange}
                     name="globalFilter"
                     placeholder="Search"
+                    value={this.state.globalFilter}
                     size="30"
-                  />
+                  />            
                 </span>
               </div>
             </div>

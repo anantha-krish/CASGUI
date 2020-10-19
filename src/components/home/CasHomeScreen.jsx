@@ -31,14 +31,28 @@ class CasHomeScreen extends Component {
           },
         },
         {
-          label: "Cancellation",
-          icon: "pi pi-fw pi-times-circle",
+          label: "Main menu 1",
+          icon: " pi-fw ",  
           command: () => {
             window.location = "#/";
           },
           items: [
             {
-              label: "Reason Management",
+              label: "Submenu 1.1",
+              icon: "pi pi-fw pi-bars",
+              command: () => {
+                window.location = "#/";
+              },
+            },
+            {
+              label: "Submenu 1.2",
+              icon: "pi pi-fw pi-bars",
+              command: () => {
+                window.location = "#/";
+              },
+            },
+            {
+              label: "Submenu 1.n",
               icon: "pi pi-fw pi-bars",
               command: () => {
                 window.location = "#/";
@@ -46,6 +60,7 @@ class CasHomeScreen extends Component {
             },
           ],
         },
+       
       ];
   
       const wrapperClass = classNames("layout-wrapper", "layout-static", {
