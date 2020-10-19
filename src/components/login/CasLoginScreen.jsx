@@ -59,7 +59,7 @@ class CasLoginScreen extends Component{
   } 
 
   render(){
-    const { t } = this.props;
+    /* const { t } = this.props; */
     const header = (
       <img alt="Card" src={require('../../assets/images/CAS_Logo.png') } onError={(e) => e.target.src='https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png'} />
     );

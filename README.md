@@ -1,8 +1,9 @@
-# CASGUI
+# CAS GUI POC
 
-* additional packages installed
+## Installation 
+Packages needed to be installed
 
-```js
+```json
   // Production dependencies
    "axios": "^0.20.0",
 
@@ -33,4 +34,29 @@
 
     "react-test-renderer": "^16.13.1"
 
+```
+
+## List of CAS Components
+### CasDataTable
+Component helps you to display data in table format with sort, filter features.
+
+| Props  | Type |Description | Required | Optional |
+| --- | --- | ---- | ---| 
+| data  | array | array contains the information to display | Required |
+| columns  | array | array contains the list of field & header to display Ex:{ field: "id", header: "User Id" }| Required |
+| selection  | object | save the row selection to an object | Optional|
+| onSelectionChange  | func | function to invoke on selection change |Optional|
+| globalFilter  | string | filter the results based on the search string |Optional|
+|rows|number| Number of rows to display in first page | Optional (10)
+
+Example Syntax 
+```jsx
+<CasDataTable
+  data={this.state.userList}
+  selection={this.state.selectedUser}
+  onSelectionChange={this.handleUserSelection}
+  rows={5}
+  globalFilter={this.state.globalFilter}
+  columns={renderColumns}
+/>
 ```
