@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Card } from 'primereact/card';
 import CasButton  from '../common/formfields/CasButton';
 import CasInputText from '../common/formfields/CasInputText';
+import CasPassword from '../common/formfields/CasPassword';
 
 
 
@@ -76,7 +77,7 @@ class CasLoginScreen extends Component{
           <Card title="" subTitle="" style={{ width: '20em' }} className="ui-card-shadow" footer={footer} header={header}>
             <div className="p-grid">
               <CasInputText id="userName" placeholder="Username" name="userName" value={this.state.userName} onChange={this.onChange} className="p-d-block" errorText={this.state.userNameError} />
-              <CasInputText id="password" placeholder="Password" password={true} name="password" value={this.state.password} onChange={this.onChange} className="p-d-block" errorText={this.state.passwordError} />
+              <CasPassword id="password" placeholder="Password" name="password" value={this.state.password} onChange={this.onChange} className="p-d-block" errorText={this.state.passwordError} />
             </div>
           </Card>
       </div>

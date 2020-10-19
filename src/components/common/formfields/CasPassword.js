@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import {InputText} from 'primereact/inputtext';
 import PropTypes from 'prop-types';
+import {Password} from 'primereact/password';
 
 
-class CasInputText extends Component {
+class CasPassword extends Component {
 
     constructor(props){
         super(props);
@@ -85,10 +85,9 @@ class CasInputText extends Component {
         className = className + " p-invalid";
       }
       return (
-        <InputText id={id} placeholder={placeholder} className={className} keyfilter={keyfilter} type={type} size={size} value={value} name={name} onChange={onChange} disabled={disabled} 
-        validateOnly={validateOnly} onInput={onInput} tooltip={tooltip} onFocus={onFocus} onBlur={onBlur} style={style} maxLength={maxLength} nextFocus={nextFocus} tabIndex={tabindex} />
+        <Password id={id} placeholder={placeholder} className={className} keyfilter={keyfilter} type={type} size={size} value={value} name={name} onChange={onChange} disabled={disabled} 
+          validateOnly={validateOnly} onInput={onInput} tooltip={tooltip} onFocus={onFocus} onBlur={onBlur} style={style} maxLength={maxLength} nextFocus={nextFocus} tabIndex={tabindex} feedback={false} />
       )
-
     }
 
     render () {
@@ -102,4 +101,4 @@ class CasInputText extends Component {
 
   }
 
-export default CasInputText;
+export default CasPassword;
