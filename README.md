@@ -40,15 +40,14 @@ Packages needed to be installed
 ### CasDataTable
 Component helps you to display data in table format with sort, filter features.
 
- Props  | Type |Description | Required | Optional 
---- | --- | ---- | ---
- data  | array | array contains the information to display | Required 
- 
-| columns  | array | array contains the list of field & header to display Ex:{ field: "id", header: "User Id" }| Required |
-| selection  | object | save the row selection to an object | Optional|
-| onSelectionChange  | func | function to invoke on selection change |Optional|
-| globalFilter  | string | filter the results based on the search string |Optional|
-|rows|number| Number of rows to display in first page | Optional (10)
+ Props | Type | Description | Required 
+ ------ | ------ | ----------- | -------- 
+ `data`  | array | array contains the information to display | Required 
+ `columns`  | array | array contains the list of field & header to display Ex:{ field: "id", header: "User Id" }| Required 
+`selection`  | object | save the row selection to an object | Optional
+`onSelectionChange`  | func | function to invoke on selection change |Optional
+ `globalFilter`  | string | filter the results based on the search string |Optional
+`rows` |number| Number of rows to display in first page | Optional (10)
 
 Example Syntax 
 ```jsx
