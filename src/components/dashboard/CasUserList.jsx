@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { DataTable } from "primereact/datatable";
-import { Column } from "primereact/column";
+
 import { UserService } from "../../service/services";
-import CasInputText from '../common/formfields/CasInputText';
+import CasDataTable from "../common/datatable/CasDataTable";
+import CasInputText from "../common/formfields/CasInputText";
 
 class CasUserList extends Component {
   constructor() {
@@ -10,11 +10,12 @@ class CasUserList extends Component {
 
     this.state = {
       userList: [],
-      selectedUser: "",
+      selectedUser: {},
       globalFilter: "",
     };
     this.setUserDetailsCallBack = this.setUserDetailsCallBack.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleUserSelection = this.handleUserSelection.bind(this);
   }
 
   setUserDetailsCallBack(userListJson) {
@@ -30,11 +31,21 @@ class CasUserList extends Component {
     });
   }
 
+  handleUserSelection(event) {
+    this.setState({ selectedUser: event.value });
+  }
+
   componentDidMount() {
     UserService.getUsers(this.setUserDetailsCallBack);
   }
 
   render() {
+    let renderColumns = [
+      { field: "id", header: "User Id" },
+      { field: "username", header: "User Name" },
+      { field: "name", header: "Full Name" },
+      { field: "email", header: "Email Id" },
+    ];
     return (
       <div className="p-grid">
         <div className="p-col-12">
@@ -42,9 +53,11 @@ class CasUserList extends Component {
             <div className="p-grid">
               <div className="p-col-9">
                 <h1>
-                  {this.state.selectedUser
-                    ? "User -> " + this.state.selectedUser.name
-                    : "No User selected"}
+                  {this.state.selectedUser ? (
+                    <>User &rarr;&nbsp;{this.state.selectedUser.name}</>
+                  ) : (
+                    <>No User selected</>
+                  )}
                 </h1>
               </div>
               <div className="p-col">
@@ -56,30 +69,19 @@ class CasUserList extends Component {
                     placeholder="Search"
                     value={this.state.globalFilter}
                     size="30"
-                  />
+                  />            
                 </span>
               </div>
             </div>
 
-            <DataTable
-              value={this.state.userList}
-              selectionMode="single"
+            <CasDataTable
+              data={this.state.userList}
               selection={this.state.selectedUser}
-              onSelectionChange={(event) =>
-                this.setState({ selectedUser: event.value })
-              }
-              paginator
+              onSelectionChange={this.handleUserSelection}
               rows={5}
-              paginatorPosition="both"
-              responsive
               globalFilter={this.state.globalFilter}
-            >
-              <Column field="id" header="User Id" sortable />
-              <Column field="username" header="User Name" sortable />
-              <Column field="name" header="Full Name" sortable />
-              <Column field="email" header="Email Id" sortable />
-             
-            </DataTable>
+              columns={renderColumns}
+            />
           </div>
         </div>
       </div>

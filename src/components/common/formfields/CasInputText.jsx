@@ -4,10 +4,6 @@ import PropTypes from 'prop-types';
 
 
 class CasInputText extends Component {
-
-    constructor(props){
-        super(props);
-      }
     
     static propTypes = {
         id:PropTypes.string,

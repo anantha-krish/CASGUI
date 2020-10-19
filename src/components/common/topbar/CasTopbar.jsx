@@ -3,9 +3,14 @@ import { InputText } from "primereact/inputtext";
 import PropTypes from "prop-types";
 
 class CasTopbar extends Component {
-  constructor(props) {
-    super(props);
-  }
+  
+  static propTypes = {
+    onToggleMenu: PropTypes.func.isRequired,
+  };
+
+  static defaultProps = {
+    onToggleMenu: ()=>{},
+  };
   
   render() {
     return (
@@ -36,13 +41,5 @@ class CasTopbar extends Component {
     );
   }
 }
-
-CasTopbar.defaultProps = {
-  onToggleMenu: null,
-};
-
-CasTopbar.propTypes = {
-  onToggleMenu: PropTypes.func.isRequired,
-};
 
 export default CasTopbar;
