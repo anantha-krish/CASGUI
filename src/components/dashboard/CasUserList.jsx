@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import { ObjectUtil } from "../../lib/libs";
 import { UserService } from "../../service/services";
 import CasDataTable from "../common/datatable/CasDataTable";
 import CasInputText from "../common/formfields/CasInputText";
@@ -25,7 +25,6 @@ class CasUserList extends Component {
   }
 
   handleChange(event) {
-    console.log("ffffffff",event);
     this.setState({
       [event.target.name]: event.target.value,
     });
@@ -53,7 +52,7 @@ class CasUserList extends Component {
             <div className="p-grid">
               <div className="p-col-9">
                 <h1>
-                  {this.state.selectedUser ? (
+                  { !ObjectUtil.isEmpty(this.state.selectedUser) ? (
                     <>User &rarr;&nbsp;{this.state.selectedUser.name}</>
                   ) : (
                     <>No User selected</>
