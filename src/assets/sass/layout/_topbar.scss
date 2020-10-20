@@ -1,7 +1,8 @@
 .layout-topbar {
   position: fixed;
-  height: 50px;
-  padding: 0.7em 1.5em 0em 1.5em;
+  height: 4rem;
+  /*   padding: 0.7em 1.5em 0em 1.5em; */
+  padding: 0.7rem 1rem;
   color: #ffffff;
   z-index: 999;
   right: 0;
@@ -19,7 +20,7 @@
     .user-icon {
       img {
         float: left;
-        height: 35px;
+        height: 3rem;
       }
     }
 
@@ -38,19 +39,16 @@
 
       span {
         &.layout-topbar-icon {
-          font-size: 2em;
+          font-size: 2.5rem;
         }
         &.layout-topbar-username {
-          padding: 0;
-          position: relative;
+          padding: 0.5rem;
           display: inline-block;
-
-          top: -9px;
-          left: 5px;
-          font-size: 18px;
+          /*  bottom: 1.5rem; */
+          vertical-align: top;
+          font-size: 1.8rem;
         }
         &.layout-topbar-item-text {
-          font-size: 20px;
           display: none;
         }
 
@@ -74,7 +72,7 @@
       padding: 0;
       position: relative;
       display: inline-block;
-      top: -10px;
+      bottom: 1rem;
 
       input {
         display: inline-block;
@@ -86,8 +84,8 @@
         -webkit-box-shadow: none;
         box-shadow: none;
         color: $topbarSearchInputColor;
-        width: 100px;
-        padding: 1px 20px 1px 1px;
+        width: 15rem;
+        padding: 1px 2rem 1px 1px;
         margin: 0px;
         @include border-radius(2px);
 
@@ -114,7 +112,7 @@
       }
 
       .layout-topbar-search-icon {
-        font-size: 18px;
+        font-size: 1.8rem;
         position: absolute;
         top: -1px;
         right: 0px;
@@ -148,11 +146,12 @@
     cursor: pointer;
     display: inline-block;
     text-decoration: none;
+    top: 0.2rem;
     color: $topbarItemColor;
     @include transition(color $transitionDuration);
 
     span {
-      font-size: 2em;
+      font-size: 2rem;
     }
 
     &:hover {
@@ -162,5 +161,10 @@
 
   button {
     cursor: pointer;
+
+    padding: 0;
+    position: relative;
+    display: inline-block;
+    bottom: 0.4rem;
   }
 }

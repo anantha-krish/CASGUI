@@ -1,5 +1,9 @@
 .cas-input-field{
     width: 100%;
+    &:not(:last-child)
+    {
+        margin-bottom: 1.5rem;
+    }
 }
 .p-inputtext{
     width: 100%;

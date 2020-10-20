@@ -74,10 +74,11 @@ class CasLoginScreen extends Component{
     
     return (
       <div className="login-screen">
-          <Card title="" subTitle="" style={{ width: '20em' }} className="ui-card-shadow" footer={footer} header={header}>
+          <Card title="" subTitle="" style={{ width: '20em' }} className="login-screen__card ui-card-shadow" footer={footer} header={header}>
             <div className="p-grid">
-              <CasInputText id="userName" placeholder="Username" name="userName" value={this.state.userName} onChange={this.onChange} className="p-d-block" errorText={this.state.userNameError} />
-              <CasPassword id="password" placeholder="Password" name="password" value={this.state.password} onChange={this.onChange} className="p-d-block" errorText={this.state.passwordError} />
+              <CasInputText id="userName" placeholder="Username" name="userName" value={this.state.userName} onChange={this.onChange} className="p-inputtext-lg p-d-block" errorText={this.state.userNameError} />
+              <CasPassword id="password" placeholder="Password" name="password" value={this.state.password} onChange={this.onChange} className="p-inputtext-lg p-d-block" errorText={this.state.passwordError} />
+          
             </div>
           </Card>
       </div>
