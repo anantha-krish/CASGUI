@@ -9,10 +9,9 @@
   .p-card {
     position: absolute;
     left: 50%;
-    top: 40%;
+    top: 35%;
     transform: translate(-50%, -50%);
     padding: 3rem 2rem;
-    min-width: 40rem;
     background-color: $color-white;
     &-header {
       position: relative;
@@ -29,9 +28,8 @@
       margin-top: 1rem;
       .p-button {
         margin: 0 auto;
-        width: 60%;
         padding: 0.5rem;
-        font-size: 1.4rem;
+        font-size: 1.2rem;
         &:not(:last-child) {
           margin-bottom: 1rem;
         }
