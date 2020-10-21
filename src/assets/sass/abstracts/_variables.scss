@@ -8,6 +8,7 @@ $dividerColor:#e3e3e3;
 $transitionDuration:.2s;
 $maskBgColor:#424242;
 $color-white:white;
+$color-primary-blue:#007ad9;
 
 /* Menu Common */
 $menuitemBadgeBgColor:#007be5;
@@ -25,8 +26,8 @@ $menuitemActiveBgColor:#ffffff;
 $menuitemBorderColor:rgba(207, 211, 224, 0.6);
 
 /* Menu Dark */
-$menuDarkBgColorFirst:#4d505b;
-$menuDarkBgColorLast:#3b3e47;
+$menuDarkBgColorFirst:#2b3135;
+$menuDarkBgColorLast:#2b3135;
 $menuitemDarkColor:#ffffff;
 $menuitemDarkHoverColor:#0388e5;
 $menuitemDarkActiveColor:#0388e5;
@@ -34,14 +35,30 @@ $menuitemDarkActiveBgColor:#2e3035;
 $menuitemDarkBorderColor:rgba(52, 56, 65, 0.6);
 
 /* Topbar */
+
+/*
 $topbarLeftBgColor:#0388E5;
 $topbarRightBgColor:#07BDF4;
+$menuDarkBgColorFirst:#4d505b;
+$menuDarkBgColorLast:#3b3e47;
+
+*/
+$topbarLeftBgColor:#3e464c;
+$topbarRightBgColor:#3e464c;
 $topbarItemBadgeBgColor:#ef6262;
 $topbarItemBadgeColor:#ffffff;
 $topbarItemColor:#ffffff;
 $topbarItemHoverColor:#c3e8fb;
 $topbarSearchInputBorderBottomColor:#ffffff;
 $topbarSearchInputColor:#ffffff;
+$topbarHeight:6rem;
+$topbarHeightMainMargin:86px;
+
+
+/* Topbar */
+$leftbarWidth:20rem;
 
 /* Footer */
 $footerBgColor:#ffffff;
+
+
