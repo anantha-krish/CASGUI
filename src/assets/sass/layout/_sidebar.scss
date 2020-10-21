@@ -1,8 +1,9 @@
 .layout-sidebar {
     position: fixed;
-    width: 250px;
+    width: $leftbarWidth;
     height: 100%;
     z-index: 999;
+    margin-top: $topbarHeight;
     overflow-y: auto;
     user-select: none;
     -moz-user-select: none;
