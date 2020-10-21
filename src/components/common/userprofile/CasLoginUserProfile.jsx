@@ -22,7 +22,7 @@ class CasLoginUserProfile extends Component {
         return  (
             <div className="layout-profile">
                 <div>
-                    <img src="assets/images/profile.png" alt="" />
+                    <img src={require('../../../assets/images/profile.png')} alt="" />
                 </div>
                 <button className="p-link layout-profile-link" onClick={this.onClick}>
                     <span className="username">Claire Williams</span>
