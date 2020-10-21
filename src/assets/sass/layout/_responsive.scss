@@ -8,7 +8,7 @@
             }
             
             .layout-topbar {
-                left: 250px;
+                left: $leftbarWidth;
             }
     
             .layout-main, .layout-footer {
@@ -21,7 +21,7 @@
                 }
     
                 .layout-topbar  {
-                    left: 0;
+                    left: $leftbarWidth;
                 }
 
                 .layout-main, .layout-footer {
