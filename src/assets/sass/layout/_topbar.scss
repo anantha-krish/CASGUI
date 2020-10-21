@@ -1,7 +1,7 @@
 .layout-topbar {
   position: fixed;
   height: $topbarHeight;
-  padding: 1.4rem;
+  padding: .7rem;
   color: #ffffff;
   z-index: 998;
   right: 0;
@@ -115,7 +115,7 @@
       .layout-topbar-search-icon {
         font-size: 1.8rem;
         position: absolute;
-        top: -1px;
+        top: -6px;
         right: 0px;
       }
 
@@ -148,7 +148,7 @@
   position: fixed;
   height: $topbarHeight;
   width: $leftbarWidth;
-  padding: 1.4rem;
+  padding: .6rem;
   color: #ffffff;
   z-index: 999;
   background-color: $menuDarkBgColorFirst;
@@ -163,7 +163,7 @@
 .layout-menu-button {
   cursor: pointer;
   text-decoration: none;
-  top: 0.2rem;
+  top: 0.1rem;
   color: $topbarItemColor;
   @include transition(color $transitionDuration);
   float: right;
