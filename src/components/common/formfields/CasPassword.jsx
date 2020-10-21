@@ -4,10 +4,6 @@ import {Password} from 'primereact/password';
 
 
 class CasPassword extends Component {
-
-    constructor(props){
-        super(props);
-      }
     
     static propTypes = {
         id:PropTypes.string,

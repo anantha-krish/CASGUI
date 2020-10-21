@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import CasTopbar from "../common/topbar/CasTopbar";
 import CasMainMenu from "../common/menu/CasMainMenu";
 import CasDashboard from "../dashboard/CasDashboard";
-import CasLoginUserProfile from "../common/userprofile/CasLoginUserProfile";
 import classNames from "classnames";
 
 

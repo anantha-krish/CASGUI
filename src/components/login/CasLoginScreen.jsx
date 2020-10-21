@@ -2,10 +2,7 @@ import React, { Component } from 'react';
 import { Card } from 'primereact/card';
 import CasButton  from '../common/formfields/CasButton';
 import CasInputText from '../common/formfields/CasInputText';
-import CasPassword from '../common/formfields/CasPassword';
-
-
-
+import CasPassword from '../common/formfields/CasPassword.jsx';
 
 class CasLoginScreen extends Component{
 
