@@ -12,7 +12,7 @@
             }
     
             .layout-main, .layout-footer {
-                margin-left: 250px;
+                margin-left: $leftbarWidth;
             }
     
             &.layout-static-sidebar-inactive {
