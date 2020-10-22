@@ -8,15 +8,20 @@ import { Formik } from "formik";
 
 export class CasFormDemo extends Component {
   
+  constructor(props)
+  {
+    super(props);
+    this.submitCancelForm=this.submitCancelForm.bind(this);
+  }
   validateCancelForm(values) {
     const errors = {};
-    console.log(values);
     if (values.cancelType === "") errors.cancelType = "Please choose the type";
     return errors;
   }
 
   submitCancelForm(values, { setSubmitting }) {
     // set is submitting when API gives response back
+    this.props.search();
     setSubmitting(false);
   }
 

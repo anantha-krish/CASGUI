@@ -6,13 +6,11 @@ import CasInputText from "../common/formfields/CasInputText";
 import CasAirportInput from "../common/formfields/CasAirportInput";
 
 class CasFormResult extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
-      results: [],
-      selectedResult: {},
-      globalFilter: "",
+      selectedResult: {}
     };
     this.handleResultSelection = this.handleResultSelection.bind(this);
   }
@@ -22,7 +20,7 @@ class CasFormResult extends Component {
   }
 
   render() {
-    let renderColumns = [
+    const renderColumns = [
       { field: "cancelType", header: "Type" },
       { field: "depDate", header: "Dep Date" },
       { field: "depAirport", header: "Dep Airport" },
@@ -33,16 +31,17 @@ class CasFormResult extends Component {
       { field: "reason", header: "Reason" },
       { field: "status", header: "Status" },
     ];
+    let resultList=this.props.searchResults;
     return (
       <>
         <h1>Results</h1>
-        <CasDataTable
-          data={this.state.results}
+        { resultList.length !== 0 ? <CasDataTable
+          data={resultList}
           selection={this.state.selectedResult}
           onSelectionChange={this.handleResultSelection}
           rows={10}
-          columns={renderColumns}
-        />
+          columns={renderColumns} /> 
+        :<div>No Info to display</div>}       
       </>
     );
   }

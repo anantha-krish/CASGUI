@@ -1,0 +1,60 @@
+[
+  {
+    "cancelType": "dummy1",
+    "depDate": "dummy1",
+    "depAirport": "dummy1",
+    "arvAirport": "dummy1",
+    "flightNumber": "dummy1",
+    "depTime": "dummy1",
+    "arvTime": "dummy1",
+    "reason": "dummy1",
+    "status": "Pending"
+  },
+
+  {
+    "cancelType": "dummy2",
+    "depDate": "dummy2",
+    "depAirport": "dummy2",
+    "arvAirport": "dummy2",
+    "flightNumber": "dummy2",
+    "depTime": "dummy2",
+    "arvTime": "dummy2",
+    "reason": "dummy2",
+    "status": "Pending"
+  },
+
+  {
+    "cancelType": "dummy3",
+    "depDate": "dummy3",
+    "depAirport": "dummy3",
+    "arvAirport": "dummy3",
+    "flightNumber": "dummy3",
+    "depTime": "dummy3",
+    "arvTime": "dummy3",
+    "reason": "dummy3",
+    "status": "Pending"
+  },
+
+  {
+    "cancelType": "dummy4",
+    "depDate": "dummy4",
+    "depAirport": "dummy4",
+    "arvAirport": "dummy4",
+    "flightNumber": "dummy4",
+    "depTime": "dummy4",
+    "arvTime": "dummy4",
+    "reason": "dummy4",
+    "status": "Approved"
+  },
+  {
+    "cancelType": "dummy5",
+    "depDate": "dummy5",
+    "depAirport": "dummy5",
+    "arvAirport": "dummy5",
+    "flightNumber": "dummy5",
+    "depTime": "dummy5",
+    "arvTime": "dummy5",
+    "reason": "dummy5",
+    "status": "Approved"
+  }
+]

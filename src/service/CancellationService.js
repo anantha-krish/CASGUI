@@ -7,7 +7,7 @@ export const CancellationService = {
 
 function searchAllCancellationRequests(callbackFn) {
   return axios
-    .get("./airportData.json")
+    .get("./cancellationReqData.json")
     .then((res) => {
       if (res.data ) {
         if (callbackFn) {
