@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { ObjectUtil } from "../../lib/libs";
-import { UserService } from "../../service/services";
+import { UserService, AirportService } from "../../service/services";
 import CasDataTable from "../common/datatable/CasDataTable";
 import CasInputText from "../common/formfields/CasInputText";
+import CasAirportInput from "../common/formfields/CasAirportInput";
 
 class CasUserList extends Component {
   constructor() {
@@ -12,8 +13,10 @@ class CasUserList extends Component {
       userList: [],
       selectedUser: {},
       globalFilter: "",
+      airportData:null
     };
     this.setUserDetailsCallBack = this.setUserDetailsCallBack.bind(this);
+    this.setAirportsCallBack = this.setAirportsCallBack.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleUserSelection = this.handleUserSelection.bind(this);
   }
@@ -21,6 +24,12 @@ class CasUserList extends Component {
   setUserDetailsCallBack(userListJson) {
     this.setState({
       userList: userListJson,
+    });
+  }
+
+  setAirportsCallBack(airportData) {
+    this.setState({
+      airportData
     });
   }
 
@@ -36,6 +45,7 @@ class CasUserList extends Component {
 
   componentDidMount() {
     UserService.getUsers(this.setUserDetailsCallBack);
+    AirportService.getAllAirports(this.setAirportsCallBack);
   }
 
   render() {
@@ -68,9 +78,18 @@ class CasUserList extends Component {
                     placeholder="Search"
                     value={this.state.globalFilter}
                     size="30"
-                  />            
+                  />
+                              
                 </span>
+                <CasAirportInput
+                    onChange={this.handleChange}
+                    name="globalFilter"
+                    placeholder="Search"
+                    value={this.state.globalFilter}
+                    airportData={this.state.airportData}
+                  />  
               </div>
+              
             </div>
 
             <CasDataTable
