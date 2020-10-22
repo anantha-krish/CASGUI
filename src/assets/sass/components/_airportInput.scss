@@ -2,3 +2,57 @@
    padding: 0.2rem 0.5rem 0.2rem 0.3rem!important;
    font-size: 1.3rem !important;
 }
+.airport-popup-dialog{
+   width: 45vw;
+   
+   
+   .airport-popup-content{
+      float: left;
+      width: 100%;
+      height: 40vh;
+      
+      .airport-popup-region-container{
+         width: 35%;
+         float: left;
+         .airport-popup-region{
+            background-color: #f4f4f4;
+            font-weight: bold;
+            padding: 0.5rem 0.5rem;
+            margin: 0.4rem;
+            border-radius: 0.5rem;
+            &:hover{
+               background-color: $color-primary-hover;
+            }
+            &.selected-region {
+               background-color: $color-primary-blue;
+               color: $color-white;
+            }
+
+         }
+      }
+      .airport-popup-airport-container{
+         width: 65%;
+         float: right;
+         .airport-popup-airport{
+            background-color: #f8f9fa;
+            width: 47%;
+            padding: 0.5rem 0.5rem;
+            margin: 0.4rem;
+            border-radius: 0.5rem;
+            float: left;
+            
+            &:hover{
+               background-color: $color-primary-hover;
+            }
+            &.selected-airport {
+               background-color: $color-primary-blue;
+               color: $color-white;
+            }
+            .airport-code{
+               font-weight: bold;
+            }
+
+         }
+      }
+   }
+}
