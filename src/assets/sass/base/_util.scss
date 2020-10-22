@@ -44,3 +44,17 @@ h2 {
     -ms-flex-wrap: wrap;
 }
 
+.p-dialog {
+    border: 0px !important;
+    .p-dialog-header{
+        background: $color-primary-header !important;
+        color: $color-white !important;
+    }
+    .p-dialog-header-icon {
+        color: white !important;
+        background: $color-primary-blue !important;
+        padding-left: 0.15rem !important;
+    }
+
+}
+
