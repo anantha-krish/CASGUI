@@ -176,7 +176,7 @@ class CasAirportInput extends Component {
       if(airportType && airportType ==="departure"){
         iconClassName="plane-departure";
       } else if (airportType && airportType ==="arrival") {
-        iconClassName="plane-departure";
+        iconClassName="plane-arrival";
       }
       const footer = (
         <div>

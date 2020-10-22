@@ -46,7 +46,7 @@ export class CasFormDemo extends Component {
                   <label htmlFor="cancelDepAirport">{label.depAirport}</label>
                 </div>
                 <div className="p-col-12  p-lg-2 p-md-4">
-                  <CasAirportInput id="cancelDepAirport"/>
+                  <CasAirportInput airportType="departure" id="cancelDepAirport"/>
                 </div>
               </div>
 
@@ -56,7 +56,7 @@ export class CasFormDemo extends Component {
                   <label htmlFor="cancelArrAirport">{label.arrAirport}</label>
                 </div>
                 <div className="p-col-12 p-lg-2 p-md-4">
-                <CasAirportInput id="cancelArrAirport"/>
+                <CasAirportInput airportType="arrival" id="cancelArrAirport"/>
                 </div>
               </div>
 
