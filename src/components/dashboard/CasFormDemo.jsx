@@ -7,9 +7,9 @@ import CasRadioBtn from "../common/formfields/CasRadioBtn";
 import { Formik } from "formik";
 import { AirportService } from "../../service/services";
 import CasCalendar from "../common/formfields/CasCalendar";
+import CasSelect from "../common/formfields/CasSelect";
 
 class CasFormDemo extends Component {
-  
   constructor(props)
   {
     super(props);
@@ -48,6 +48,10 @@ class CasFormDemo extends Component {
     const setInitialValues = {
       cancelType: "",
     };
+
+    let carrierCodeOptions= [{
+      option:"test1"
+    },{option: "test2"}]
 
     return (
              <>
@@ -104,7 +108,6 @@ class CasFormDemo extends Component {
                         </small>
                       )}
                     </div>
-
                     {/* Row 2 */}
                     <div className="p-grid">
                       <div className="p-col-12 p-lg-2 p-md-2">
@@ -161,16 +164,18 @@ class CasFormDemo extends Component {
                     {/* Row 5 */}
                     <div className="p-grid">
                       <div className="p-col-12 p-lg-2 p-md-2">
-                        <label htmlFor="input">{label.carrierCode}</label>
+                        <label htmlFor="cancelCarrierCD">{label.carrierCode}</label>
                       </div>
                       <div className="p-col-12  p-lg-4 p-md-4">
-                        <CasInputText id="input" />
+                        <CasSelect id="cancelCarrierCD" name="carrierCode" options={carrierCodeOptions}
+                           value={values.carrierCode} onChange={handleChange}   
+                        />
                       </div>
                       <div className="p-col-12 p-lg-2 p-md-2">
                         <label htmlFor="textarea">{label.flightNum}</label>
                       </div>
                       <div className="p-col-12 p-lg-4 p-md-4">
-                        <CasInputText id="textarea" />
+                        <CasInputText id="cancelflightNumber" />
                       </div>
                     </div>
 
