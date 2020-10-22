@@ -14,12 +14,13 @@ class CasAirportInput extends Component {
       this.state = {
         displayDialog: false,
         selRegion:null,
-        regionData:[],
-        selRegAirportData:[],
-        allAirportData:[]
+        selAirport:null,
+        regionData:[]
       };
       this.onHide = this.onHide.bind(this);
       this.onPopUpShow = this.onPopUpShow.bind(this);
+      this.selectRegion = this.selectRegion.bind(this);
+      
 
     }
     
@@ -71,21 +72,36 @@ class CasAirportInput extends Component {
     };
 
     componentDidUpdate(prevProps) {
-      if(JSON.stringify(this.props.airportData) !== JSON.stringify(prevProps.airportData)){
+      if(JSON.stringify(this.props.airportData) !== JSON.stringify(prevProps.airportData) || this.props.value !==prevProps.value ){
         let regionData=[];
         let selRegion=null;
+        let selAirport=null;
         if(this.props.airportData && this.props.airportData.regions && this.props.airportData.regions.length) {
           regionData = this.props.airportData.regions;
-          selRegion = regionData[0];
+          if(this.props.value){
+            let value = this.props.value;
+            regionData.forEach(function(region) {
+              region.airport.some(function(airport) {
+                if(airport.threeDigitCode === value){
+                  selRegion = region;
+                  selAirport = airport;
+                  return true;
+                }
+              });
+            });
+          }
+          if(!selRegion){
+            selRegion = regionData[0];
+          }
+         
         }
-        debugger
         this.setState({
           regionData,
-          selRegion
+          selRegion,
+          selAirport
         });
 
       }
-      console.log(this.state.regionData);
     }
 
  
@@ -109,22 +125,70 @@ class CasAirportInput extends Component {
       });
     }
 
+    getRegionbyId =(id) => {
+     let filteredRegion =  this.state.regionData.filter(region => region.id === parseInt(id));
+     let region =null;
+     if(filteredRegion && filteredRegion.length){
+      region = filteredRegion[0];
+     }
+     return region;
+    }
+
+    getAirportbyId =(id) => {
+      let filteredAirport =  this.state.selRegion.airport.filter(airport => airport.id === parseInt(id));
+      let airport =null;
+      if(filteredAirport && filteredAirport.length){
+        airport = filteredAirport[0];
+      }
+      return airport;
+     }
+
+    selectRegion = (e)=>{
+      if(e.target &&  e.target.id){
+        let selRegion = this.getRegionbyId(e.target.id);
+        this.setState({
+          selRegion
+        });
+      }
+      
+    }
+
+    selectAirport =(e) => {
+      if(e.target &&  e.target.id){
+        let airport = this.getAirportbyId(e.target.id);
+        if(this.props.onChange) {
+          this.props.onChange({target:{name:this.props.name,value:airport.threeDigitCode}});
+          this.onHide();
+        }
+      }
+    }
+
     renderRegions(){
       let regions =[];
+      let selectedRegion = this.state.selRegion;
       if(this.state.regionData && this.state.regionData.length){
         regions =this.state.regionData.map((region, index)=>{
-          return (<div><span>{region.enName}</span></div>);
+          let className = "airport-popup-region";
+          if(selectedRegion && selectedRegion.id === region.id){
+            className="airport-popup-region selected-region";
+          }
+          return (<div className={className} id={region.id} onClick={(e)=>{this.selectRegion(e)}}>{region.enName}</div>);
+          
         });
       }
       return   regions;
-      
     }
 
     renderAirports(){
       let airports =[];
+      let selectedAirport = this.state.selAirport;
       if(this.state.selRegion && this.state.selRegion.airport && this.state.selRegion.airport.length){
         airports =this.state.selRegion.airport.map((airport, index)=>{
-          return (<div><span>{airport.enName}/{airport.threeDigitCode}</span></div>);
+          let className = "airport-popup-airport";
+          if(selectedAirport && selectedAirport.id === airport.id){
+            className="airport-popup-airport selected-airport";
+          }
+          return (<div className={className} id={airport.id} onClick={(e)=>{this.selectAirport(e)}}>{airport.enName}/<span className="airport-code">{airport.threeDigitCode}</span></div>);
         });
       }
       return   airports;
@@ -133,11 +197,11 @@ class CasAirportInput extends Component {
     
     renderDialogContent() {
       return(
-        <div className="">
-          <div>
+        <div className="airport-popup-content">
+          <div className="airport-popup-region-container">
             {this.renderRegions()}
           </div>
-          <div>
+          <div className="airport-popup-airport-container">
             {this.renderAirports()}
           </div>
         </div>
@@ -191,7 +255,7 @@ class CasAirportInput extends Component {
               validateOnly={validateOnly} onInput={onInput} tooltip={tooltip} onFocus={onFocus} onBlur={onBlur} style={style} maxLength={maxLength} nextFocus={nextFocus} tabIndex={tabindex} />
             <Button  className="cas-airport-popup-icon"  onClick={this.onPopUpShow}><FontAwesomeIcon icon={iconClassName} /> </Button>
           </div>
-          <Dialog header={this.props.header}  visible={this.state.displayDialog} style={{width: '50vw'}} modal onHide={this.onHide}>
+          <Dialog header={this.props.header} className="cas-dialog airport-popup-dialog" visible={this.state.displayDialog}  modal onHide={this.onHide}>
             {this.renderDialogContent()}
           </Dialog>
         </div>
