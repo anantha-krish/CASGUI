@@ -1,15 +1,42 @@
 import React, { Component } from "react";
 import CasFormDemo from "./CasFormDemo";
-import CasUserList from './CasUserList'
-
+import CasFormResult from "./CasFormResult";
 
 class CasDashboard extends Component {
+  constructor()
+  { super();
+    this.state={
+      resultList:[]
+    }
+/*     this.getResults =this.getResults.bind(this); */
+    this.setResult=this.setResult.bind(this);
+  }
+
+  setResult(resultJson)
+  {
+    this.setState({
+      resultList:resultJson
+    })
+  }
+
+  searchRequests()
+  {
+    //api call
+    
+  }
+
  
   render() {
     return (
-      <div>
+      <div className="p-fluid">
+      <div className="p-grid">
+        <div className="p-col-12">
+          <div className="card card-w-title">
         <CasFormDemo/>
-        <CasUserList/>
+        <CasFormResult/>
+      </div>
+      </div>
+      </div>
       </div>
     );
   }

@@ -7,6 +7,7 @@ import CasRadioBtn from "../common/formfields/CasRadioBtn";
 import { Formik } from "formik";
 
 export class CasFormDemo extends Component {
+  
   validateCancelForm(values) {
     const errors = {};
     console.log(values);
@@ -27,10 +28,7 @@ export class CasFormDemo extends Component {
     };
 
     return (
-      <div className="p-fluid">
-        <div className="p-grid">
-          <div className="p-col-12">
-            <div className="card card-w-title">
+             <>
               <h1>{label.title}</h1>
 
               <Formik
@@ -200,10 +198,7 @@ export class CasFormDemo extends Component {
                   </form>
                 )}
               </Formik>
-            </div>
-          </div>
-        </div>
-      </div>
+            </>
     );
   }
 }
