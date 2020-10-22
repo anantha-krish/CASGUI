@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { LabelConstants } from "../../constants/constants";
+import CasAirportInput from "../common/formfields/CasAirportInput";
 import CasButton from "../common/formfields/CasButton";
 import CasInputText from "../common/formfields/CasInputText";
 
@@ -42,20 +43,20 @@ export class CasFormDemo extends Component {
               {/* Row 3 */}
               <div className="p-grid">
                 <div className="p-col-12 p-lg-2 p-md-2">
-                  <label htmlFor="input">{label.depAirport}</label>
+                  <label htmlFor="cancelDepAirport">{label.depAirport}</label>
                 </div>
-                <div className="p-col-12  p-lg-4 p-md-4">
-                  <CasInputText id="input" />
+                <div className="p-col-12  p-lg-2 p-md-4">
+                  <CasAirportInput id="cancelDepAirport"/>
                 </div>
               </div>
 
               {/* Row 4 */}
               <div className="p-grid">
                 <div className="p-col-12 p-lg-2 p-md-2">
-                  <label htmlFor="textarea">{label.arrAirport}</label>
+                  <label htmlFor="cancelArrAirport">{label.arrAirport}</label>
                 </div>
-                <div className="p-col-12 p-lg-4 p-md-4">
-                  <CasInputText id="textarea" />
+                <div className="p-col-12 p-lg-2 p-md-4">
+                <CasAirportInput id="cancelArrAirport"/>
                 </div>
               </div>
 
