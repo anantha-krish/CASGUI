@@ -1,7 +1,8 @@
 export const LabelConstants ={
     cancelFormPage :{
         title: "Registration and reference of cancellation reasons",
-        region:"International / domestic",
+        international:"International",
+        domestic:"Domestic",
         boardingStartDate: "Boarding start date",
         boardingEndDate: "Boarding end date",
         depAirport : "Departure airport",
