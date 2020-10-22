@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Calendar } from 'primereact/calendar';
 import PropTypes from 'prop-types';
 
-
 class CasCalendar extends Component {
     
     static propTypes = {

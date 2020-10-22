@@ -5,18 +5,35 @@ import CasButton from "../common/formfields/CasButton";
 import CasInputText from "../common/formfields/CasInputText";
 import CasRadioBtn from "../common/formfields/CasRadioBtn";
 import { Formik } from "formik";
+import { AirportService } from "../../service/services";
+import CasCalendar from "../common/formfields/CasCalendar";
 
-export class CasFormDemo extends Component {
+class CasFormDemo extends Component {
   
   constructor(props)
   {
     super(props);
     this.submitCancelForm=this.submitCancelForm.bind(this);
+    this.setAirportsCallBack = this.setAirportsCallBack.bind(this);
+    this.state={
+      airportData :[]
+    }
   }
   validateCancelForm(values) {
     const errors = {};
+    console.log(values)
     if (values.cancelType === "") errors.cancelType = "Please choose the type";
     return errors;
+  }
+  
+  setAirportsCallBack(airportData) {
+    this.setState({
+      airportData
+    });
+  }
+
+  componentDidMount() {
+    AirportService.getAllAirports(this.setAirportsCallBack);
   }
 
   submitCancelForm(values, { setSubmitting }) {
@@ -91,18 +108,19 @@ export class CasFormDemo extends Component {
                     {/* Row 2 */}
                     <div className="p-grid">
                       <div className="p-col-12 p-lg-2 p-md-2">
-                        <label htmlFor="input">{label.boardingStartDate}</label>
+                        <label htmlFor="cancelDepDate">{label.boardingStartDate}</label>
                       </div>
-                      <div className="p-col-12  p-lg-4 p-md-4">
-                        <CasInputText id="input" />
+                      <div className="p-col-12  p-lg-2 p-md-2">
+                        <CasCalendar id="cancelDepDate" onChange={handleChange} name="depDate" showIcon={true} numberOfMonths={3}/>
                       </div>
+                      <div className="p-col-12  p-lg-2 p-md-4"></div>
                       <div className="p-col-12 p-lg-2 p-md-2">
-                        <label htmlFor="textarea">
+                        <label htmlFor="cancelArvDate">
                           {label.boardingEndDate}
                         </label>
                       </div>
-                      <div className="p-col-12 p-lg-4 p-md-4">
-                        <CasInputText id="textarea" />
+                      <div className="p-col-12 p-lg-2 p-md-4">
+                      <CasCalendar id="cancelArvDate" onChange={handleChange} name="arvDate" showIcon={true} numberOfMonths={3}/>
                       </div>
                     </div>
 
@@ -117,6 +135,8 @@ export class CasFormDemo extends Component {
                         <CasAirportInput
                           airportType="departure"
                           id="cancelDepAirport"
+                          name="depAirport"
+                          airportData={this.state.airportData}
                         />
                       </div>
                     </div>
@@ -132,6 +152,8 @@ export class CasFormDemo extends Component {
                         <CasAirportInput
                           airportType="arrival"
                           id="cancelArrAirport"
+                          name="arvAirport"
+                          airportData={this.state.airportData}
                         />
                       </div>
                     </div>
