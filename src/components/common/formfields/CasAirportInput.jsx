@@ -71,34 +71,40 @@ class CasAirportInput extends Component {
         
     };
 
+    setDefaultSelection(regionData){
+      let selRegion=null;
+      let selAirport=null;
+      if(this.props.value){
+        let value = this.props.value;
+        regionData.forEach(function(region) {
+          region.airport.some(function(airport) {
+            if(airport.threeDigitCode === value){
+              selRegion = region;
+              selAirport = airport;
+              return true;
+            }
+          });
+        });
+      }
+      if(!selRegion){
+        selRegion = regionData[0];
+      }
+      this.setState({
+        selRegion,
+        selAirport
+      });
+
+    }
+
     componentDidUpdate(prevProps) {
       if(JSON.stringify(this.props.airportData) !== JSON.stringify(prevProps.airportData) || this.props.value !==prevProps.value ){
         let regionData=[];
-        let selRegion=null;
-        let selAirport=null;
+       
         if(this.props.airportData && this.props.airportData.regions && this.props.airportData.regions.length) {
           regionData = this.props.airportData.regions;
-          if(this.props.value){
-            let value = this.props.value;
-            regionData.forEach(function(region) {
-              region.airport.some(function(airport) {
-                if(airport.threeDigitCode === value){
-                  selRegion = region;
-                  selAirport = airport;
-                  return true;
-                }
-              });
-            });
-          }
-          if(!selRegion){
-            selRegion = regionData[0];
-          }
-         
         }
         this.setState({
-          regionData,
-          selRegion,
-          selAirport
+          regionData
         });
 
       }
@@ -120,6 +126,7 @@ class CasAirportInput extends Component {
     }
 
     onPopUpShow = ()=> {
+      this.setDefaultSelection(this.state.regionData);
       this.setState({
         displayDialog: true
       });
