@@ -66,7 +66,8 @@ class CasFlightCreate extends Component {
     return (
       <>
         <h1>{label.title}</h1>
-
+         <br/>
+         <br/>
         <Formik
           initialValues={setInitialValues}
           validate={this.validateCancelForm}
@@ -86,34 +87,7 @@ class CasFlightCreate extends Component {
           }) => (
             <form onSubmit={handleSubmit}>
               {/* Row 1 */}
-              <div className="p-grid">
-                <div className="p-col-12 p-lg-2 p-md-2 p-field-radiobutton">
-                  <CasRadioBtn
-                    value="international"
-                    onChange={handleChange}
-                    name="cancelType"
-                    id="cancelIntFlight"
-                    checkedCondition={values.cancelType === "international"}
-                  />
-                  <label htmlFor="cancelIntFlight">{label.international}</label>
-                </div>
 
-                <div className="p-col-12 p-lg-2 p-md-2 p-field-radiobutton">
-                  <CasRadioBtn
-                    value="domestic"
-                    onChange={handleChange}
-                    name="cancelType"
-                    id="cancelDomFlight"
-                    checkedCondition={values.cancelType === "domestic"}
-                  />
-                  <label htmlFor="cancelDomFlight">{label.domestic}</label>
-                </div>
-                {errors.cancelType && (
-                  <small className="cas-inline-err-text">
-                    {errors.cancelType}
-                  </small>
-                )}
-              </div>
               {/* Row 2 */}
               <div className="p-grid">
                 <div className="p-col-12 p-lg-2 p-md-2">
@@ -198,8 +172,7 @@ class CasFlightCreate extends Component {
                   </div>
                 <div className="p-col-12 p-lg-2 p-md-2">
                   <label htmlFor="cancelflightNumber">{label.flightNum}</label>
-                </div>
-              
+                </div>          
                 <div className="p-col-12 p-lg-2 p-md-4">
                   <CasInputText
                     value={values.flightNumber}
@@ -259,22 +232,6 @@ class CasFlightCreate extends Component {
                     onChange={handleChange}
                     name="arvTimeEnd"
                     value={values.arvTimeEnd}
-                  />
-                </div>
-              </div>
-
-              {/* Row 8 */}
-              <div className="p-grid">
-                <div className="p-col-12 p-lg-2 p-md-2">
-                  <label htmlFor="input">{label.reason}</label>
-                </div>
-                <div className="p-col-12  p-lg-4 p-md-4">
-                  <CasSelect
-                    id="cancelReason"
-                    name="reason"
-                    options={cancelReasonOptions}
-                    value={values.reason}
-                    onChange={handleChange}
                   />
                 </div>
               </div>

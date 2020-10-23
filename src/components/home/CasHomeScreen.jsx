@@ -14,8 +14,7 @@ class CasHomeScreen extends Component {
     constructor() {
       super();
       this.state = {
-        staticMenuInactive: false,
-        loggedInStatus:false,
+        staticMenuInactive: false
       };
       this.onToggleMenu = this.onToggleMenu.bind(this);
       this.setLogginStatus = this.setLogginStatus.bind(this);
@@ -31,10 +30,11 @@ class CasHomeScreen extends Component {
       this.setState({
         loggedInStatus: status
       });
+      sessionStorage.setItem('cas-gui-loggedIn',status)
     }
     render() {
 
-      if(this.state.loggedInStatus){
+      if(sessionStorage.getItem('cas-gui-loggedIn')){
           const menu = [
           {
             label: "Dashboard",
