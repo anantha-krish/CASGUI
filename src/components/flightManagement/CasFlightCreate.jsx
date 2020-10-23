@@ -1,13 +1,11 @@
+import { Formik } from "formik";
 import React, { Component } from "react";
 import { LabelConstants } from "../../constants/constants";
+import { AirportService, FlightInfoService } from "../../service/services";
 import CasAirportInput from "../common/formfields/CasAirportInput";
 import CasButton from "../common/formfields/CasButton";
-import CasInputText from "../common/formfields/CasInputText";
-import CasRadioBtn from "../common/formfields/CasRadioBtn";
-import { Formik } from "formik";
-import { AirportService } from "../../service/services";
 import CasCalendar from "../common/formfields/CasCalendar";
-import CasSelect from "../common/formfields/CasSelect";
+import CasInputText from "../common/formfields/CasInputText";
 import CasTimePicker from "../common/formfields/CasTimePicker";
 
 class CasFlightCreate extends Component {
@@ -21,9 +19,6 @@ class CasFlightCreate extends Component {
   }
   validateFlightForm(values) {
     const errors = {};
-    console.log(values);
-    if (values.flightType === "") errors.flightType = "Please choose the type";
-    return errors;
   }
 
   setAirportsCallBack(airportData) {
@@ -38,8 +33,10 @@ class CasFlightCreate extends Component {
 
   submitFlightForm(values, { setSubmitting }) {
     // set is submitting when API gives response back
-    this.props.search();
-    setSubmitting(false);
+    FlightInfoService.createNewFlightInfo(values).then
+    (()=>setSubmitting(false)
+    );
+   
   }
 
   render() {
@@ -101,7 +98,7 @@ class CasFlightCreate extends Component {
                     numberOfMonths={3}
                   />
                 </div>
-                <div className="p-col-12  p-lg-2 p-md-4">&nbsp;</div>
+                <div className="p-col-12  p-lg-1 p-md-4">&nbsp;</div>
                 <div className="p-col-12 p-lg-2 p-md-2">
                   <label htmlFor="flightDepTime">{label.depTime}</label>
                 </div>
@@ -161,16 +158,16 @@ class CasFlightCreate extends Component {
                     numberOfMonths={3}
                   />
                 </div>
-                <div className="p-col-12  p-lg-2 p-md-4">&nbsp;</div>
+                <div className="p-col-12  p-lg-1 p-md-4">&nbsp;</div>
                 <div className="p-col-12 p-lg-2 p-md-2">
-                  <label htmlFor="flightArvTimeEnd">{label.arvTime}</label>
+                  <label htmlFor="flightArvTime">{label.arvTime}</label>
                 </div>
                 <div className="p-col-12 p-lg-2 p-md-4">
                   <CasTimePicker
-                    id="flightArvTimeEnd"
+                    id="flightArvTime"
                     onChange={handleChange}
-                    name="arvTimeEnd"
-                    value={values.arvTimeEnd}
+                    name="arvTime"
+                    value={values.arvTime}
                   />
                 </div>
               </div>
@@ -178,12 +175,12 @@ class CasFlightCreate extends Component {
               {/* Row 5 */}
               <div className="p-grid">
                 <div className="p-col-12 p-lg-2 p-md-2">
-                  <label htmlFor="flightflightNumber">{label.flightNum}</label>
+                  <label htmlFor="flightNumber">{label.flightNum}</label>
                 </div>
                 <div className="p-col-12 p-lg-2 p-md-4">
                   <CasInputText
                     value={values.flightNumber}
-                    id="flightflightNumber"
+                    id="flightNumber"
                     name="flightNumber"
                     onChange={handleChange}
                   />
@@ -192,32 +189,31 @@ class CasFlightCreate extends Component {
 
               <div className="p-grid">
                 <div className="p-col-12 p-lg-2 p-md-2">
-                  <label htmlFor="flightflightNumber">{label.resource}</label>
+                  <label htmlFor="flightResource">{label.resource}</label>
                 </div>
                 <div className="p-col-12 p-lg-2 p-md-4">
                   <CasInputText
-                    value={values.flightNumber}
-                    id="flightflightNumber"
-                    name="flightNumber"
+                    value={values.resource}
+                    id="flightResource"
+                    name="resource"
                     onChange={handleChange}
                   />
                 </div>
               </div>
               <div className="p-grid">
                 <div className="p-col-12 p-lg-2 p-md-2">
-                  <label htmlFor="flightflightNumber">{label.upload}</label>
+                  <label htmlFor="flightUploadLocation">{label.upload}</label>
                 </div>
                 <div className="p-col-12 p-lg-2 p-md-4">
                   <CasInputText
-                    value={values.flightNumber}
-                    id="flightflightNumber"
-                    name="flightNumber"
+                    value={values.uploadLocation}
+                    id="flightUploadLocation"
+                    name="uploadLocation"
                     onChange={handleChange}
                   />
                 </div>
               </div>
               <br />
-
               <div className="p-grid">
                 <div className="p-col-12 p-lg-3 p-md-2">
                   <CasButton label="Search" disabled={isSubmitting} />
