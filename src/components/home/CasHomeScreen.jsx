@@ -6,6 +6,7 @@ import { Route, Redirect} from 'react-router-dom';
 import CasLoginScreen from "../login/CasLoginScreen";
 import CasLoginUserProfile from '../common/userprofile/CasLoginUserProfile'
 import CasFlightCreate from '../flightManagement/CasFlightCreate'
+import CasFlightView from '../flightManagement/CasFlightView'
 import classNames from "classnames";
 
 
@@ -55,9 +56,8 @@ class CasHomeScreen extends Component {
               {
                 label: "View",
                 icon: "pi pi-fw pi-bars",
-                command: () => {
-                  window.location = "#/";
-                },
+                to:'/flightView'
+                
               },
               {
                 label: "Update / Delete",
@@ -117,6 +117,7 @@ class CasHomeScreen extends Component {
             <div className="layout-main">
               <Route path="/home"  exact component={CasDashboard}/>
               <Route path="/flightCreate"  exact component={CasFlightCreate}/>
+              <Route path="/flightView"  exact component={CasFlightView}/>
               
               
             </div>
