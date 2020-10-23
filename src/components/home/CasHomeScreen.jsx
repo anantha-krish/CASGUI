@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import CasTopbar from "../common/topbar/CasTopbar";
 import CasMainMenu from "../common/menu/CasMainMenu";
 import CasDashboard from "../dashboard/CasDashboard";
+import CasLoginUserProfile from '../common/userprofile/CasLoginUserProfile'
 import classNames from "classnames";
 
 
@@ -73,10 +74,10 @@ class CasHomeScreen extends Component {
         <div className={wrapperClass}>
           <CasTopbar onToggleMenu={this.onToggleMenu} staticMenuInactive={this.state.staticMenuInactive}/>
           <div className={sidebarClassName}>
-            <div className="layout-logo">
-              <img alt="Logo" src={require('../../assets/images/CAS_Logo.png') } width="150" height="100" />
-              </div>
-            {/*<CasLoginUserProfile/>*/}
+            {/*<div className="layout-logo">
+            <img alt="Logo" src={require('../../assets/images/CAS_Logo.png') } width="150" height="100" />
+            </div>*/}
+            <CasLoginUserProfile/>
             <CasMainMenu model={menu} />
           </div>
           <div className="layout-main">
