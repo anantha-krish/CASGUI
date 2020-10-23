@@ -3,8 +3,9 @@
     padding: 20px 0;
 
     img {
-        width: 150px;
-        margin: 10px;
+        width: 7rem;
+        margin: 0.1rem;
+        border-radius: 7rem;
     }
 
     .layout-profile-link {
@@ -15,8 +16,9 @@
 
         i {
             display: inline-block;
-            font-size: 16px;
+            font-size: 1.2rem;
             vertical-align: middle;
+            padding-left: 0.4rem;
         }
     }
 

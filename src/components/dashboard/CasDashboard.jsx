@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { CancellationService } from "../../service/services";
-import CasFormDemo from "./CasFormDemo";
-import CasFormResult from "./CasFormResult";
+import CasUserList from "./CasUserList";
 
 class CasDashboard extends Component {
   constructor() {
@@ -30,8 +29,7 @@ class CasDashboard extends Component {
         <div className="p-grid">
           <div className="p-col-12">
             <div className="card card-w-title">
-              <CasFormDemo search={this.searchRequests} />
-              <CasFormResult searchResults={this.state.resultList} />
+              <CasUserList  />
             </div>
           </div>
         </div>

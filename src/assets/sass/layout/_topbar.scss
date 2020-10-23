@@ -14,6 +14,7 @@
   .layout-topbar-icons {
     float: right;
     display: block;
+    padding-top: 0.4rem;
     -moz-animation-duration: 0.5s;
     -webkit-animation-duration: 0.5s;
     animation-duration: 0.5s;
@@ -40,7 +41,7 @@
 
       span {
         &.layout-topbar-icon {
-          font-size: 2.5rem;
+          font-size: 2rem;
         }
         &.layout-topbar-username {
           padding: 0.2rem .5rem;
