@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import "./assets/sass/common.scss";
-import { BrowserRouter, Route, Switch, Redirect} from 'react-router-dom';
-import CasLoginScreen from "./components/login/CasLoginScreen";
 import CasHomeScreen from "./components/home/CasHomeScreen";
 import "primereact/resources/themes/nova/theme.css";
 import "primereact/resources/primereact.min.css";
