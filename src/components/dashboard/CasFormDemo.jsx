@@ -184,7 +184,7 @@ class CasFormDemo extends Component {
                 <div className="p-col-12 p-lg-2 p-md-2">
                   <label htmlFor="cancelCarrierCD">{label.carrierCode}</label>
                 </div>
-                <div className="p-col-12  p-lg-4 p-md-4">
+                <div className="p-col-12  p-lg-2 p-md-4">
                   <CasSelect
                     id="cancelCarrierCD"
                     name="carrierCode"
@@ -194,9 +194,13 @@ class CasFormDemo extends Component {
                   />
                 </div>
                 <div className="p-col-12 p-lg-2 p-md-2">
+                  &nbsp;
+                  </div>
+                <div className="p-col-12 p-lg-2 p-md-2">
                   <label htmlFor="cancelflightNumber">{label.flightNum}</label>
                 </div>
-                <div className="p-col-12 p-lg-4 p-md-4">
+              
+                <div className="p-col-12 p-lg-2 p-md-4">
                   <CasInputText
                     value={values.flightNumber}
                     id="cancelflightNumber"
@@ -211,7 +215,7 @@ class CasFormDemo extends Component {
                 <div className="p-col-12 p-lg-2 p-md-2">
                   <label htmlFor="cancelDepTimeStart">{label.depTimeStart}</label>
                 </div>
-                <div className="p-col-12  p-lg-4 p-md-4">
+                <div className="p-col-12  p-lg-2 p-md-4">
                   <CasTimePicker
                     id="cancelDepTimeStart"
                     onChange={handleChange}
@@ -219,10 +223,11 @@ class CasFormDemo extends Component {
                     value={values.depTimeStart}
                   />
                 </div>
+                <div className="p-col-12 p-lg-2 p-md-2">&nbsp;</div>
                 <div className="p-col-12 p-lg-2 p-md-2">
                   <label htmlFor="cancelDepTimeEnd">{label.depTimeEnd}</label>
                 </div>
-                <div className="p-col-12 p-lg-4 p-md-4">
+                <div className="p-col-12 p-lg-2 p-md-4">
                 <CasTimePicker
                     id="cancelDepTimeEnd"
                     onChange={handleChange}
@@ -237,7 +242,7 @@ class CasFormDemo extends Component {
                 <div className="p-col-12 p-lg-2 p-md-2">
                   <label htmlFor="cancelArvTimeStart">{label.ArvTimeStart}</label>
                 </div>
-                <div className="p-col-12  p-lg-4 p-md-4">
+                <div className="p-col-12  p-lg-2 p-md-4">
                 <CasTimePicker
                     id="cancelArvTimeStart"
                     onChange={handleChange}
@@ -248,7 +253,7 @@ class CasFormDemo extends Component {
                 <div className="p-col-12 p-lg-2 p-md-2">
                   <label htmlFor="cancelArvTimeEnd">{label.ArvTimeEnd}</label>
                 </div>
-                <div className="p-col-12 p-lg-4 p-md-4">
+                <div className="p-col-12 p-lg-2 p-md-4">
                 <CasTimePicker
                     id="cancelArvTimeEnd"
                     onChange={handleChange}
