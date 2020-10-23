@@ -32,6 +32,36 @@ class CasHomeScreen extends Component {
           },
         },
         {
+          label: "Flight Management",
+          icon: " pi-fw ",  
+          command: () => {
+            window.location = "#/";
+          },
+          items: [
+            {
+              label: "Create",
+              icon: "pi pi-fw pi-bars",
+              command: () => {
+                window.location = "#/";
+              },
+            },
+            {
+              label: "View",
+              icon: "pi pi-fw pi-bars",
+              command: () => {
+                window.location = "#/";
+              },
+            },
+            {
+              label: "Update / Delete",
+              icon: "pi pi-fw pi-bars",
+              command: () => {
+                window.location = "#/";
+              },
+            },
+          ],
+        },
+        {
           label: "Main menu 1",
           icon: " pi-fw ",  
           command: () => {
