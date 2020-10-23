@@ -51,12 +51,12 @@ class CasTimePicker extends Component {
         <TimeField
         id={id}
         name={name}
-    value={value}                     // {String}   required, format '00:00' or '00:00:00'
-    onChange={onChange}      // {Function} required
-    input={<CasInputText />} // {Element}  default: <input type="text" />
-    colon=":"                        // {String}   default: ":"
+        value={value}                     // {String}   required, format '00:00' or '00:00:00'
+        onChange={onChange}      // {Function} required
+        input={<CasInputText />} // {Element}  default: <input type="text" />
+        colon=":"                        // {String}   default: ":"
                          // {Boolean}  default: false
-/>
+        />
       )
 
     }

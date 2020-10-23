@@ -153,9 +153,11 @@ class CasFormDemo extends Component {
                 <div className="p-col-12  p-lg-2 p-md-4">
                   <CasAirportInput
                     airportType="departure"
+                    onChange={handleChange}
                     id="cancelDepAirport"
                     name="depAirport"
                     airportData={this.state.airportData}
+                    value={values.depAirport}
                   />
                 </div>
               </div>
@@ -168,9 +170,11 @@ class CasFormDemo extends Component {
                 <div className="p-col-12 p-lg-2 p-md-4">
                   <CasAirportInput
                     airportType="arrival"
+                    onChange={handleChange}
                     id="cancelArrAirport"
                     name="arvAirport"
                     airportData={this.state.airportData}
+                    value={values.arvAirport}
                   />
                 </div>
               </div>

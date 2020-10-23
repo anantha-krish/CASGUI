@@ -161,10 +161,22 @@ class CasAirportInput extends Component {
     }
 
     selectAirport =(e) => {
+      debugger;
       if(e.target &&  e.target.id){
         let airport = this.getAirportbyId(e.target.id);
         if(this.props.onChange) {
-          this.props.onChange({target:{name:this.props.name,value:airport.threeDigitCode}});
+          this.props.onChange(
+            {
+              originalEvent: e,
+              value: airport.threeDigitCode,
+              stopPropagation : () =>{},
+              preventDefault : () =>{},
+              target: {
+                  name: this.props.name,
+                  id: this.props.id,
+                  value: airport.threeDigitCode
+              }
+          });
           this.onHide();
         }
       }
