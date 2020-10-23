@@ -14,6 +14,17 @@ export const LabelConstants ={
         ArvTimeStart:"Arrival time start",
         ArvTimeEnd:"Arrival time end",
         reason: "Reason for cancellation"
-
+    },
+    flightFormPage :{
+        title: "Flight Information",
+        depDate: "Departure date",
+        arvDate: "Arrival date",
+        depAirport : "Departure airport",
+        arvAirport: "Arrival airport",
+        flightNum : "Flight number",
+        depTime: "Departure time",
+        arvTime:"Arrival time",
+        resource:"Resource",
+        upload: "Upload File"
     }
 }

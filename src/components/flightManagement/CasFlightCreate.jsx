@@ -13,16 +13,16 @@ import CasTimePicker from "../common/formfields/CasTimePicker";
 class CasFlightCreate extends Component {
   constructor(props) {
     super(props);
-    this.submitCancelForm = this.submitCancelForm.bind(this);
+    this.submitFlightForm = this.submitFlightForm.bind(this);
     this.setAirportsCallBack = this.setAirportsCallBack.bind(this);
     this.state = {
       airportData: [],
     };
   }
-  validateCancelForm(values) {
+  validateFlightForm(values) {
     const errors = {};
     console.log(values);
-    if (values.cancelType === "") errors.cancelType = "Please choose the type";
+    if (values.flightType === "") errors.flightType = "Please choose the type";
     return errors;
   }
 
@@ -36,17 +36,17 @@ class CasFlightCreate extends Component {
     AirportService.getAllAirports(this.setAirportsCallBack);
   }
 
-  submitCancelForm(values, { setSubmitting }) {
+  submitFlightForm(values, { setSubmitting }) {
     // set is submitting when API gives response back
     this.props.search();
     setSubmitting(false);
   }
 
   render() {
-    let label = LabelConstants.cancelFormPage;
+    let label = LabelConstants.flightFormPage;
 
     const setInitialValues = {
-      cancelType: "",
+      flightType: "",
     };
 
     let carrierCodeOptions = [
@@ -56,7 +56,7 @@ class CasFlightCreate extends Component {
       { option: "test2" },
     ];
 
-    let cancelReasonOptions = [
+    let flightReasonOptions = [
       {
         option: "test1",
       },
@@ -70,8 +70,8 @@ class CasFlightCreate extends Component {
          <br/>
         <Formik
           initialValues={setInitialValues}
-          validate={this.validateCancelForm}
-          onSubmit={this.submitCancelForm}
+          validate={this.validateFlightForm}
+          onSubmit={this.submitFlightForm}
           
         >
           {({
@@ -91,44 +91,44 @@ class CasFlightCreate extends Component {
               {/* Row 2 */}
               <div className="p-grid">
                 <div className="p-col-12 p-lg-2 p-md-2">
-                  <label htmlFor="cancelDepDate">
-                    {label.boardingStartDate}
+                  <label htmlFor="flightDepDate">
+                    {label.depDate}
                   </label>
                 </div>
                 <div className="p-col-12  p-lg-2 p-md-2">
                   <CasCalendar
-                    id="cancelDepDate"
+                    id="flightDepDate"
                     onChange={handleChange}
                     name="depDate"
                     showIcon={true}
                     numberOfMonths={3}
                   />
                 </div>
-                <div className="p-col-12  p-lg-2 p-md-4"></div>
+                <div className="p-col-12  p-lg-2 p-md-4">&nbsp;</div>
                 <div className="p-col-12 p-lg-2 p-md-2">
-                  <label htmlFor="cancelArvDate">{label.boardingEndDate}</label>
+                  <label htmlFor="flightDepTime">{label.depTime}</label>
                 </div>
-                <div className="p-col-12 p-lg-2 p-md-4">
-                  <CasCalendar
-                    id="cancelArvDate"
+                <div className="p-col-12  p-lg-2 p-md-4">
+                  <CasTimePicker
+                    id="flightDepTime"
                     onChange={handleChange}
-                    name="arvDate"
-                    showIcon={true}
-                    numberOfMonths={3}
+                    name="depTime"
+                    value={values.depTime}
                   />
                 </div>
+              
               </div>
 
               {/* Row 3 */}
               <div className="p-grid">
                 <div className="p-col-12 p-lg-2 p-md-2">
-                  <label htmlFor="cancelDepAirport">{label.depAirport}</label>
+                  <label htmlFor="flightDepAirport">{label.depAirport}</label>
                 </div>
                 <div className="p-col-12  p-lg-2 p-md-4">
                   <CasAirportInput
                     airportType="departure"
                     onChange={handleChange}
-                    id="cancelDepAirport"
+                    id="flightDepAirport"
                     name="depAirport"
                     airportData={this.state.airportData}
                     value={values.depAirport}
@@ -139,106 +139,95 @@ class CasFlightCreate extends Component {
               {/* Row 4 */}
               <div className="p-grid">
                 <div className="p-col-12 p-lg-2 p-md-2">
-                  <label htmlFor="cancelArrAirport">{label.arrAirport}</label>
+                  <label htmlFor="flightArrAirport">{label.arvAirport}</label>
                 </div>
                 <div className="p-col-12 p-lg-2 p-md-4">
                   <CasAirportInput
                     airportType="arrival"
                     onChange={handleChange}
-                    id="cancelArrAirport"
+                    id="flightArrAirport"
                     name="arvAirport"
                     airportData={this.state.airportData}
                     value={values.arvAirport}
                   />
                 </div>
               </div>
+              <div className="p-grid">
+                 <div className="p-col-12 p-lg-2 p-md-2">
+                  <label htmlFor="flightArvDate">{label.arvDate}</label>
+                </div>
+                <div className="p-col-12 p-lg-2 p-md-4">
+                  <CasCalendar
+                    id="flightArvDate"
+                    onChange={handleChange}
+                    name="arvDate"
+                    showIcon={true}
+                    numberOfMonths={3}
+                  />
+                </div>
+                <div className="p-col-12  p-lg-2 p-md-4">&nbsp;</div>
+                <div className="p-col-12 p-lg-2 p-md-2">
+                  <label htmlFor="flightArvTimeEnd">{label.arvTime}</label>
+                </div>
+                <div className="p-col-12 p-lg-2 p-md-4">
+                <CasTimePicker
+                    id="flightArvTimeEnd"
+                    onChange={handleChange}
+                    name="arvTimeEnd"
+                    value={values.arvTimeEnd}
+                  />
+                </div> 
+                </div>
 
               {/* Row 5 */}
               <div className="p-grid">
                 <div className="p-col-12 p-lg-2 p-md-2">
-                  <label htmlFor="cancelCarrierCD">{label.carrierCode}</label>
-                </div>
-                <div className="p-col-12  p-lg-2 p-md-4">
-                  <CasSelect
-                    id="cancelCarrierCD"
-                    name="carrierCode"
-                    options={carrierCodeOptions}
-                    value={values.carrierCode}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="p-col-12 p-lg-2 p-md-2">
-                  &nbsp;
-                  </div>
-                <div className="p-col-12 p-lg-2 p-md-2">
-                  <label htmlFor="cancelflightNumber">{label.flightNum}</label>
+                  <label htmlFor="flightflightNumber">{label.flightNum}</label>
                 </div>          
                 <div className="p-col-12 p-lg-2 p-md-4">
                   <CasInputText
                     value={values.flightNumber}
-                    id="cancelflightNumber"
+                    id="flightflightNumber"
                     name="flightNumber"
                     onChange={handleChange}
                   />
                 </div>
               </div>
 
-              {/* Row 6 */}
               <div className="p-grid">
                 <div className="p-col-12 p-lg-2 p-md-2">
-                  <label htmlFor="cancelDepTimeStart">{label.depTimeStart}</label>
-                </div>
-                <div className="p-col-12  p-lg-2 p-md-4">
-                  <CasTimePicker
-                    id="cancelDepTimeStart"
-                    onChange={handleChange}
-                    name="depTimeStart"
-                    value={values.depTimeStart}
-                  />
-                </div>
-                <div className="p-col-12 p-lg-2 p-md-2">&nbsp;</div>
-                <div className="p-col-12 p-lg-2 p-md-2">
-                  <label htmlFor="cancelDepTimeEnd">{label.depTimeEnd}</label>
-                </div>
+                  <label htmlFor="flightflightNumber">{label.resource}</label>
+                </div>          
                 <div className="p-col-12 p-lg-2 p-md-4">
-                <CasTimePicker
-                    id="cancelDepTimeEnd"
+                  <CasInputText
+                    value={values.flightNumber}
+                    id="flightflightNumber"
+                    name="flightNumber"
                     onChange={handleChange}
-                    name="depTimeEnd"
-                    value={values.depTimeEnd}
                   />
                 </div>
               </div>
 
-              {/* Row 7 */}
+              
               <div className="p-grid">
                 <div className="p-col-12 p-lg-2 p-md-2">
-                  <label htmlFor="cancelArvTimeStart">{label.ArvTimeStart}</label>
-                </div>
-                <div className="p-col-12  p-lg-2 p-md-4">
-                <CasTimePicker
-                    id="cancelArvTimeStart"
-                    onChange={handleChange}
-                    name="arvTimeStart"
-                    value={values.arvTimeStart}
-                  />
-                </div>
-                <div className="p-col-12 p-lg-2 p-md-2">
-                  <label htmlFor="cancelArvTimeEnd">{label.ArvTimeEnd}</label>
-                </div>
+                  <label htmlFor="flightflightNumber">{label.upload}</label>
+                </div>          
                 <div className="p-col-12 p-lg-2 p-md-4">
-                <CasTimePicker
-                    id="cancelArvTimeEnd"
+                  <CasInputText
+                    value={values.flightNumber}
+                    id="flightflightNumber"
+                    name="flightNumber"
                     onChange={handleChange}
-                    name="arvTimeEnd"
-                    value={values.arvTimeEnd}
                   />
                 </div>
               </div>
 
+           <br/>
+
               <div className="p-grid">
-                <div className="p-col-12 p-lg-9 p-md-9">&nbsp;</div>
-                <div className="p-col-12 p-lg-2 p-md-2">
+         
+                <div className="p-col-12 p-lg-3 p-md-2">
                   <CasButton label="Search" disabled={isSubmitting} />
                 </div>
               </div>
