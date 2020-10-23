@@ -3,6 +3,7 @@ import { Card } from 'primereact/card';
 import CasButton  from '../common/formfields/CasButton';
 import CasInputText from '../common/formfields/CasInputText';
 import CasPassword from '../common/formfields/CasPassword.jsx';
+import PropTypes from 'prop-types';
 
 class CasLoginScreen extends Component{
 
@@ -18,6 +19,10 @@ class CasLoginScreen extends Component{
     this.loginToApplication=this.loginToApplication.bind(this);
     this.forgotPassword=this.forgotPassword.bind(this);
   }
+  static propTypes = {
+    onLogin:PropTypes.func
+  }
+  
 
   onChange=(e)=>{
     this.setState({
@@ -48,7 +53,11 @@ class CasLoginScreen extends Component{
   
   loginToApplication = (e) =>{
     if(this.validateInputs()) {
-      this.props.history.push("/home");
+      if(this.props.onLogin){
+        this.props.onLogin(true);
+        this.props.history.push("/home");
+      }
+      
     }
   } 
 

@@ -18,6 +18,7 @@ class CasHomeScreen extends Component {
         loggedInStatus:false,
       };
       this.onToggleMenu = this.onToggleMenu.bind(this);
+      this.setLogginStatus = this.setLogginStatus.bind(this);
     }
   
     onToggleMenu(event) {
@@ -26,97 +27,114 @@ class CasHomeScreen extends Component {
       });
     }
   
-    render() {
-      const menu = [
-        {
-          label: "Dashboard",
-          icon: "pi pi-fw pi-home",
-          command: () => {
-            window.location = "#/home";
-          },
-        },
-        {
-          label: "Flight Management",
-          icon: " pi-fw ",
-          items: [
-            {
-              label: "Create",
-              icon: "pi pi-fw pi-bars",
-              to:'/flightCreate'
-            },
-            {
-              label: "View",
-              icon: "pi pi-fw pi-bars",
-              command: () => {
-                window.location = "#/";
-              },
-            },
-            {
-              label: "Update / Delete",
-              icon: "pi pi-fw pi-bars",
-              command: () => {
-                window.location = "#/";
-              },
-            },
-          ],
-        },
-        {
-          label: "Main menu 1",
-          icon: " pi-fw ",  
-          command: () => {
-            window.location = "#/";
-          },
-          items: [
-            {
-              label: "Submenu 1.1",
-              icon: "pi pi-fw pi-bars",
-              command: () => {
-                window.location = "#/";
-              },
-            },
-            {
-              label: "Submenu 1.2",
-              icon: "pi pi-fw pi-bars",
-              command: () => {
-                window.location = "#/";
-              },
-            },
-            {
-              label: "Submenu 1.n",
-              icon: "pi pi-fw pi-bars",
-              command: () => {
-                window.location = "#/";
-              },
-            },
-          ],
-        },
-       
-      ];
-  
-      const wrapperClass = classNames("layout-wrapper", "layout-static", {
-        "layout-static-sidebar-inactive": this.state.staticMenuInactive,
+    setLogginStatus(status){
+      this.setState({
+        loggedInStatus: status
       });
-  
-      const sidebarClassName = classNames("layout-sidebar layout-sidebar-dark");
-      
-      return (
-        <div className={wrapperClass}>
-          <CasTopbar onToggleMenu={this.onToggleMenu} staticMenuInactive={this.state.staticMenuInactive}/>
-          <div className={sidebarClassName}>
-            <CasLoginUserProfile/>
-            <CasMainMenu model={menu} />
+    }
+    render() {
+
+      if(this.state.loggedInStatus){
+          const menu = [
+          {
+            label: "Dashboard",
+            icon: "pi pi-fw pi-home",
+            command: () => {
+              window.location = "#/home";
+            },
+          },
+          {
+            label: "Flight Management",
+            icon: " pi-fw ",
+            items: [
+              {
+                label: "Create",
+                icon: "pi pi-fw pi-bars",
+                to:'/flightCreate'
+              },
+              {
+                label: "View",
+                icon: "pi pi-fw pi-bars",
+                command: () => {
+                  window.location = "#/";
+                },
+              },
+              {
+                label: "Update / Delete",
+                icon: "pi pi-fw pi-bars",
+                command: () => {
+                  window.location = "#/";
+                },
+              },
+            ],
+          },
+          {
+            label: "Main menu 1",
+            icon: " pi-fw ",  
+            command: () => {
+              window.location = "#/";
+            },
+            items: [
+              {
+                label: "Submenu 1.1",
+                icon: "pi pi-fw pi-bars",
+                command: () => {
+                  window.location = "#/";
+                },
+              },
+              {
+                label: "Submenu 1.2",
+                icon: "pi pi-fw pi-bars",
+                command: () => {
+                  window.location = "#/";
+                },
+              },
+              {
+                label: "Submenu 1.n",
+                icon: "pi pi-fw pi-bars",
+                command: () => {
+                  window.location = "#/";
+                },
+              },
+            ],
+          },
+         
+        ];
+    
+        const wrapperClass = classNames("layout-wrapper", "layout-static", {
+          "layout-static-sidebar-inactive": this.state.staticMenuInactive,
+        });
+    
+        const sidebarClassName = classNames("layout-sidebar layout-sidebar-dark");
+        
+        return (
+          <div className={wrapperClass}>
+            <CasTopbar onToggleMenu={this.onToggleMenu} staticMenuInactive={this.state.staticMenuInactive}/>
+            <div className={sidebarClassName}>
+              <CasLoginUserProfile/>
+              <CasMainMenu model={menu} />
+            </div>
+            <div className="layout-main">
+              <Route path="/home"  exact component={CasDashboard}/>
+              <Route path="/flightCreate"  exact component={CasFlightCreate}/>
+              
+              
+            </div>
           </div>
-          <div className="layout-main">
-            <Route exact path="/">
-                  <Redirect to="/login" />
+        );
+
+      } else {
+        return(
+          <div>
+            <Route path="/">
+              <Redirect to="/login" />
             </Route>
-            <Route path="/login"  exact component={CasLoginScreen}/>
-            <Route path="/home"  exact component={CasDashboard}/>
-            <Route path="/flightCreate"  exact component={CasFlightCreate}/>
-          
+            <Route path="/login"  render={(props) => (<CasLoginScreen onLogin={this.setLogginStatus} {...props}/>)} />
+            <Redirect from="*" to="/login" /> 
           </div>
-        </div>
-      );
+        );
+      }
+      
     }
   }
   
