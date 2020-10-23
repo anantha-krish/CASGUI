@@ -2,7 +2,10 @@ import React, { Component } from "react";
 import CasTopbar from "../common/topbar/CasTopbar";
 import CasMainMenu from "../common/menu/CasMainMenu";
 import CasDashboard from "../dashboard/CasDashboard";
+import { Route, Redirect} from 'react-router-dom';
+import CasLoginScreen from "../login/CasLoginScreen";
 import CasLoginUserProfile from '../common/userprofile/CasLoginUserProfile'
+import CasFlightCreate from '../flightManagement/CasFlightCreate'
 import classNames from "classnames";
 
 
@@ -12,6 +15,7 @@ class CasHomeScreen extends Component {
       super();
       this.state = {
         staticMenuInactive: false,
+        loggedInStatus:false,
       };
       this.onToggleMenu = this.onToggleMenu.bind(this);
     }
@@ -28,22 +32,17 @@ class CasHomeScreen extends Component {
           label: "Dashboard",
           icon: "pi pi-fw pi-home",
           command: () => {
-            window.location = "#/";
+            window.location = "#/home";
           },
         },
         {
           label: "Flight Management",
-          icon: " pi-fw ",  
-          command: () => {
-            window.location = "#/";
-          },
+          icon: " pi-fw ",
           items: [
             {
               label: "Create",
               icon: "pi pi-fw pi-bars",
-              command: () => {
-                window.location = "#/";
-              },
+              to:'/flightCreate'
             },
             {
               label: "View",
@@ -104,14 +103,17 @@ class CasHomeScreen extends Component {
         <div className={wrapperClass}>
           <CasTopbar onToggleMenu={this.onToggleMenu} staticMenuInactive={this.state.staticMenuInactive}/>
           <div className={sidebarClassName}>
-            {/*<div className="layout-logo">
-            <img alt="Logo" src={require('../../assets/images/CAS_Logo.png') } width="150" height="100" />
-            </div>*/}
             <CasLoginUserProfile/>
             <CasMainMenu model={menu} />
           </div>
           <div className="layout-main">
-            <CasDashboard />
+            <Route exact path="/">
+                  <Redirect to="/login" />
+            </Route>
+            <Route path="/login"  exact component={CasLoginScreen}/>
+            <Route path="/home"  exact component={CasDashboard}/>
+            <Route path="/flightCreate"  exact component={CasFlightCreate}/>
+          
           </div>
         </div>
       );

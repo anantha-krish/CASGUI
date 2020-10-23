@@ -12,21 +12,8 @@ import { faPlane,faPlaneArrival,faPlaneDeparture } from '@fortawesome/free-solid
 library.add(faPlane, faPlaneArrival,faPlaneDeparture);
 
 class CasApp extends Component {
-  
-
   render() {
-    return (
-      <BrowserRouter>
-        <Switch>
-          <Route exact path="/">
-                <Redirect to="/login" />
-          </Route>
-          <Route path="/login" component={CasLoginScreen}/>
-          <Route path="/home" component={CasHomeScreen}/>
-        </Switch> 
-      </BrowserRouter>
-      
-    );
+    return (<CasHomeScreen/>);
   }
 }
 
