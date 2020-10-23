@@ -150,6 +150,7 @@
   height: $topbarHeight;
   width: $leftbarWidth;
   padding: .6rem;
+  text-align: center;
   color: #ffffff;
   z-index: 999;
   background-color: $menuDarkBgColorFirst;
@@ -168,7 +169,7 @@
   color: $topbarItemColor;
   @include transition(color $transitionDuration);
   float: right;
-  margin-right: -2.4rem;
+  margin-right: -2rem;
 
   span {
     font-size: 2rem;
