@@ -66,13 +66,12 @@ class CasFlightCreate extends Component {
     return (
       <>
         <h1>{label.title}</h1>
-         <br/>
-         <br/>
+        <br />
+        <br />
         <Formik
           initialValues={setInitialValues}
           validate={this.validateFlightForm}
           onSubmit={this.submitFlightForm}
-          
         >
           {({
             values,
@@ -91,9 +90,7 @@ class CasFlightCreate extends Component {
               {/* Row 2 */}
               <div className="p-grid">
                 <div className="p-col-12 p-lg-2 p-md-2">
-                  <label htmlFor="flightDepDate">
-                    {label.depDate}
-                  </label>
+                  <label htmlFor="flightDepDate">{label.depDate}</label>
                 </div>
                 <div className="p-col-12  p-lg-2 p-md-2">
                   <CasCalendar
@@ -116,7 +113,6 @@ class CasFlightCreate extends Component {
                     value={values.depTime}
                   />
                 </div>
-              
               </div>
 
               {/* Row 3 */}
@@ -153,7 +149,7 @@ class CasFlightCreate extends Component {
                 </div>
               </div>
               <div className="p-grid">
-                 <div className="p-col-12 p-lg-2 p-md-2">
+                <div className="p-col-12 p-lg-2 p-md-2">
                   <label htmlFor="flightArvDate">{label.arvDate}</label>
                 </div>
                 <div className="p-col-12 p-lg-2 p-md-4">
@@ -170,20 +166,20 @@ class CasFlightCreate extends Component {
                   <label htmlFor="flightArvTimeEnd">{label.arvTime}</label>
                 </div>
                 <div className="p-col-12 p-lg-2 p-md-4">
-                <CasTimePicker
+                  <CasTimePicker
                     id="flightArvTimeEnd"
                     onChange={handleChange}
                     name="arvTimeEnd"
                     value={values.arvTimeEnd}
                   />
-                </div> 
                 </div>
+              </div>
 
               {/* Row 5 */}
               <div className="p-grid">
                 <div className="p-col-12 p-lg-2 p-md-2">
                   <label htmlFor="flightflightNumber">{label.flightNum}</label>
-                </div>          
+                </div>
                 <div className="p-col-12 p-lg-2 p-md-4">
                   <CasInputText
                     value={values.flightNumber}
@@ -197,7 +193,7 @@ class CasFlightCreate extends Component {
               <div className="p-grid">
                 <div className="p-col-12 p-lg-2 p-md-2">
                   <label htmlFor="flightflightNumber">{label.resource}</label>
-                </div>          
+                </div>
                 <div className="p-col-12 p-lg-2 p-md-4">
                   <CasInputText
                     value={values.flightNumber}
@@ -207,12 +203,10 @@ class CasFlightCreate extends Component {
                   />
                 </div>
               </div>
-
-              
               <div className="p-grid">
                 <div className="p-col-12 p-lg-2 p-md-2">
                   <label htmlFor="flightflightNumber">{label.upload}</label>
-                </div>          
+                </div>
                 <div className="p-col-12 p-lg-2 p-md-4">
                   <CasInputText
                     value={values.flightNumber}
@@ -222,11 +216,9 @@ class CasFlightCreate extends Component {
                   />
                 </div>
               </div>
-
-           <br/>
+              <br />
 
               <div className="p-grid">
-         
                 <div className="p-col-12 p-lg-3 p-md-2">
                   <CasButton label="Search" disabled={isSubmitting} />
                 </div>
