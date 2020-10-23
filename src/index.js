@@ -2,11 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import CasApp from './CasApp';
 import * as serviceWorker from './serviceWorker';
+import { HashRouter } from 'react-router-dom'
 
 ReactDOM.render(
-  <React.StrictMode>
-    <CasApp />
-  </React.StrictMode>,
+  <HashRouter>
+    <React.StrictMode>
+      <CasApp />
+    </React.StrictMode>
+  </HashRouter>,
   document.getElementById('root')
 );
 
