@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { ObjectUtil } from "../../lib/libs";
-import { UserService, AirportService } from "../../service/services";
+import { UserService } from "../../service/services";
 import CasDataTable from "../common/datatable/CasDataTable";
 import CasInputText from "../common/formfields/CasInputText";
 

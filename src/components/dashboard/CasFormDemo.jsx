@@ -268,7 +268,7 @@ class CasFormDemo extends Component {
                 <div className="p-col-12 p-lg-2 p-md-2">
                   <label htmlFor="input">{label.reason}</label>
                 </div>
-                <div className="p-col-12  p-lg-4 p-md-4">
+                <div className="p-col-12  p-lg-2 p-md-4">
                   <CasSelect
                     id="cancelReason"
                     name="reason"
