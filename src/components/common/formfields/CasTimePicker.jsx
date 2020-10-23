@@ -14,6 +14,7 @@ class CasTimePicker extends Component {
         errorText:PropTypes.string,
         placeholder:PropTypes.string,
         className: PropTypes.string,
+        errorText:PropTypes.string
 
     }
 
@@ -22,51 +23,31 @@ class CasTimePicker extends Component {
         id:'',
         name:'',
         value:'',
-        errorText:"",
+        errorText:'',
     };
 
- 
-    renderErrorText() {
-      if(this.props.errorText){
-        return(
-          <small className="cas-inline-err-text p-d-block">{this.props.errorText}</small>
-        );
-      }
-    }
 
-    renderField() {
+
+    render () {
       const {
         id,
         onChange,
         name,
         value,
-
-        
+        errorText   
       } = this.props;
-      let className = this.props.className;
-      if(this.props.errorText){
-        className = className + " p-invalid";
-      }
       return (
-        <TimeField
-        id={id}
-        name={name}
-        value={value}                     // {String}   required, format '00:00' or '00:00:00'
-        onChange={onChange}      // {Function} required
-        input={<CasInputText />} // {Element}  default: <input type="text" />
-        colon=":"                        // {String}   default: ":"
-                         // {Boolean}  default: false
-        />
-      )
-
-    }
-
-    render () {
-      return (
-        <div className="cas-input-field">
-          {this.renderField()}
-          {this.renderErrorText()}
-        </div>
+       
+          <TimeField
+          id={id}
+          name={name}
+          value={value}                     // {String}   required, format '00:00' or '00:00:00'
+          onChange={onChange}      // {Function} required
+          input={<CasInputText errorText={errorText} />} // {Element}  default: <input type="text" />
+          colon=":"                        // {String}   default: ":"
+                      // {Boolean}  default: false
+          />
+        
       )
     }
 

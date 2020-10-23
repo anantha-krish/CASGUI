@@ -1,6 +1,6 @@
 import { Formik } from "formik";
 import React, { Component } from "react";
-import { LabelConstants } from "../../constants/constants";
+import { ErrorConstants, LabelConstants } from "../../constants/constants";
 import { AirportService, FlightInfoService } from "../../service/services";
 import CasAirportInput from "../common/formfields/CasAirportInput";
 import CasButton from "../common/formfields/CasButton";
@@ -19,6 +19,56 @@ class CasFlightCreate extends Component {
   }
   validateFlightForm(values) {
     const errors = {};
+    
+    if(!values.depDate)
+    {
+      errors.depDate = ErrorConstants.CAS_GUI_ERR_INV_DATE
+    }
+        
+    if(!values.arvDate)
+    {
+      errors.arvDate = ErrorConstants.CAS_GUI_ERR_INV_DATE
+    }
+
+    if(!values.depTime)
+    {
+      errors.depTime = ErrorConstants.CAS_GUI_ERR_INV_TIME
+    }
+
+    if(!values.arvTime)
+    {
+      errors.arvTime = ErrorConstants.CAS_GUI_ERR_INV_TIME
+    }
+
+    if(!values.arvAirport)
+    {
+      errors.arvAirport = ErrorConstants.CAS_GUI_ERR_NO_AIRPORT
+    }
+
+    if(!values.depAirport)
+    {
+      errors.depAirport = ErrorConstants.CAS_GUI_ERR_NO_AIRPORT
+    }
+
+   if(!values.flightNumber)
+   {
+     errors.flightNumber = ErrorConstants.CAS_GUI_ERR_NO_FLIGHT
+   }
+
+
+   if(!values.resource)
+   {
+     errors.resource = ErrorConstants.CAS_GUI_ERR_NO_RESOURC
+   }
+
+   if(!values.uploadLocation)
+   {
+     errors.uploadLocation = ErrorConstants.CAS_GUI_ERR_INV_UPLOAD
+   }
+
+
+  console.log(errors)
+   return errors;
   }
 
   setAirportsCallBack(airportData) {
@@ -43,22 +93,17 @@ class CasFlightCreate extends Component {
     let label = LabelConstants.flightFormPage;
 
     const setInitialValues = {
-      flightType: "",
+  flightNumber: "",
+  depDate: "",
+  depTime: "",
+  depAirport: "",
+  arvDate: "",
+  arvTime: "",
+  arvAirport: "",
+  resource: "",
+  uploadLocation: ""
     };
 
-    let carrierCodeOptions = [
-      {
-        option: "test1",
-      },
-      { option: "test2" },
-    ];
-
-    let flightReasonOptions = [
-      {
-        option: "test1",
-      },
-      { option: "test2" },
-    ];
 
     return (
       <>
@@ -69,6 +114,7 @@ class CasFlightCreate extends Component {
           initialValues={setInitialValues}
           validate={this.validateFlightForm}
           onSubmit={this.submitFlightForm}
+          validateOnBlur={false}
         >
           {({
             values,
@@ -96,6 +142,7 @@ class CasFlightCreate extends Component {
                     name="depDate"
                     showIcon={true}
                     numberOfMonths={3}
+                    errorText={errors.depDate}
                   />
                 </div>
                 <div className="p-col-12  p-lg-1 p-md-4">&nbsp;</div>
@@ -108,6 +155,7 @@ class CasFlightCreate extends Component {
                     onChange={handleChange}
                     name="depTime"
                     value={values.depTime}
+                    errorText={errors.arvTime}
                   />
                 </div>
               </div>
@@ -125,6 +173,7 @@ class CasFlightCreate extends Component {
                     name="depAirport"
                     airportData={this.state.airportData}
                     value={values.depAirport}
+                    errorText={errors.depAirport}
                   />
                 </div>
               </div>
@@ -142,6 +191,7 @@ class CasFlightCreate extends Component {
                     name="arvAirport"
                     airportData={this.state.airportData}
                     value={values.arvAirport}
+                    errorText={errors.arvAirport}
                   />
                 </div>
               </div>
@@ -156,6 +206,7 @@ class CasFlightCreate extends Component {
                     name="arvDate"
                     showIcon={true}
                     numberOfMonths={3}
+                    errorText={errors.arvDate}
                   />
                 </div>
                 <div className="p-col-12  p-lg-1 p-md-4">&nbsp;</div>
@@ -168,6 +219,7 @@ class CasFlightCreate extends Component {
                     onChange={handleChange}
                     name="arvTime"
                     value={values.arvTime}
+                    errorText={errors.arvTime}
                   />
                 </div>
               </div>
@@ -183,6 +235,7 @@ class CasFlightCreate extends Component {
                     id="flightNumber"
                     name="flightNumber"
                     onChange={handleChange}
+                    errorText={errors.flightNumber}
                   />
                 </div>
               </div>
@@ -197,6 +250,7 @@ class CasFlightCreate extends Component {
                     id="flightResource"
                     name="resource"
                     onChange={handleChange}
+                    errorText={errors.resource}
                   />
                 </div>
               </div>
@@ -210,6 +264,7 @@ class CasFlightCreate extends Component {
                     id="flightUploadLocation"
                     name="uploadLocation"
                     onChange={handleChange}
+                    errorText={errors.uploadLocation}
                   />
                 </div>
               </div>
