@@ -5,3 +5,30 @@
         margin-bottom: 1rem;
     }
 } */
+
+.cas-data-table-header,.p-paginator-bottom{
+    background-color: $color-table-header !important;
+    color: $color-white !important;
+}
+.cas-data-table-header > span {
+    color: $color-white !important;
+}
+.p-paginator-element >span {
+    color: $color-white !important;
+}
+
+.flights-view-container{
+    
+    .flight-number-column-header{
+        width: 12rem;
+    }
+    .action-column-header{
+        width:7rem;
+    }
+    .airport-column-header{
+        width: 10rem;
+    }
+    .flight-view-message{
+        width: 100%;
+    }
+}

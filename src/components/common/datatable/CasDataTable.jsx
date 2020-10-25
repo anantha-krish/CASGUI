@@ -4,6 +4,11 @@ import { DataTable } from "primereact/datatable";
 import PropTypes from "prop-types";
 
 class CasDataTable extends Component {
+
+  constructor() {
+    super();
+    this.renderColumns = this.renderColumns.bind(this);
+  }
     
   static propTypes = {
     data: PropTypes.array.isRequired,
@@ -23,6 +28,27 @@ class CasDataTable extends Component {
     onSelectionChange: () => {},
   };
 
+  renderColumns(columns){
+    let headerClassName;
+    let columList =[];
+    columns.map((col, index) => {
+      headerClassName = "cas-data-table-header ";
+      if(col.headerClassName){
+        headerClassName = headerClassName+col.headerClassName;
+      }
+      columList.push(<Column
+        key={`key${index}`}
+        field={col.field}
+        header={col.header}
+        sortable={col.sortable}
+        className={col.className}
+        headerClassName={headerClassName}
+        body={col.body}
+      />);
+      });
+    return columList;
+ }
+
   render() {
     const {
       data,
@@ -33,6 +59,8 @@ class CasDataTable extends Component {
       globalFilter,
     } = this.props;
 
+    let headerClassName
+
     return (
       <DataTable
         value={data}
@@ -41,18 +69,11 @@ class CasDataTable extends Component {
         onSelectionChange={onSelectionChange}
         rows={rows}
         paginator
-        paginatorPosition="both"
+        paginatorPosition="bottom"
         responsive
         globalFilter={globalFilter}
       >
-        {columns.map((col, index) => (
-          <Column
-            key={`key${index}`}
-            field={col.field}
-            header={col.header}
-            sortable
-          />
-        ))}
+      {this.renderColumns(columns)}
       </DataTable>
     );
   }

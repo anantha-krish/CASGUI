@@ -3,7 +3,8 @@ import { ErrorConstants } from "../constants/constants";
 
 export const FlightInfoService = {
   createNewFlightInfo,
-  getAllFlightInfo
+  getAllFlightInfo,
+  deleteFlightInfo
 };
 
 function createNewFlightInfo(data) {
@@ -19,6 +20,20 @@ function createNewFlightInfo(data) {
       } else {
         let error = [ErrorConstants.CAS_GUI_ERR_01];
         return Promise.reject(error);
+      }
+    })
+    .catch((err) => {
+      return Promise.reject([ErrorConstants.CAS_GUI_ERR_01]);
+    });
+}
+
+function deleteFlightInfo(id,callbackFn) {
+  const url ="http://localhost:8080/cas-gui/flight-info/"+id;
+  return axios
+    .delete(url)
+    .then((res) => {
+      if (callbackFn) {
+        callbackFn(res.status);
       }
     })
     .catch((err) => {

@@ -61,4 +61,14 @@ h2 {
 .p-datepicker table td{
     padding: 0.1rem !important;
 }
+.p-calendar-w-btn .p-datepicker-trigger{
+    width: 2.6rem !important;
+}
+.p-calendar .p-inputtext{
+    width: 100% !important;
+}
+
+.p-datatable .p-datatable-header{
+   background: $color-table-header;
+}
 
