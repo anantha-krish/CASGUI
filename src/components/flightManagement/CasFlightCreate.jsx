@@ -7,6 +7,7 @@ import CasButton from "../common/formfields/CasButton";
 import CasCalendar from "../common/formfields/CasCalendar";
 import CasInputText from "../common/formfields/CasInputText";
 import CasTimePicker from "../common/formfields/CasTimePicker";
+import { FileUpload } from 'primereact/fileupload';
 
 class CasFlightCreate extends Component {
   constructor(props) {
@@ -15,6 +16,7 @@ class CasFlightCreate extends Component {
     this.setAirportsCallBack = this.setAirportsCallBack.bind(this);
     this.state = {
       airportData: [],
+      mode:"create"
     };
   }
   validateFlightForm(values) {
@@ -93,29 +95,28 @@ class CasFlightCreate extends Component {
     let label = LabelConstants.flightFormPage;
 
     const setInitialValues = {
-  flightNumber: "",
-  depDate: "",
-  depTime: "",
-  depAirport: "",
-  arvDate: "",
-  arvTime: "",
-  arvAirport: "",
-  resource: "",
-  uploadLocation: ""
+      flightNumber: "",
+      depDate: "",
+      depTime: "",
+      depAirport: "",
+      arvDate: "",
+      arvTime: "",
+      arvAirport: "",
+      resource: "",
+      uploadLocation: ""
     };
+    const headerLabel =this.state.mode ==="create"?"Create New Flight":"Update The Flight";
 
 
     return (
+      
       <>
-        <h1>{label.title}</h1>
-        <br />
-        <br />
+        
         <Formik
           initialValues={setInitialValues}
           validate={this.validateFlightForm}
           onSubmit={this.submitFlightForm}
-          validateOnBlur={false}
-        >
+          validateOnBlur={false}>
           {({
             values,
             errors,
@@ -127,156 +128,136 @@ class CasFlightCreate extends Component {
 
             /* and other goodies */
           }) => (
-            <form onSubmit={handleSubmit}>
-              {/* Row 1 */}
 
-              {/* Row 2 */}
-              <div className="p-grid">
-                <div className="p-col-12 p-lg-2 p-md-2">
-                  <label htmlFor="flightDepDate">{label.depDate}</label>
+          <div className="p-grid flights-create-container">
+            <div className="p-col-12">
+              <div className="card card-w-title">
+                <div className="p-grid">
+                  <div className="p-col-12">
+                    <span ><h1>{headerLabel}</h1> </span>
+                  </div>
                 </div>
-                <div className="p-col-12  p-lg-2 p-md-2">
-                  <CasCalendar
-                    id="flightDepDate"
-                    onChange={handleChange}
-                    name="depDate"
-                    showIcon={true}
-                    numberOfMonths={3}
-                    errorText={errors.depDate}
-                  />
-                </div>
-                <div className="p-col-12  p-lg-1 p-md-4">&nbsp;</div>
-                <div className="p-col-12 p-lg-2 p-md-2">
-                  <label htmlFor="flightDepTime">{label.depTime}</label>
-                </div>
-                <div className="p-col-12  p-lg-2 p-md-4">
-                  <CasTimePicker
-                    id="flightDepTime"
-                    onChange={handleChange}
-                    name="depTime"
-                    value={values.depTime}
-                    errorText={errors.arvTime}
-                  />
-                </div>
-              </div>
+                <form onSubmit={handleSubmit}>
+                  {/* Row 1 */}
 
-              {/* Row 3 */}
-              <div className="p-grid">
-                <div className="p-col-12 p-lg-2 p-md-2">
-                  <label htmlFor="flightDepAirport">{label.depAirport}</label>
-                </div>
-                <div className="p-col-12  p-lg-2 p-md-4">
-                  <CasAirportInput
-                    airportType="departure"
-                    onChange={handleChange}
-                    id="flightDepAirport"
-                    name="depAirport"
-                    airportData={this.state.airportData}
-                    value={values.depAirport}
-                    errorText={errors.depAirport}
-                  />
-                </div>
+                  {/* Row 2 */}
+                  <div className="p-grid input-fields-container">
+                    <div className="p-col-6 p-lg-2 p-md-2 form-field-label">
+                      <label htmlFor="flightNumber">{label.flightNum}</label>
+                    </div>
+                    <div className="p-col-6 p-lg-2 p-md-2">
+                      <CasInputText
+                        value={values.flightNumber}
+                        id="flightNumber"
+                        name="flightNumber"
+                        onChange={handleChange}
+                        errorText={errors.flightNumber}/>
+                    </div>
+                    <div className="p-col-6 p-lg-2 p-md-2 form-field-label">
+                      <label htmlFor="flightDepAirport">{label.depAirport}</label>
+                    </div>
+                    <div className="p-col-6  p-lg-2 p-md-2">
+                      <CasAirportInput
+                        airportType="departure"
+                        onChange={handleChange}
+                        id="flightDepAirport"
+                        name="depAirport"
+                        airportData={this.state.airportData}
+                        value={values.depAirport}
+                        errorText={errors.depAirport}/>
+                    </div>
+                    <div className="p-col-6 p-lg-2 p-md-2 form-field-label">
+                      <label htmlFor="flightArrAirport">{label.arvAirport}</label>
+                    </div>
+                    <div className="p-col-6 p-lg-2 p-md-2">
+                      <CasAirportInput
+                        airportType="arrival"
+                        onChange={handleChange}
+                        id="flightArrAirport"
+                        name="arvAirport"
+                        airportData={this.state.airportData}
+                        value={values.arvAirport}
+                        errorText={errors.arvAirport}/>
+                    </div>
+                    <div className="p-col-6 p-lg-2 p-md-2 form-field-label">
+                      <label htmlFor="flightDepDate">{label.depDate}</label>
+                    </div>
+                    <div className="p-col-6  p-lg-2 p-md-2">
+                      <CasCalendar
+                        id="flightDepDate"
+                        onChange={handleChange}
+                        name="depDate"
+                        showIcon={true}
+                        numberOfMonths={3}
+                        errorText={errors.depDate}/>
+                    </div>
+                    <div className="p-col-6 p-lg-2 p-md-2 form-field-label">
+                      <label htmlFor="flightDepTime">{label.depTime}</label>
+                    </div>
+                    <div className="p-col-6  p-lg-2 p-md-2">
+                      <CasTimePicker
+                        id="flightDepTime"
+                        onChange={handleChange}
+                        name="depTime"
+                        value={values.depTime}
+                        errorText={errors.arvTime}/>
+                    </div>
+                    <div className="p-col-6 p-lg-2 p-md-2 form-field-label">
+                      <label htmlFor="flightArvDate">{label.arvDate}</label>
+                    </div>
+                    <div className="p-col-6 p-lg-2 p-md-4">
+                      <CasCalendar
+                        id="flightArvDate"
+                        onChange={handleChange}
+                        name="arvDate"
+                        showIcon={true}
+                        numberOfMonths={3}
+                        errorText={errors.arvDate}/>
+                    </div>
+                    <div className="p-col-6 p-lg-2 p-md-2 form-field-label">
+                      <label htmlFor="flightArvTime">{label.arvTime}</label>
+                    </div>
+                    <div className="p-col-6 p-lg-2 p-md-2">
+                      <CasTimePicker
+                        id="flightArvTime"
+                        onChange={handleChange}
+                        name="arvTime"
+                        value={values.arvTime}
+                        errorText={errors.arvTime}/>
+                    </div>
+                    <div className="p-col-6 p-lg-2 p-md-2 form-field-label">
+                      <label htmlFor="flightResource">{label.resource}</label>
+                    </div>
+                    <div className="p-col-6 p-lg-2 p-md-2">
+                      <CasInputText
+                        value={values.resource}
+                        id="flightResource"
+                        name="resource"
+                        onChange={handleChange}
+                        errorText={errors.resource}/>
+                    </div>
+                    <div className="p-col-6 p-lg-2 p-md-2 form-field-label">
+                      <label htmlFor="flightUploadLocation">{label.upload}</label>
+                    </div>
+                    <div className="p-col-6 p-lg-2 p-md-2">
+                      <FileUpload name="flightFile" url="../../assets/uploads" auto />
+                    </div>
+                  </div>
+                  <div className="p-grid form-field-button">  
+                    <div className="p-col-12 ">
+                      <div className="float-right">
+                        <CasButton label="Save" disabled={isSubmitting} />
+                      </div>
+                    </div>
+                  </div>
+                 
+                </form>
               </div>
-
-              {/* Row 4 */}
-              <div className="p-grid">
-                <div className="p-col-12 p-lg-2 p-md-2">
-                  <label htmlFor="flightArrAirport">{label.arvAirport}</label>
-                </div>
-                <div className="p-col-12 p-lg-2 p-md-4">
-                  <CasAirportInput
-                    airportType="arrival"
-                    onChange={handleChange}
-                    id="flightArrAirport"
-                    name="arvAirport"
-                    airportData={this.state.airportData}
-                    value={values.arvAirport}
-                    errorText={errors.arvAirport}
-                  />
-                </div>
-              </div>
-              <div className="p-grid">
-                <div className="p-col-12 p-lg-2 p-md-2">
-                  <label htmlFor="flightArvDate">{label.arvDate}</label>
-                </div>
-                <div className="p-col-12 p-lg-2 p-md-4">
-                  <CasCalendar
-                    id="flightArvDate"
-                    onChange={handleChange}
-                    name="arvDate"
-                    showIcon={true}
-                    numberOfMonths={3}
-                    errorText={errors.arvDate}
-                  />
-                </div>
-                <div className="p-col-12  p-lg-1 p-md-4">&nbsp;</div>
-                <div className="p-col-12 p-lg-2 p-md-2">
-                  <label htmlFor="flightArvTime">{label.arvTime}</label>
-                </div>
-                <div className="p-col-12 p-lg-2 p-md-4">
-                  <CasTimePicker
-                    id="flightArvTime"
-                    onChange={handleChange}
-                    name="arvTime"
-                    value={values.arvTime}
-                    errorText={errors.arvTime}
-                  />
-                </div>
-              </div>
-
-              {/* Row 5 */}
-              <div className="p-grid">
-                <div className="p-col-12 p-lg-2 p-md-2">
-                  <label htmlFor="flightNumber">{label.flightNum}</label>
-                </div>
-                <div className="p-col-12 p-lg-2 p-md-4">
-                  <CasInputText
-                    value={values.flightNumber}
-                    id="flightNumber"
-                    name="flightNumber"
-                    onChange={handleChange}
-                    errorText={errors.flightNumber}
-                  />
-                </div>
-              </div>
-
-              <div className="p-grid">
-                <div className="p-col-12 p-lg-2 p-md-2">
-                  <label htmlFor="flightResource">{label.resource}</label>
-                </div>
-                <div className="p-col-12 p-lg-2 p-md-4">
-                  <CasInputText
-                    value={values.resource}
-                    id="flightResource"
-                    name="resource"
-                    onChange={handleChange}
-                    errorText={errors.resource}
-                  />
-                </div>
-              </div>
-              <div className="p-grid">
-                <div className="p-col-12 p-lg-2 p-md-2">
-                  <label htmlFor="flightUploadLocation">{label.upload}</label>
-                </div>
-                <div className="p-col-12 p-lg-2 p-md-4">
-                  <CasInputText
-                    value={values.uploadLocation}
-                    id="flightUploadLocation"
-                    name="uploadLocation"
-                    onChange={handleChange}
-                    errorText={errors.uploadLocation}
-                  />
-                </div>
-              </div>
-              <br />
-              <div className="p-grid">
-                <div className="p-col-12 p-lg-3 p-md-2">
-                  <CasButton label="Search" disabled={isSubmitting} />
-                </div>
-              </div>
-            </form>
+            </div>
+          </div>
           )}
         </Formik>
+        
       </>
     );
   }

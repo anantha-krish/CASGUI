@@ -94,7 +94,6 @@ class CasFlightView extends Component {
       this.messages.show({severity: 'success', summary: 'Flight Deleted Successfully.'});
       
     }
-
   }
   
   render() {
@@ -124,9 +123,7 @@ class CasFlightView extends Component {
         <div className="p-col-12">
           <div className="card card-w-title">
             <div className="p-grid">
-              
               <div className="p-col-10">
-
                 <span className="flights-list-header" ><h1>List of Flights</h1> </span>
               </div>
               <div className="p-col">
@@ -136,21 +133,16 @@ class CasFlightView extends Component {
                     onChange={this.handleChange}
                     name="flightFilter"
                     placeholder="Search"
-                    value={this.state.flightFilter}
-                  />
-                              
+                    value={this.state.flightFilter}/>
                 </span>
-               </div>
-              
+              </div>
             </div>
-
             <CasDataTable
               data={this.state.flightList}
               selection={this.state.selectedFlight}
               rows={8}
               globalFilter={this.state.flightFilter}
-              columns={renderColumns}
-            />
+              columns={renderColumns}/>
             <Messages ref={(el) => this.messages = el} className="flight-view-message"></Messages>
           </div>
          
