@@ -261,11 +261,7 @@ class CasAirportInput extends Component {
       } else if (airportType && airportType ==="arrival") {
         iconClassName="plane-arrival";
       }
-      const footer = (
-        <div>
-            <Button label="Select" icon="pi pi-check" onClick={this.onHide} />
-        </div>
-      );
+     
     
       return (
         <div>

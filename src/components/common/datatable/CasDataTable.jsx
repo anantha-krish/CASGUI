@@ -59,8 +59,6 @@ class CasDataTable extends Component {
       globalFilter,
     } = this.props;
 
-    let headerClassName
-
     return (
       <DataTable
         value={data}
