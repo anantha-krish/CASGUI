@@ -155,17 +155,7 @@ class CasFlightCreate extends Component {
 
                   {/* Row 2 */}
                   <div className="p-grid input-fields-container">
-                    <div className="p-col-6 p-lg-2 p-md-2 form-field-label">
-                      <label htmlFor="flightNumber">{label.flightNum}</label>
-                    </div>
-                    <div className="p-col-6 p-lg-2 p-md-2">
-                      <CasInputText
-                        value={values.flightNumber}
-                        id="flightNumber"
-                        name="flightNumber"
-                        onChange={handleChange}
-                        errorText={errors.flightNumber}/>
-                    </div>
+                  
                     <div className="p-col-6 p-lg-2 p-md-2 form-field-label">
                       <label htmlFor="flightDepAirport">{label.depAirport}</label>
                     </div>
@@ -179,19 +169,7 @@ class CasFlightCreate extends Component {
                         value={values.depAirport}
                         errorText={errors.depAirport}/>
                     </div>
-                    <div className="p-col-6 p-lg-2 p-md-2 form-field-label">
-                      <label htmlFor="flightArrAirport">{label.arvAirport}</label>
-                    </div>
-                    <div className="p-col-6 p-lg-2 p-md-2">
-                      <CasAirportInput
-                        airportType="arrival"
-                        onChange={handleChange}
-                        id="flightArrAirport"
-                        name="arvAirport"
-                        airportData={this.state.airportData}
-                        value={values.arvAirport}
-                        errorText={errors.arvAirport}/>
-                    </div>
+                   
                     <div className="p-col-6 p-lg-2 p-md-2 form-field-label">
                       <label htmlFor="flightDepDate">{label.depDate}</label>
                     </div>
@@ -215,6 +193,20 @@ class CasFlightCreate extends Component {
                         value={values.depTime}
                         errorText={errors.arvTime}/>
                     </div>
+
+                    <div className="p-col-6 p-lg-2 p-md-2 form-field-label">
+                      <label htmlFor="flightArrAirport">{label.arvAirport}</label>
+                    </div>
+                    <div className="p-col-6 p-lg-2 p-md-2">
+                      <CasAirportInput
+                        airportType="arrival"
+                        onChange={handleChange}
+                        id="flightArrAirport"
+                        name="arvAirport"
+                        airportData={this.state.airportData}
+                        value={values.arvAirport}
+                        errorText={errors.arvAirport}/>
+                    </div>
                     <div className="p-col-6 p-lg-2 p-md-2 form-field-label">
                       <label htmlFor="flightArvDate">{label.arvDate}</label>
                     </div>
@@ -237,6 +229,17 @@ class CasFlightCreate extends Component {
                         name="arvTime"
                         value={values.arvTime}
                         errorText={errors.arvTime}/>
+                    </div>
+                    <div className="p-col-6 p-lg-2 p-md-2 form-field-label">
+                      <label htmlFor="flightNumber">{label.flightNum}</label>
+                    </div>
+                    <div className="p-col-6 p-lg-2 p-md-2">
+                      <CasInputText
+                        value={values.flightNumber}
+                        id="flightNumber"
+                        name="flightNumber"
+                        onChange={handleChange}
+                        errorText={errors.flightNumber}/>
                     </div>
                     <div className="p-col-6 p-lg-2 p-md-2 form-field-label">
                       <label htmlFor="flightResource">{label.resource}</label>
