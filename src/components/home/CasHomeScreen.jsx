@@ -59,13 +59,6 @@ class CasHomeScreen extends Component {
                 to:'/flightView'
                 
               },
-              {
-                label: "Update / Delete",
-                icon: "pi pi-fw pi-bars",
-                command: () => {
-                  window.location = "#/";
-                },
-              },
             ],
           },
           {
