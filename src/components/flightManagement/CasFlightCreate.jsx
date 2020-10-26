@@ -240,7 +240,7 @@ class CasFlightCreate extends Component {
                       <label htmlFor="flightUploadLocation">{label.upload}</label>
                     </div>
                     <div className="p-col-6 p-lg-2 p-md-2">
-                      <FileUpload name="flightFile" url="../../assets/uploads" auto />
+                      <FileUpload name="flightFile" url="../../assets/uploads" mode="basic" />
                     </div>
                   </div>
                   <div className="p-grid form-field-button">  
