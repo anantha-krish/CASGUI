@@ -161,7 +161,6 @@ class CasAirportInput extends Component {
     }
 
     selectAirport =(e) => {
-      debugger;
       if(e.target &&  e.target.id){
         let airport = this.getAirportbyId(e.target.id);
         if(this.props.onChange) {

@@ -65,7 +65,7 @@ function getFlightInfoById(id,callbackFn) {
   return axios
     .get("http://localhost:8080/cas-gui/flight-info/"+id)
     .then((res) => {
-      if (res.data && res.data.length) {
+      if (res.data) {
         if (callbackFn) {
           callbackFn(res.data);
         }

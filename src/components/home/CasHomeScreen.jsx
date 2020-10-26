@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import CasTopbar from "../common/topbar/CasTopbar";
 import CasMainMenu from "../common/menu/CasMainMenu";
 import CasDashboard from "../dashboard/CasDashboard";
-import { Route, Redirect} from 'react-router-dom';
+import {BrowserRouter as Router ,Route, Redirect, Switch} from 'react-router-dom';
 import CasLoginScreen from "../login/CasLoginScreen";
 import CasLoginUserProfile from '../common/userprofile/CasLoginUserProfile'
 import CasFlightCreate from '../flightManagement/CasFlightCreate'
@@ -20,11 +20,11 @@ class CasHomeScreen extends Component {
       };
       this.onToggleMenu = this.onToggleMenu.bind(this);
       this.setLogginStatus = this.setLogginStatus.bind(this);
-      this.setValueToSharedObject = this.setValueToSharedObject.bind(this);
-      this.getValueFromSharedObject = this.getValueFromSharedObject.bind(this);
+/*       this.setValueToSharedObject = this.setValueToSharedObject.bind(this);
+      this.getValueFromSharedObject = this.getValueFromSharedObject.bind(this); */
     }
 
-    setValueToSharedObject(sharedObject){
+/*     setValueToSharedObject(sharedObject){
       this.setState({
         sharedObject
       });
@@ -32,8 +32,8 @@ class CasHomeScreen extends Component {
     getValueFromSharedObject(){
       return this.state.sharedObject;
     }
-  
-    onToggleMenu(event) {
+   */
+    onToggleMenu() {
       this.setState({
         staticMenuInactive: !this.state.staticMenuInactive,
       });
@@ -52,9 +52,7 @@ class CasHomeScreen extends Component {
           {
             label: "Dashboard",
             icon: "pi pi-fw pi-home",
-            command: () => {
-              window.location = "#/home";
-            },
+            to:'/home'
           },
           {
             label: "Flight Management",
@@ -63,12 +61,12 @@ class CasHomeScreen extends Component {
               {
                 label: "Create",
                 icon: "pi pi-fw pi-bars",
-                to:'/flightCreate'
+                to:'/flight-info/add'
               },
               {
                 label: "View",
                 icon: "pi pi-fw pi-bars",
-                to:'/flightView'
+                to:'/flight-info/all'
                 
               },
             ],
@@ -114,18 +112,25 @@ class CasHomeScreen extends Component {
         
         return (
           <div className={wrapperClass}>
+           <Router>
             <CasTopbar onToggleMenu={this.onToggleMenu} staticMenuInactive={this.state.staticMenuInactive}/>
             <div className={sidebarClassName}>
               <CasLoginUserProfile/>
               <CasMainMenu model={menu} />
             </div>
+          
             <div className="layout-main">
-              <Route path="/home"  exact component={CasDashboard}/>
-              <Route path="/flightCreate"  exact render={(props) => (<CasFlightCreate callBackToGetFlightInfo={this.getValueFromSharedObject} {...props}/>)} />
-              <Route path="/flightView"  exact render={(props) => (<CasFlightView callBackToSetFlightInfo={this.setValueToSharedObject} {...props}/>)}/>
+              <Switch>
+            
+              <Route path="/home"  component={CasDashboard}/>
+              {/* <Route path="/flightCreate"  exact render={(props) => (<CasFlightCreate callBackToGetFlightInfo={this.getValueFromSharedObject} {...props}/>)} />
+              <Route path="/flightView"  exact render={(props) => (<CasFlightView callBackToSetFlightInfo={this.setValueToSharedObject} {...props}/>)}/> */}
               
-              
+              <Route path="/flight-info/all"  component={CasFlightView}/>
+              <Route path="/flight-info/:mode/:id?"   component={CasFlightCreate} />
+              </Switch>
             </div>
+            </Router>
           </div>
         );
 

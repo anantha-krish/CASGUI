@@ -102,10 +102,10 @@ class CasFlightView extends Component {
   }
 
   editFlight(flightInfo){
-    if(this.props.callBackToSetFlightInfo){
-      this.props.callBackToSetFlightInfo(flightInfo);
-      this.props.history.push("/flightCreate");
-    }
+   /*  if(this.props.callBackToSetFlightInfo){ */
+     /*  this.props.callBackToSetFlightInfo(flightInfo); */
+      this.props.history.push("/flight-info/edit/"+flightInfo.id);
+    
   }
   
   render() {

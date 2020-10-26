@@ -1,12 +1,12 @@
 import { Formik } from "formik";
 import React, { Component } from "react";
-import { ErrorConstants, LabelConstants } from "../../constants/constants";
-import { AirportService, FlightInfoService } from "../../service/services";
-import CasAirportInput from "../common/formfields/CasAirportInput";
-import CasButton from "../common/formfields/CasButton";
-import CasCalendar from "../common/formfields/CasCalendar";
-import CasInputText from "../common/formfields/CasInputText";
-import CasTimePicker from "../common/formfields/CasTimePicker";
+import { ErrorConstants, LabelConstants } from"../../constants/constants";
+import { AirportService, FlightInfoService } from"../../service/services";
+import CasAirportInput from "../common/formfields/CasAirportInput"
+import CasButton from"../common/formfields/CasButton";
+import CasCalendar from"../common/formfields/CasCalendar";
+import CasInputText from"../common/formfields/CasInputText";
+import CasTimePicker from"../common/formfields/CasTimePicker";
 import { FileUpload } from 'primereact/fileupload';
 import PropTypes from 'prop-types';
 import { Messages } from 'primereact/messages';
@@ -18,13 +18,43 @@ class CasFlightCreate extends Component {
     this.setAirportsCallBack = this.setAirportsCallBack.bind(this);
     this.state = {
       airportData: [],
-      mode:"create"
+      /* mode:"create" */
+      isEditMode:false,
+      flightInfo:{}
     };
-    
+    this.setExistingFlightInfo=this.setExistingFlightInfo.bind(this);
+    this.setCreateMode = this.setCreateMode.bind(this);
   }
-  static propTypes = {
+  
+  setExistingFlightInfo(dbFlightInfo)
+  {
+      this.setState({
+        flightInfo: dbFlightInfo,
+        isEditMode : true
+      })
+  }
+
+  setCreateMode()
+  {
+    this.setState({
+      isEditMode:false,
+      flightInfo:{
+        flightNumber: "",
+        depDate: "",
+        depTime: "",
+        depAirport: "",
+        arvDate: "",
+        arvTime: "",
+        arvAirport: "",
+        resource: "",
+        uploadLocation: "location"
+      }
+     })
+  }
+
+/*   static propTypes = {
     callBackToGetFlightInfo:PropTypes.func
-  }
+  } */
   validateFlightForm(values) {
     const errors = {};
     
@@ -85,14 +115,33 @@ class CasFlightCreate extends Component {
 
   componentDidMount() {
     AirportService.getAllAirports(this.setAirportsCallBack);
+    let flightId = this.props.match.params.id;
+    if(this.props.match.params.mode==='add')
+    {
+      this.setCreateMode();
+    }
+    else if(flightId && this.props.match.params.mode === 'edit')
+    {
+        FlightInfoService.getFlightInfoById(flightId,this.setExistingFlightInfo)
+    }
   }
 
-  componentDidUpdate(){
+  componentDidUpdate(prevprops)
+  {
+    if(this.props.match.params.mode === 'add' && this.props.match.params.mode !== prevprops.match.params.mode)
+    {
+      this.setCreateMode();
+    }
+  }
+
+
+
+ /*  componentDidUpdate(){
     if(this.props.callBackToGetFlightInfo){
       let flightInfo = this.props.callBackToGetFlightInfo();
       console.log("flight Info---",flightInfo);
     }
-  }
+  } */
 
 
   submitFlightForm(values, { setSubmitting }) {
@@ -107,18 +156,8 @@ class CasFlightCreate extends Component {
   render() {
     let label = LabelConstants.flightFormPage;
 
-    const setInitialValues = {
-      flightNumber: "",
-      depDate: "",
-      depTime: "",
-      depAirport: "",
-      arvDate: "",
-      arvTime: "",
-      arvAirport: "",
-      resource: "",
-      uploadLocation: "location"
-    };
-    const headerLabel =this.state.mode ==="create"?"Create New Flight":"Update The Flight";
+    const setInitialValues = this.state.flightInfo;
+    let headerLabel = !this.state.isEditMode ? "Create New Flight":"Update The Flight";
 
 
     return (
@@ -131,6 +170,7 @@ class CasFlightCreate extends Component {
           onSubmit={this.submitFlightForm}
           validateOnBlur={false}
           validateOnChange={false}
+          enableReinitialize={true}
           >
           {({
             values,
