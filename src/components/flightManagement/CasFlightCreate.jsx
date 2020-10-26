@@ -160,7 +160,7 @@ class CasFlightCreate extends Component {
     FlightInfoService.createNewFlightInfo(values).then
     ((data)=>{
       setSubmitting(false);
-      this.messages.show({severity: 'success', summary: 'Saved->', detail: '  Access the info by:' + data, life:5000} );
+      this.messages.show({severity: 'success', summary: 'Saved->', detail: 'Flight Information has been saved successfully' , life:5000} );
     }
     );
    }
@@ -168,7 +168,7 @@ class CasFlightCreate extends Component {
     FlightInfoService.updateFlightInfo(values).then
     ((data)=>{
       setSubmitting(false);
-      this.messages.show({severity: 'success', summary: 'Updated->', detail:`Flight ID : ${data.id} has been updated by user`,life: 5000} );
+      this.messages.show({severity: 'success', summary: 'Updated->', detail:`Flight info id : ${data.id} has been updated by user`,life: 5000} );
     }
     );
 
