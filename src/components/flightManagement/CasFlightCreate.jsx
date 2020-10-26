@@ -80,14 +80,11 @@ class CasFlightCreate extends Component {
       errors.arvDate = ErrorConstants.CAS_GUI_ERR_INV_DATE
     }
 
-    if(!values.depTime)
-    {
-      errors.depTime = ErrorConstants.CAS_GUI_ERR_INV_TIME
-    }
 
-    if(!values.arvTime)
+    if(values.arvTime == values.depTime)
     {
-      errors.arvTime = ErrorConstants.CAS_GUI_ERR_INV_TIME
+      errors.depTime = ErrorConstants.CAS_GUI_ERR_INV_TIME_DUR
+      errors.arvTime = ErrorConstants.CAS_GUI_ERR_INV_TIME_DUR
     }
 
     if(!values.arvAirport)
