@@ -20,19 +20,8 @@ class CasHomeScreen extends Component {
       };
       this.onToggleMenu = this.onToggleMenu.bind(this);
       this.setLogginStatus = this.setLogginStatus.bind(this);
-/*       this.setValueToSharedObject = this.setValueToSharedObject.bind(this);
-      this.getValueFromSharedObject = this.getValueFromSharedObject.bind(this); */
     }
 
-/*     setValueToSharedObject(sharedObject){
-      this.setState({
-        sharedObject
-      });
-    }
-    getValueFromSharedObject(){
-      return this.state.sharedObject;
-    }
-   */
     onToggleMenu() {
       this.setState({
         staticMenuInactive: !this.state.staticMenuInactive,
@@ -123,9 +112,6 @@ class CasHomeScreen extends Component {
               <Switch>
             
               <Route path="/home"  component={CasDashboard}/>
-              {/* <Route path="/flightCreate"  exact render={(props) => (<CasFlightCreate callBackToGetFlightInfo={this.getValueFromSharedObject} {...props}/>)} />
-              <Route path="/flightView"  exact render={(props) => (<CasFlightView callBackToSetFlightInfo={this.setValueToSharedObject} {...props}/>)}/> */}
-              
               <Route path="/flight-info/all"  component={CasFlightView}/>
               <Route path="/flight-info/:mode/:id?"   component={CasFlightCreate} />
               </Switch>

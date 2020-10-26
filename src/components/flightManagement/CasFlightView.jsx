@@ -105,10 +105,7 @@ class CasFlightView extends Component {
   }
 
   editFlight(flightInfo){
-   /*  if(this.props.callBackToSetFlightInfo){ */
-     /*  this.props.callBackToSetFlightInfo(flightInfo); */
-      this.props.history.push("/flight-info/edit/"+flightInfo.id);
-    
+    this.props.history.push("/flight-info/edit/"+flightInfo.id);
   }
   
   render() {
@@ -136,7 +133,7 @@ class CasFlightView extends Component {
     return (
       <div className="p-grid flights-view-container">
         <div className="p-col-12">
-                  <Messages ref={(el) => this.messages = el} className="flight-view-message"></Messages>
+                  <Messages ref={(el) => this.messages = el} className="forms-message"></Messages>
           <div className="card card-w-title">
             <div className="p-grid">
               <div className="p-col-10">

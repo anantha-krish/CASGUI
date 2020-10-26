@@ -145,14 +145,6 @@ class CasFlightCreate extends Component {
 
 
 
- /*  componentDidUpdate(){
-    if(this.props.callBackToGetFlightInfo){
-      let flightInfo = this.props.callBackToGetFlightInfo();
-      console.log("flight Info---",flightInfo);
-    }
-  } */
-
-
   submitFlightForm(values, { setSubmitting }) {
     // set is submitting when API gives response back
     if(!this.state.isEditMode)
@@ -207,7 +199,7 @@ class CasFlightCreate extends Component {
           }) => (
 
           <div className="p-grid flights-create-container">
-              <Messages ref={(el) => this.messages = el} className="flight-view-message"></Messages>
+            <Messages ref={(el) => this.messages = el} className="forms-message"></Messages>
             <div className="p-col-12">
               <div className="card card-w-title">
                 <div className="p-grid">
@@ -333,9 +325,7 @@ class CasFlightCreate extends Component {
                       </div>
                     </div>
                   </div>
-                 
-      
-              </div>
+                 </div>
             </div>
           </div>
           )}
