@@ -133,6 +133,7 @@ class CasFlightView extends Component {
     return (
       <div className="p-grid flights-view-container">
         <div className="p-col-12">
+                  <Messages ref={(el) => this.messages = el} className="flight-view-message"></Messages>
           <div className="card card-w-title">
             <div className="p-grid">
               <div className="p-col-10">
@@ -155,7 +156,6 @@ class CasFlightView extends Component {
               rows={8}
               globalFilter={this.state.flightFilter}
               columns={renderColumns}/>
-            <Messages ref={(el) => this.messages = el} className="flight-view-message"></Messages>
           </div>
          
         </div>

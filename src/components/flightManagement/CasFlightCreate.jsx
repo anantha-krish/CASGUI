@@ -9,6 +9,7 @@ import CasInputText from "../common/formfields/CasInputText";
 import CasTimePicker from "../common/formfields/CasTimePicker";
 import { FileUpload } from 'primereact/fileupload';
 import PropTypes from 'prop-types';
+import { Messages } from 'primereact/messages';
 
 class CasFlightCreate extends Component {
   constructor(props) {
@@ -97,7 +98,8 @@ class CasFlightCreate extends Component {
   submitFlightForm(values, { setSubmitting }) {
     // set is submitting when API gives response back
     FlightInfoService.createNewFlightInfo(values).then
-    (()=>setSubmitting(false)
+    (()=>{setSubmitting(false);
+      this.messages.show({severity: 'success', summary: 'Flight Info saved Successfully.'});}
     );
    
   }
@@ -143,6 +145,7 @@ class CasFlightCreate extends Component {
           }) => (
 
           <div className="p-grid flights-create-container">
+              <Messages ref={(el) => this.messages = el} className="flight-view-message"></Messages>
             <div className="p-col-12">
               <div className="card card-w-title">
                 <div className="p-grid">
