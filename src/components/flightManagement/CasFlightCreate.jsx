@@ -52,10 +52,10 @@ class CasFlightCreate extends Component {
       isEditMode:false,
       flightInfo:{
         flightNumber: "",
-        depDate: "",
+        depDate: null,
         depTime: "",
         depAirport: "",
-        arvDate: "",
+        arvDate: null,
         arvTime: "",
         arvAirport: "",
         resource: "",
@@ -160,7 +160,7 @@ class CasFlightCreate extends Component {
     FlightInfoService.createNewFlightInfo(values).then
     ((data)=>{
       setSubmitting(false);
-      this.messages.show({severity: 'success', summary: 'Flight Info saved!!! ', detail: 'Access the info by:' + data} );
+      this.messages.show({severity: 'success', summary: 'Saved->', detail: '  Access the info by:' + data, life:5000} );
     }
     );
    }
@@ -168,7 +168,7 @@ class CasFlightCreate extends Component {
     FlightInfoService.updateFlightInfo(values).then
     ((data)=>{
       setSubmitting(false);
-      this.messages.show({severity: 'success', summary: 'Flight Info updated!!! ', detail:`Flight ID : ${data.id} has been updated by user`} );
+      this.messages.show({severity: 'success', summary: 'Updated->', detail:`Flight ID : ${data.id} has been updated by user`,life: 5000} );
     }
     );
 

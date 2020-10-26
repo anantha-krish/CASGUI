@@ -10,7 +10,7 @@ function getAllAirports(callbackFn) {
   return axios
     .get("http://localhost:3000/airportData.json")
     .then((res) => {
-      console.log(res)
+  
       if (res.data) {
         if (callbackFn) {
           callbackFn(res.data);

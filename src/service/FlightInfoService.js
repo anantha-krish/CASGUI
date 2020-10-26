@@ -37,7 +37,7 @@ function updateFlightInfo(data) {
       }
     })
     .then((res) => {
-      console.log(res);
+    
       if (res.status===200 && res.data) {
           return Promise.resolve(res.data)
       } else {
