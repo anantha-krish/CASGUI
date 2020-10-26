@@ -52,11 +52,11 @@ class CasFlightCreate extends Component {
       isEditMode:false,
       flightInfo:{
         flightNumber: "",
-        depDate: null,
-        depTime: "",
+        depDate: "",
+        depTime: "00:00",
         depAirport: "",
-        arvDate: null,
-        arvTime: "",
+        arvDate: "",
+        arvTime: "00:00",
         arvAirport: "",
         resource: "",
         uploadLocation: "location"
@@ -137,7 +137,7 @@ class CasFlightCreate extends Component {
 
   componentDidUpdate(prevprops)
   {
-    if(this.props.match.params.mode === 'add' && this.props.match.params.mode !== prevprops.match.params.mode)
+    if(this.props.match.params.mode !== prevprops.match.params.mode)
     {
       this.setCreateMode();
     }
@@ -181,7 +181,7 @@ class CasFlightCreate extends Component {
     const setInitialValues = this.state.flightInfo;
     let headerLabel = !this.state.isEditMode ? "Create New Flight":"Update The Flight";
 
-
+   
     return (
       
       <>
@@ -319,12 +319,12 @@ class CasFlightCreate extends Component {
                         onChange={handleChange}
                         errorText={errors.resource}/>
                     </div>
-                    <div className="p-col-6 p-lg-2 p-md-2 form-field-label">
+                   {/*  <div className="p-col-6 p-lg-2 p-md-2 form-field-label">
                       <label htmlFor="flightUploadLocation">{label.upload}</label>
                     </div>
                     <div className="p-col-6 p-lg-2 p-md-2">
                       <FileUpload name="flightFile" url="../../assets/uploads" mode="basic" />
-                    </div>
+                    </div> */}
                   </div>
                   <div className="p-grid form-field-button">  
                     <div className="p-col-12 ">

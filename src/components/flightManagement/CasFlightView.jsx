@@ -41,6 +41,7 @@ class CasFlightView extends Component {
     });
   }
 
+
   handleChange(event) {
     this.setState({
       [event.target.name]: event.target.value,
@@ -72,8 +73,10 @@ class CasFlightView extends Component {
   actionBodyTemplate(rowData) {
     return (
         <React.Fragment>
-            <Button icon="pi pi-pencil" className="p-button-rounded p-button-success p-mr-2" onClick={() => this.editFlight(rowData)} />
-            <Button icon="pi pi-trash" className="p-button-rounded p-button-warning" onClick={() => this.confirmDeleteFlight(rowData)} />
+          <div className="p-grid">
+         <div className="p-col-6">  <Button icon="pi pi-pencil" className="p-button-rounded p-button-success p-mr-2" onClick={() => this.editFlight(rowData)} /></div> 
+         <div className="p-col-6"> <Button icon="pi pi-trash" className="p-button-rounded p-button-warning" onClick={() => this.confirmDeleteFlight(rowData)} /></div>
+            </div>
         </React.Fragment>
     );
   }
@@ -95,9 +98,9 @@ class CasFlightView extends Component {
 
   deleteFlightCallBack(status) {
     if(status ===204){
-      FlightInfoService.getAllFlightInfo(this.setFlightDetailsCallBack);
       this.messages.show({severity: 'success', summary: 'Flight Deleted Successfully.'});
-      
+      this.setFlightDetailsCallBack({});
+      FlightInfoService.getAllFlightInfo(this.setFlightDetailsCallBack);
     }
   }
 
@@ -126,7 +129,7 @@ class CasFlightView extends Component {
       { field: "arvDate", header: "Arr Date",sortable:true,body:this.arrDateBodyTemplate },
       { field: "arvTime", header: "Arr Time",sortable:true },
       { field: "resource", header: "Resource",sortable:true },
-      { field: "uploadLocation", header: "File",sortable:true },
+    /*   { field: "uploadLocation", header: "File",sortable:true }, */
       { header: "Action",body:this.actionBodyTemplate,headerClassName:"action-column-header" }
       
     ];
