@@ -73,8 +73,6 @@ class CasFlightCreate extends Component {
      errors.uploadLocation = ErrorConstants.CAS_GUI_ERR_INV_UPLOAD
    }
 
-
-  console.log(errors)
    return errors;
   }
 
@@ -129,7 +127,9 @@ class CasFlightCreate extends Component {
           initialValues={setInitialValues}
           validate={this.validateFlightForm}
           onSubmit={this.submitFlightForm}
-          validateOnBlur={false}>
+          validateOnBlur={false}
+          validateOnChange={false}
+          >
           {({
             values,
             errors,
@@ -150,7 +150,7 @@ class CasFlightCreate extends Component {
                     <span ><h1>{headerLabel}</h1> </span>
                   </div>
                 </div>
-                <form onSubmit={handleSubmit}>
+         
                   {/* Row 1 */}
 
                   {/* Row 2 */}
@@ -191,7 +191,7 @@ class CasFlightCreate extends Component {
                         onChange={handleChange}
                         name="depTime"
                         value={values.depTime}
-                        errorText={errors.arvTime}/>
+                        errorText={errors.depTime}/>
                     </div>
 
                     <div className="p-col-6 p-lg-2 p-md-2 form-field-label">
@@ -262,12 +262,12 @@ class CasFlightCreate extends Component {
                   <div className="p-grid form-field-button">  
                     <div className="p-col-12 ">
                       <div className="float-right">
-                        <CasButton label="Save" disabled={isSubmitting} />
+                        <CasButton label="Save" onClick={handleSubmit} disabled={isSubmitting} />
                       </div>
                     </div>
                   </div>
                  
-                </form>
+      
               </div>
             </div>
           </div>
