@@ -103,7 +103,7 @@ class CasFlightCreate extends Component {
       arvTime: "",
       arvAirport: "",
       resource: "",
-      uploadLocation: ""
+      uploadLocation: "location"
     };
     const headerLabel =this.state.mode ==="create"?"Create New Flight":"Update The Flight";
 
