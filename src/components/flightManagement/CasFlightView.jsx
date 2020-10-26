@@ -6,6 +6,7 @@ import CasInputText from "../common/formfields/CasInputText";
 import Button from "../common/formfields/CasButton";
 import { Dialog } from 'primereact/dialog';
 import { Messages } from 'primereact/messages';
+import PropTypes from 'prop-types';
 
 class CasFlightView extends Component {
   constructor() {
@@ -27,7 +28,11 @@ class CasFlightView extends Component {
     this.hideDeleteFlightDialog = this.hideDeleteFlightDialog.bind(this);
     this.deleteFlightCallBack = this.deleteFlightCallBack.bind(this);
     this.deleteFlight = this.deleteFlight.bind(this);
+    this.editFlight = this.editFlight.bind(this);
     
+  }
+  static propTypes = {
+    callBackToSetFlightInfo:PropTypes.func
   }
 
   setFlightDetailsCallBack(flightInfo) {
@@ -67,7 +72,7 @@ class CasFlightView extends Component {
   actionBodyTemplate(rowData) {
     return (
         <React.Fragment>
-            <Button icon="pi pi-pencil" className="p-button-rounded p-button-success p-mr-2" onClick={() => this.editProduct(rowData)} />
+            <Button icon="pi pi-pencil" className="p-button-rounded p-button-success p-mr-2" onClick={() => this.editFlight(rowData)} />
             <Button icon="pi pi-trash" className="p-button-rounded p-button-warning" onClick={() => this.confirmDeleteFlight(rowData)} />
         </React.Fragment>
     );
@@ -93,6 +98,13 @@ class CasFlightView extends Component {
       FlightInfoService.getAllFlightInfo(this.setFlightDetailsCallBack);
       this.messages.show({severity: 'success', summary: 'Flight Deleted Successfully.'});
       
+    }
+  }
+
+  editFlight(flightInfo){
+    if(this.props.callBackToSetFlightInfo){
+      this.props.callBackToSetFlightInfo(flightInfo);
+      this.props.history.push("/flightCreate");
     }
   }
   

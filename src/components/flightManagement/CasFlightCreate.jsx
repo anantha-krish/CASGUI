@@ -8,6 +8,7 @@ import CasCalendar from "../common/formfields/CasCalendar";
 import CasInputText from "../common/formfields/CasInputText";
 import CasTimePicker from "../common/formfields/CasTimePicker";
 import { FileUpload } from 'primereact/fileupload';
+import PropTypes from 'prop-types';
 
 class CasFlightCreate extends Component {
   constructor(props) {
@@ -18,6 +19,10 @@ class CasFlightCreate extends Component {
       airportData: [],
       mode:"create"
     };
+    
+  }
+  static propTypes = {
+    callBackToGetFlightInfo:PropTypes.func
   }
   validateFlightForm(values) {
     const errors = {};
@@ -82,6 +87,14 @@ class CasFlightCreate extends Component {
   componentDidMount() {
     AirportService.getAllAirports(this.setAirportsCallBack);
   }
+
+  componentDidUpdate(){
+    if(this.props.callBackToGetFlightInfo){
+      let flightInfo = this.props.callBackToGetFlightInfo();
+      console.log("flight Info---",flightInfo);
+    }
+  }
+
 
   submitFlightForm(values, { setSubmitting }) {
     // set is submitting when API gives response back

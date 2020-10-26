@@ -15,10 +15,22 @@ class CasHomeScreen extends Component {
     constructor() {
       super();
       this.state = {
-        staticMenuInactive: false
+        staticMenuInactive: false,
+        sharedObject:null
       };
       this.onToggleMenu = this.onToggleMenu.bind(this);
       this.setLogginStatus = this.setLogginStatus.bind(this);
+      this.setValueToSharedObject = this.setValueToSharedObject.bind(this);
+      this.getValueFromSharedObject = this.getValueFromSharedObject.bind(this);
+    }
+
+    setValueToSharedObject(sharedObject){
+      this.setState({
+        sharedObject
+      });
+    }
+    getValueFromSharedObject(){
+      return this.state.sharedObject;
     }
   
     onToggleMenu(event) {
@@ -109,8 +121,8 @@ class CasHomeScreen extends Component {
             </div>
             <div className="layout-main">
               <Route path="/home"  exact component={CasDashboard}/>
-              <Route path="/flightCreate"  exact component={CasFlightCreate}/>
-              <Route path="/flightView"  exact component={CasFlightView}/>
+              <Route path="/flightCreate"  exact render={(props) => (<CasFlightCreate callBackToGetFlightInfo={this.getValueFromSharedObject} {...props}/>)} />
+              <Route path="/flightView"  exact render={(props) => (<CasFlightView callBackToSetFlightInfo={this.setValueToSharedObject} {...props}/>)}/>
               
               
             </div>
