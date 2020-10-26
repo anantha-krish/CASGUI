@@ -5,7 +5,8 @@ export const FlightInfoService = {
   createNewFlightInfo,
   getAllFlightInfo,
   getFlightInfoById,
-  deleteFlightInfo
+  deleteFlightInfo,
+  updateFlightInfo
 };
 
 function createNewFlightInfo(data) {
@@ -16,8 +17,29 @@ function createNewFlightInfo(data) {
       }
     })
     .then((res) => {
-      if (res.location) {
-          return Promise.resolve(true)
+      if (res.status===201 && res.config.url) {
+          return Promise.resolve(res.config.url)
+      } else {
+        let error = [ErrorConstants.CAS_GUI_ERR_01];
+        return Promise.reject(error);
+      }
+    })
+    .catch((err) => {
+      return Promise.reject([ErrorConstants.CAS_GUI_ERR_01]);
+    });
+}
+
+function updateFlightInfo(data) {
+  return axios
+    .put("http://localhost:8080/cas-gui/flight-info",data,{
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    })
+    .then((res) => {
+      console.log(res);
+      if (res.status===200 && res.data) {
+          return Promise.resolve(res.data)
       } else {
         let error = [ErrorConstants.CAS_GUI_ERR_01];
         return Promise.reject(error);

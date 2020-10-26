@@ -9,7 +9,7 @@ function getAllAirports(callbackFn) {
   return axios
     .get("./airportData.json")
     .then((res) => {
-      if (res.data ) {
+      if (res.data) {
         if (callbackFn) {
           callbackFn(res.data);
         }

@@ -137,11 +137,13 @@ class CasHomeScreen extends Component {
       } else {
         return(
           <div>
-            <Route path="/">
+            <Router>
+            <Route exact path="/">
               <Redirect to="/login" />
             </Route>
             <Route path="/login"  render={(props) => (<CasLoginScreen onLogin={this.setLogginStatus} {...props}/>)} />
             <Redirect from="*" to="/login" /> 
+            </Router>
           </div>
         );
       }

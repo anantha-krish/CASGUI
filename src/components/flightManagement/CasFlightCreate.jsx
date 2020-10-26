@@ -1,7 +1,7 @@
 import { Formik } from "formik";
 import React, { Component } from "react";
 import { ErrorConstants, LabelConstants } from"../../constants/constants";
-import { AirportService, FlightInfoService } from"../../service/services";
+import { AirportService, FlightInfoService } from "../../service/services";
 import CasAirportInput from "../common/formfields/CasAirportInput"
 import CasButton from"../common/formfields/CasButton";
 import CasCalendar from"../common/formfields/CasCalendar";
@@ -14,22 +14,34 @@ import { Messages } from 'primereact/messages';
 class CasFlightCreate extends Component {
   constructor(props) {
     super(props);
-    this.submitFlightForm = this.submitFlightForm.bind(this);
-    this.setAirportsCallBack = this.setAirportsCallBack.bind(this);
     this.state = {
       airportData: [],
       /* mode:"create" */
       isEditMode:false,
       flightInfo:{}
     };
+    this.submitFlightForm = this.submitFlightForm.bind(this);
+    this.setAirportsCallBack = this.setAirportsCallBack.bind(this);
     this.setExistingFlightInfo=this.setExistingFlightInfo.bind(this);
     this.setCreateMode = this.setCreateMode.bind(this);
   }
   
   setExistingFlightInfo(dbFlightInfo)
-  {
+  {  
       this.setState({
-        flightInfo: dbFlightInfo,
+    
+        flightInfo:{
+          id: dbFlightInfo.id,
+          flightNumber: dbFlightInfo.flightNumber,
+          depDate: new Date(dbFlightInfo.depDate),
+          depTime: dbFlightInfo.depTime,
+          depAirport: dbFlightInfo.depAirport,
+          arvDate: new Date(dbFlightInfo.arvDate),
+          arvTime: dbFlightInfo.arvTime,
+          arvAirport: dbFlightInfo.arvAirport,
+          resource: dbFlightInfo.resource,
+          uploadLocation: dbFlightInfo.uploadLocation
+        },
         isEditMode : true
       })
   }
@@ -146,16 +158,29 @@ class CasFlightCreate extends Component {
 
   submitFlightForm(values, { setSubmitting }) {
     // set is submitting when API gives response back
+    if(!this.state.isEditMode)
+    {
     FlightInfoService.createNewFlightInfo(values).then
-    (()=>{setSubmitting(false);
-      this.messages.show({severity: 'success', summary: 'Flight Info saved Successfully.'});}
+    ((data)=>{
+      setSubmitting(false);
+      this.messages.show({severity: 'success', summary: 'Flight Info saved!!! ', detail: 'Access the info by:' + data} );
+    }
     );
+   }
+   else{
+    FlightInfoService.updateFlightInfo(values).then
+    ((data)=>{
+      setSubmitting(false);
+      this.messages.show({severity: 'success', summary: 'Flight Info updated!!! ', detail:`Flight ID : ${data.id} has been updated by user`} );
+    }
+    );
+
+   }
    
   }
 
   render() {
     let label = LabelConstants.flightFormPage;
-
     const setInitialValues = this.state.flightInfo;
     let headerLabel = !this.state.isEditMode ? "Create New Flight":"Update The Flight";
 
@@ -223,6 +248,7 @@ class CasFlightCreate extends Component {
                         name="depDate"
                         showIcon={true}
                         numberOfMonths={3}
+                        value={values.depDate}
                         errorText={errors.depDate}/>
                     </div>
                     <div className="p-col-6 p-lg-2 p-md-2 form-field-label">
@@ -260,6 +286,7 @@ class CasFlightCreate extends Component {
                         name="arvDate"
                         showIcon={true}
                         numberOfMonths={3}
+                        value={values.arvDate}
                         errorText={errors.arvDate}/>
                     </div>
                     <div className="p-col-6 p-lg-2 p-md-2 form-field-label">
