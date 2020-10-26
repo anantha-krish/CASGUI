@@ -5,10 +5,12 @@ export const AirportService = {
   getAllAirports,
 };
 
+
 function getAllAirports(callbackFn) {
   return axios
-    .get("./airportData.json")
+    .get("http://localhost:3000/airportData.json")
     .then((res) => {
+      console.log(res)
       if (res.data) {
         if (callbackFn) {
           callbackFn(res.data);
@@ -21,4 +23,4 @@ function getAllAirports(callbackFn) {
     .catch((err) => {
       return Promise.reject([ErrorConstants.CAS_GUI_ERR_01]);
     });
-}
+} 
