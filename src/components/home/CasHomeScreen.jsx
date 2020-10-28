@@ -4,9 +4,10 @@ import CasMainMenu from "../common/menu/CasMainMenu";
 import CasDashboard from "../dashboard/CasDashboard";
 import {BrowserRouter as Router ,Route, Redirect, Switch} from 'react-router-dom';
 import CasLoginScreen from "../login/CasLoginScreen";
-import CasLoginUserProfile from '../common/userprofile/CasLoginUserProfile'
-import CasFlightCreate from '../flightManagement/CasFlightCreate'
-import CasFlightView from '../flightManagement/CasFlightView'
+import CasLoginUserProfile from '../common/userprofile/CasLoginUserProfile';
+import CasFlightCreate from '../flightManagement/CasFlightCreate';
+import CasFlightView from '../flightManagement/CasFlightView';
+import CasReasonApproval from '../flightCancellation/CasReasonApproval';
 import classNames from "classnames";
 
 
@@ -58,6 +59,17 @@ class CasHomeScreen extends Component {
                 to:'/flight-info/all'
                 
               },
+            ],
+          },
+          {
+            label: "Flight Cancellation",
+            icon: " pi-fw ",
+            items: [
+              {
+                label: "Reason Approval",
+                icon: "pi pi-fw pi-bars",
+                to:'/flight-cancellation/approval'
+              }
             ],
           },
           {
@@ -114,6 +126,7 @@ class CasHomeScreen extends Component {
               <Route path="/home"  component={CasDashboard}/>
               <Route path="/flight-info/all"  component={CasFlightView}/>
               <Route path="/flight-info/:mode/:id?"   component={CasFlightCreate} />
+              <Route path="/flight-cancellation/approval"   component={CasReasonApproval} />
               </Switch>
             </div>
             </Router>
