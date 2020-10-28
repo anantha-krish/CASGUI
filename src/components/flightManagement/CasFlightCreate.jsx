@@ -199,7 +199,7 @@ class CasFlightCreate extends Component {
             /* and other goodies */
           }) => (
 
-          <div className="p-grid flights-create-container">
+          <div className="p-grid form-container">
             <Messages ref={(el) => this.messages = el} className="forms-message"></Messages>
             <div className="p-col-12">
               <div className="card card-w-title">

@@ -1,6 +1,7 @@
 export const LabelConstants ={
     cancelFormPage :{
         title: "Registration and reference of cancellation reasons",
+        type:"International/Domestic",
         international:"International",
         domestic:"Domestic",
         boardingStartDate: "Boarding start date",
@@ -13,7 +14,9 @@ export const LabelConstants ={
         depTimeEnd: "Departure time end",
         ArvTimeStart:"Arrival time start",
         ArvTimeEnd:"Arrival time end",
-        reason: "Reason for cancellation"
+        reason: "Cancellation Reason",
+        search:"Search",
+        resultsHeader:"Search Results"
     },
     flightFormPage :{
         title: "Flight Information",

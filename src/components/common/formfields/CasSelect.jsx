@@ -9,6 +9,7 @@ class CasSelect extends Component {
         name: PropTypes.string,
         onChange: PropTypes.func.isRequired,
         options: PropTypes.array.isRequired,
+        errorText:PropTypes.string,
       };
     
       static defaultProps = {
@@ -16,15 +17,29 @@ class CasSelect extends Component {
         value: "",
         name: "",
         options:[],
+        errorText:"",
         onChange: () => {},
       };
+    
+     renderErrorText() {
+      if(this.props.errorText){
+        return(
+          <small className="cas-inline-err-text p-d-block">{this.props.errorText}</small>
+        );
+      }
+    }
     render() {
         const { id, value, name, onChange,options } = this.props;
+        let className = this.props.className;
+        if(this.props.errorText){
+          className = className + " p-invalid";
+        }
         return (
             <>
             <Dropdown id={id} name={name} value={value} 
-            options={options} onChange={onChange} 
+            options={options} onChange={onChange} className={className}
             optionLabel="option" placeholder="Please Select" />
+            {this.renderErrorText()}
             </>
         )
     }
