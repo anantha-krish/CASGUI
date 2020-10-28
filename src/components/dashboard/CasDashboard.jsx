@@ -1,4 +1,6 @@
+import { FileUpload } from "primereact/fileupload";
 import React, { Component } from "react";
+import { Toast } from 'primereact/toast';
 import { CancellationService } from "../../service/services";
 import CasUserList from "./CasUserList";
 
@@ -10,8 +12,11 @@ class CasDashboard extends Component {
     };
     this.setResult = this.setResult.bind(this);
     this.searchRequests = this.searchRequests.bind(this);
+    this.onBasicUpload = this.onBasicUpload.bind(this);
   }
-
+  onBasicUpload() {
+    this.toast.show({severity: 'info', summary: 'Success', detail: 'File Uploaded with Basic Mode'});
+}
   searchRequests() {
     //api call
     CancellationService.searchAllCancellationRequests(this.setResult);
@@ -28,8 +33,11 @@ class CasDashboard extends Component {
       <div className="p-fluid">
         <div className="p-grid">
           <div className="p-col-12">
+      <Toast ref={(el) => { this.toast = el; }}></Toast>
             <div className="card card-w-title">
               <CasUserList  />
+              <h2> Dummy upload and files show</h2>
+              <FileUpload mode="basic" name="file" url="http://localhost:8080/cas-gui/upload" accept="image/*" maxFileSize={5000000} onUpload={this.onBasicUpload} />
             </div>
           </div>
         </div>

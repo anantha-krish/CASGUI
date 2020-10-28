@@ -8,6 +8,7 @@ import CasLoginUserProfile from '../common/userprofile/CasLoginUserProfile'
 import CasFlightCreate from '../flightManagement/CasFlightCreate'
 import CasFlightView from '../flightManagement/CasFlightView'
 import classNames from "classnames";
+import CasFormDemo from "../dashboard/CasFormDemo";
 
 
 class CasHomeScreen extends Component {
@@ -59,6 +60,11 @@ class CasHomeScreen extends Component {
                 
               },
             ],
+          },
+          {
+            label: "Cancellation",
+            icon: "pi pi-fw pi-users",
+            to:'/cancel-flight'
           },
           {
             label: "Main menu 1",
@@ -114,6 +120,7 @@ class CasHomeScreen extends Component {
               <Route path="/home"  component={CasDashboard}/>
               <Route path="/flight-info/all"  component={CasFlightView}/>
               <Route path="/flight-info/:mode/:id?"   component={CasFlightCreate} />
+              <Route path="/cancel-flight"   component={CasFormDemo} />
               </Switch>
             </div>
             </Router>

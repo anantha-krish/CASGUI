@@ -126,7 +126,7 @@ class CasFlightView extends Component {
       { field: "arvDate", header: "Arr Date",sortable:true,body:this.arrDateBodyTemplate },
       { field: "arvTime", header: "Arr Time",sortable:true },
       { field: "resource", header: "Resource",sortable:true },
-    /*   { field: "uploadLocation", header: "File",sortable:true }, */
+      { field: "file", header: "File",sortable:true }, 
       { header: "Action",body:this.actionBodyTemplate,headerClassName:"action-column-header" }
       
     ];

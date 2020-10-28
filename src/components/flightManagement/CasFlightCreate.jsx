@@ -40,7 +40,7 @@ class CasFlightCreate extends Component {
           arvTime: dbFlightInfo.arvTime,
           arvAirport: dbFlightInfo.arvAirport,
           resource: dbFlightInfo.resource,
-          uploadLocation: dbFlightInfo.uploadLocation
+          file: dbFlightInfo.file
         },
         isEditMode : true
       })
@@ -59,7 +59,7 @@ class CasFlightCreate extends Component {
         arvTime: "00:00",
         arvAirport: "",
         resource: "",
-        uploadLocation: "location"
+        file: ""
       }
      })
   }
@@ -108,9 +108,9 @@ class CasFlightCreate extends Component {
      errors.resource = ErrorConstants.CAS_GUI_ERR_NO_RESOURC
    }
 
-   if(!values.uploadLocation)
+   if(!values.file)
    {
-     errors.uploadLocation = ErrorConstants.CAS_GUI_ERR_INV_UPLOAD
+     errors.file = ErrorConstants.CAS_GUI_ERR_INV_UPLOAD
    }
 
    return errors;
@@ -148,7 +148,7 @@ class CasFlightCreate extends Component {
   submitFlightForm(values, { setSubmitting }) {
     // set is submitting when API gives response back
     if(!this.state.isEditMode)
-    {
+    { values.file = this.state.file
     FlightInfoService.createNewFlightInfo(values).then
     ((data)=>{
       setSubmitting(false);
@@ -157,6 +157,7 @@ class CasFlightCreate extends Component {
     );
    }
    else{
+    values.file = this.state.file
     FlightInfoService.updateFlightInfo(values).then
     ((data)=>{
       setSubmitting(false);
@@ -311,12 +312,15 @@ class CasFlightCreate extends Component {
                         onChange={handleChange}
                         errorText={errors.resource}/>
                     </div>
-                   {/*  <div className="p-col-6 p-lg-2 p-md-2 form-field-label">
-                      <label htmlFor="flightUploadLocation">{label.upload}</label>
+                    <div className="p-col-6 p-lg-2 p-md-2 form-field-label">
+                      <label htmlFor="flightfile">{label.upload}</label>
                     </div>
                     <div className="p-col-6 p-lg-2 p-md-2">
-                      <FileUpload name="flightFile" url="../../assets/uploads" mode="basic" />
-                    </div> */}
+                      {/* <FileUpload name="flightFile" url="../../assets/uploads" mode="basic" /> */}
+                     <FileUpload mode="basic" name="file"  url="http://localhost:8080/cas-gui/upload" accept="image/*" maxFileSize={5000000}  onUpload={(e)=>{this.setState({file : e.files[0].name})}} />
+                    </div> 
+                    {this.state.file&& <div>{this.state.file}</div>}
+                   
                   </div>
                   <div className="p-grid form-field-button">  
                     <div className="p-col-12 ">
