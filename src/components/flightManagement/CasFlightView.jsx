@@ -29,6 +29,7 @@ class CasFlightView extends Component {
     this.deleteFlightCallBack = this.deleteFlightCallBack.bind(this);
     this.deleteFlight = this.deleteFlight.bind(this);
     this.editFlight = this.editFlight.bind(this);
+    this.fileTemplate = this.fileTemplate.bind(this);
     
   }
   static propTypes = {
@@ -81,6 +82,11 @@ class CasFlightView extends Component {
     );
   }
 
+  fileTemplate(rowData)
+  { let fileName = rowData.file;
+    return (<a href = {`http://localhost:8080/cas-gui/files/${fileName}`}>{fileName}</a>)
+  }
+
   confirmDeleteFlight(selectedFlight) {
     this.setState({
         selectedFlight,
@@ -126,7 +132,7 @@ class CasFlightView extends Component {
       { field: "arvDate", header: "Arr Date",sortable:true,body:this.arrDateBodyTemplate },
       { field: "arvTime", header: "Arr Time",sortable:true },
       { field: "resource", header: "Resource",sortable:true },
-      { field: "file", header: "File",sortable:true }, 
+      { field: "file", header: "File",sortable:true , body:this.fileTemplate}, 
       { header: "Action",body:this.actionBodyTemplate,headerClassName:"action-column-header" }
       
     ];

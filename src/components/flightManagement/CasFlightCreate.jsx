@@ -112,10 +112,11 @@ class CasFlightCreate extends Component {
    {
      errors.file = ErrorConstants.CAS_GUI_ERR_INV_UPLOAD
    }
-
+   console.log(values)
    return errors;
   }
-
+  
+ 
   setAirportsCallBack(airportData) {
     this.setState({
       airportData,
@@ -147,8 +148,9 @@ class CasFlightCreate extends Component {
 
   submitFlightForm(values, { setSubmitting }) {
     // set is submitting when API gives response back
+    console.log(values)
     if(!this.state.isEditMode)
-    { values.file = this.state.file
+    { 
     FlightInfoService.createNewFlightInfo(values).then
     ((data)=>{
       setSubmitting(false);
@@ -157,7 +159,7 @@ class CasFlightCreate extends Component {
     );
    }
    else{
-    values.file = this.state.file
+    
     FlightInfoService.updateFlightInfo(values).then
     ((data)=>{
       setSubmitting(false);
@@ -181,7 +183,7 @@ class CasFlightCreate extends Component {
         
         <Formik
           initialValues={setInitialValues}
-          validate={this.validateFlightForm}
+        validate={this.validateFlightForm}
           onSubmit={this.submitFlightForm}
           validateOnBlur={false}
           validateOnChange={false}
@@ -194,6 +196,8 @@ class CasFlightCreate extends Component {
             handleChange,
             handleBlur,
             handleSubmit,
+            setFieldValue,
+          
             isSubmitting,
 
             /* and other goodies */
@@ -316,10 +320,13 @@ class CasFlightCreate extends Component {
                       <label htmlFor="flightfile">{label.upload}</label>
                     </div>
                     <div className="p-col-6 p-lg-2 p-md-2">
-                      {/* <FileUpload name="flightFile" url="../../assets/uploads" mode="basic" /> */}
-                     <FileUpload mode="basic" name="file"  url="http://localhost:8080/cas-gui/upload" accept="image/*" maxFileSize={5000000}  onUpload={(e)=>{this.setState({file : e.files[0].name})}} />
+                  
+                     <FileUpload mode="basic" name="file"  url="http://localhost:8080/cas-gui/upload" accept="*" maxFileSize={5000000}  onUpload={(event)=>{ setFieldValue("file", event.files[0].name)}} />
                     </div> 
-                    {this.state.file&& <div>{this.state.file}</div>}
+                    
+                    <div className="p-col-6 p-lg-6 p-md-6">
+                    {values.file&& <div> Uploaded File: {values.file}</div>}
+                    </div>
                    
                   </div>
                   <div className="p-grid form-field-button">  
