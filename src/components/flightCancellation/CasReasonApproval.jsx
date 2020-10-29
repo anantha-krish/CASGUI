@@ -10,6 +10,7 @@ import CasSelect from "../common/formfields/CasSelect";
 import CasTimePicker from "../common/formfields/CasTimePicker";
 import CasDataTable from "../common/datatable/CasDataTable"
 import { Messages } from 'primereact/messages';
+import classNames from 'classnames';
 
 class CasReasonApproval extends Component {
   constructor(props) {
@@ -19,6 +20,8 @@ class CasReasonApproval extends Component {
     this.handleChangeRes = this.handleChangeRes.bind(this);
     this.deptDateBodyTemplate = this.deptDateBodyTemplate.bind(this);
     this.arrDateBodyTemplate = this.arrDateBodyTemplate.bind(this);
+    this.statusBodyTemplate = this.statusBodyTemplate.bind(this);
+    
   
     
     this.state = {
@@ -105,6 +108,15 @@ class CasReasonApproval extends Component {
     );
   }
 
+  statusBodyTemplate(rowData) {
+    return (
+        <React.Fragment>
+            
+            <span className={classNames({'pending-badge': rowData.status==="PENDING",'approved-badge': rowData.status==="APPROVED"})}>{rowData.status}</span>
+        </React.Fragment>
+    );
+ }
+
   render() {
     let label = LabelConstants.cancelFormPage;
 
@@ -146,7 +158,9 @@ class CasReasonApproval extends Component {
       { field: "depTimeEnd", header: label.table.depTimeEnd ,sortable:true },
       { field: "arvTimeStart", header: label.table.ArvTimeStart ,sortable:true },
       { field: "arvTimeEnd", header: label.table.ArvTimeEnd ,sortable:true },
-      { field: "reason", header: label.table.reason ,sortable:true }
+      { field: "reason", header: label.table.reason ,sortable:true },
+      { field: "status", header: label.table.status ,sortable:true ,body:this.statusBodyTemplate}
+
   ];
 
     

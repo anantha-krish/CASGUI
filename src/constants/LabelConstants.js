@@ -29,6 +29,7 @@ export const LabelConstants ={
             ArvTimeStart:"Arr Time Start",
             ArvTimeEnd:"Arr Time End",
             reason: "Can Reason",
+            status:"Status"
         }
         
     },
