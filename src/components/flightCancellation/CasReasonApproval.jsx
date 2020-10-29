@@ -4,7 +4,7 @@ import CasAirportInput from "../common/formfields/CasAirportInput";
 import CasButton from "../common/formfields/CasButton";
 import CasInputText from "../common/formfields/CasInputText";
 import { Formik } from "formik";
-import { AirportService } from "../../service/services";
+import { AirportService,CancellationService } from "../../service/services";
 import CasCalendar from "../common/formfields/CasCalendar";
 import CasSelect from "../common/formfields/CasSelect";
 import CasTimePicker from "../common/formfields/CasTimePicker";
@@ -17,6 +17,10 @@ class CasReasonApproval extends Component {
     this.submitCancelForm = this.submitCancelForm.bind(this);
     this.setAirportsCallBack = this.setAirportsCallBack.bind(this);
     this.handleChangeRes = this.handleChangeRes.bind(this);
+    this.deptDateBodyTemplate = this.deptDateBodyTemplate.bind(this);
+    this.arrDateBodyTemplate = this.arrDateBodyTemplate.bind(this);
+  
+    
     this.state = {
       airportData: [],
       searchResults:[],
@@ -30,7 +34,6 @@ class CasReasonApproval extends Component {
     });
   }
   validateCancelForm(values) {
-    debugger
     const errors = {};
     console.log(values);
     if (!values.cancelType) errors.cancelType = ErrorConstants.CAS_GUI_ERR_02;
@@ -43,45 +46,108 @@ class CasReasonApproval extends Component {
     });
   }
 
+
   componentDidMount() {
     AirportService.getAllAirports(this.setAirportsCallBack);
   }
 
   submitCancelForm(values, { setSubmitting }) {
-    debugger;
+    let searchObj={};
+    searchObj.cancelType=values.cancelType.code;
+    if(values.arvAirport)
+      searchObj.arvAirport=values.arvAirport;
+    if(values.depAirport)
+      searchObj.depAirport=values.depAirport;
+    if(values.arvDate)
+      searchObj.arvDate=values.arvDate;
+    if(values.depDate)
+      searchObj.depDate=values.depDate;
+    if(values.carrierCode)
+      searchObj.carrierCode = values.carrierCode.code;
+    if(values.flightNumber)
+      searchObj.flightNumber = values.flightNumber;
+    if(values.depTimeStart)
+      searchObj.depTimeStart = values.depTimeStart;
+    if(values.arvTimeStart)
+      searchObj.arvTimeStart = values.arvTimeStart;
+    if(values.depTimeEnd)
+      searchObj.depTimeEnd = values.depTimeEnd;
+    if(values.arvTimeEnd)
+      searchObj.arvTimeEnd = values.arvTimeEnd;
+    if(values.reason)
+      searchObj.reason = values.reason;
     
     setSubmitting(false);
+    
+    CancellationService.searchCancellationInfo(searchObj).then
+    ((data)=>{
+      debugger;
+      setSubmitting(false);
+      this.setState({
+        searchResults:data
+      })
+    });
+  }
+  deptDateBodyTemplate(rowData) {
+    return this.dateTemplate(rowData.depDate);
+  }
+  arrDateBodyTemplate(rowData) {
+    return this.dateTemplate(rowData.arvDate);
+  }
+
+  dateTemplate(unFormatedDate){
+    let date = new Date(unFormatedDate);
+    let dateString =  date.getFullYear()+"-"+("0"+(date.getDay()+1)).slice(-2)+"-"+("0"+date.getDate()).slice(-2);
+    return (
+      <React.Fragment>
+          <span className="p-column-title">{dateString}</span>
+      </React.Fragment>
+    );
   }
 
   render() {
     let label = LabelConstants.cancelFormPage;
 
-    const setInitialValues = {
-    };
+   
 
     let carrierCodeOptions = [
-      {
-        option: "test1",
-      },
-      { option: "test2" },
+      {id:"1",code: "NH"},
+      {id:"2",code: "AI"},
+      {id:"3",code: "JL"},
+      {id:"4",code: "CA"}
     ];
 
     let cancelReasonOptions = [
-      {
-        option: "test1",
-      },
-      { option: "test2" },
+      {id:"1",code: "Bad Weather"},
+      {id:"2",code: "Mechanical Issues"},
+      {id:"3",code: "Security Issues"},
+      {id:"4",code: "Bird Strikes"},
+      {id:"5",code: "Missing Crew"},
+      {id:"6",code: "Computer Glitch"}
     ];
 
     let cancelTypeOptions = [
-      {
-        option: "Domestic",
-      },
-      { option: "International" },
+      {id:"1",code: "Domestic"},
+      {id:"2",code: "International"},
     ];
+
+    const setInitialValues = {
+      cancelType:cancelTypeOptions[0]
+    };
+
     let renderColumns = [
-      { field: "flightNumber", header: "Flight Number" ,sortable:true ,headerClassName:"flight-number-column-header"}
-    ];
+      { field: "depDate", header: label.table.boardingStartDate ,sortable:true,body:this.deptDateBodyTemplate },
+      { field: "arvDate", header: label.table.boardingEndDate ,sortable:true, body:this.arrDateBodyTemplate},
+      { field: "depAirport", header: label.table.depAirport ,sortable:true },
+      { field: "arvAirport", header: label.table.arrAirport ,sortable:true },
+      { field: "carrierCode", header: label.table.carrierCode ,sortable:true },
+      { field: "flightNumber", header: label.table.flightNum ,sortable:true },
+      { field: "depTimeStart", header: label.table.depTimeStart ,sortable:true },
+      { field: "depTimeEnd", header: label.table.depTimeEnd ,sortable:true },
+      { field: "arvTimeStart", header: label.table.ArvTimeStart ,sortable:true },
+      { field: "arvTimeEnd", header: label.table.ArvTimeEnd ,sortable:true },
+      { field: "reason", header: label.table.reason ,sortable:true }
+  ];
 
     
 
@@ -120,6 +186,7 @@ class CasReasonApproval extends Component {
                             id="cancelFlightType"
                             name="cancelType"
                             options={cancelTypeOptions}
+                            optionLabel="code"
                             value={values.cancelType}
                             errorText={errors.cancelType}
                             onChange={handleChange}/>
@@ -137,6 +204,7 @@ class CasReasonApproval extends Component {
                             onChange={handleChange}
                             name="depDate"
                             showIcon={true}
+                            value={values.depDate}
                             numberOfMonths={3}/>
                         </div>
                         <div className="p-col-6 p-lg-2 p-md-2 form-field-label">
@@ -148,6 +216,7 @@ class CasReasonApproval extends Component {
                             onChange={handleChange}
                             name="arvDate"
                             showIcon={true}
+                            value={values.arvDate}
                             numberOfMonths={3}/>
                         </div>
                         <div className="p-col-6 p-lg-2 p-md-2 form-field-label">
@@ -181,6 +250,9 @@ class CasReasonApproval extends Component {
                           <CasSelect
                             id="cancelCarrierCD"
                             name="carrierCode"
+                            optionLabel="code"
+                            filter={true}
+                            filterBy="code"
                             options={carrierCodeOptions}
                             value={values.carrierCode}
                             onChange={handleChange}/>
@@ -243,6 +315,9 @@ class CasReasonApproval extends Component {
                             id="cancelReason"
                             name="reason"
                             options={cancelReasonOptions}
+                            optionLabel="code"
+                            filter={true}
+                            filterBy="code"
                             value={values.reason}
                             onChange={handleChange}/>
                         </div>

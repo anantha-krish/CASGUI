@@ -9,7 +9,11 @@ class CasSelect extends Component {
         name: PropTypes.string,
         onChange: PropTypes.func.isRequired,
         options: PropTypes.array.isRequired,
+        optionLabel:PropTypes.string,
         errorText:PropTypes.string,
+        filter:PropTypes.bool,
+        showClear :PropTypes.bool,
+        filterBy:PropTypes.string
       };
     
       static defaultProps = {
@@ -18,6 +22,10 @@ class CasSelect extends Component {
         name: "",
         options:[],
         errorText:"",
+        optionLabel:"",
+        filter:false,
+        showClear:false,
+        filterBy:"",
         onChange: () => {},
       };
     
@@ -29,16 +37,16 @@ class CasSelect extends Component {
       }
     }
     render() {
-        const { id, value, name, onChange,options } = this.props;
+        const { id, value, name, onChange,options,optionLabel,filter,showClear,filterBy } = this.props;
         let className = this.props.className;
         if(this.props.errorText){
           className = className + " p-invalid";
         }
         return (
             <>
-            <Dropdown id={id} name={name} value={value} 
+            <Dropdown id={id} name={name} value={value} filter={filter} showClear={showClear} filterBy={filterBy}
             options={options} onChange={onChange} className={className}
-            optionLabel="option" placeholder="Please Select" />
+            optionLabel={optionLabel} placeholder="Please Select" />
             {this.renderErrorText()}
             </>
         )
