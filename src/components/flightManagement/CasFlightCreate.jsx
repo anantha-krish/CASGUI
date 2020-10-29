@@ -1,15 +1,15 @@
 import { Formik } from "formik";
 import React, { Component } from "react";
-import { ErrorConstants, LabelConstants } from"../../constants/constants";
+import { ErrorConstants, LabelConstants } from "../../constants/constants";
 import { AirportService, FlightInfoService } from "../../service/services";
-import CasAirportInput from "../common/formfields/CasAirportInput"
-import CasButton from"../common/formfields/CasButton";
-import CasCalendar from"../common/formfields/CasCalendar";
-import CasInputText from"../common/formfields/CasInputText";
-import CasTimePicker from"../common/formfields/CasTimePicker";
-import { FileUpload } from 'primereact/fileupload';
-import PropTypes from 'prop-types';
-import { Messages } from 'primereact/messages';
+import CasAirportInput from "../common/formfields/CasAirportInput";
+import CasButton from "../common/formfields/CasButton";
+import CasCalendar from "../common/formfields/CasCalendar";
+import CasInputText from "../common/formfields/CasInputText";
+import CasTimePicker from "../common/formfields/CasTimePicker";
+import { FileUpload } from "primereact/fileupload";
+import PropTypes from "prop-types";
+import { Messages } from "primereact/messages";
 
 class CasFlightCreate extends Component {
   constructor(props) {
@@ -17,40 +17,37 @@ class CasFlightCreate extends Component {
     this.state = {
       airportData: [],
       /* mode:"create" */
-      isEditMode:false,
-      flightInfo:{}
+      isEditMode: false,
+      flightInfo: {},
     };
     this.submitFlightForm = this.submitFlightForm.bind(this);
     this.setAirportsCallBack = this.setAirportsCallBack.bind(this);
-    this.setExistingFlightInfo=this.setExistingFlightInfo.bind(this);
+    this.setExistingFlightInfo = this.setExistingFlightInfo.bind(this);
     this.setCreateMode = this.setCreateMode.bind(this);
   }
-  
-  setExistingFlightInfo(dbFlightInfo)
-  {  
-      this.setState({
-    
-        flightInfo:{
-          id: dbFlightInfo.id,
-          flightNumber: dbFlightInfo.flightNumber,
-          depDate: new Date(dbFlightInfo.depDate),
-          depTime: dbFlightInfo.depTime,
-          depAirport: dbFlightInfo.depAirport,
-          arvDate: new Date(dbFlightInfo.arvDate),
-          arvTime: dbFlightInfo.arvTime,
-          arvAirport: dbFlightInfo.arvAirport,
-          resource: dbFlightInfo.resource,
-          file: dbFlightInfo.file
-        },
-        isEditMode : true
-      })
+
+  setExistingFlightInfo(dbFlightInfo) {
+    this.setState({
+      flightInfo: {
+        id: dbFlightInfo.id,
+        flightNumber: dbFlightInfo.flightNumber,
+        depDate: new Date(dbFlightInfo.depDate),
+        depTime: dbFlightInfo.depTime,
+        depAirport: dbFlightInfo.depAirport,
+        arvDate: new Date(dbFlightInfo.arvDate),
+        arvTime: dbFlightInfo.arvTime,
+        arvAirport: dbFlightInfo.arvAirport,
+        resource: dbFlightInfo.resource,
+        file: dbFlightInfo.file,
+      },
+      isEditMode: true,
+    });
   }
 
-  setCreateMode()
-  {
+  setCreateMode() {
     this.setState({
-      isEditMode:false,
-      flightInfo:{
+      isEditMode: false,
+      flightInfo: {
         flightNumber: "",
         depDate: "",
         depTime: "00:00",
@@ -59,64 +56,53 @@ class CasFlightCreate extends Component {
         arvTime: "00:00",
         arvAirport: "",
         resource: "",
-        file: ""
-      }
-     })
+        file: "",
+      },
+    });
   }
 
-/*   static propTypes = {
+  /*   static propTypes = {
     callBackToGetFlightInfo:PropTypes.func
   } */
   validateFlightForm(values) {
     const errors = {};
-    
-    if(!values.depDate)
-    {
-      errors.depDate = ErrorConstants.CAS_GUI_ERR_INV_DATE
-    }
-        
-    if(!values.arvDate)
-    {
-      errors.arvDate = ErrorConstants.CAS_GUI_ERR_INV_DATE
+
+    if (!values.depDate) {
+      errors.depDate = ErrorConstants.CAS_GUI_ERR_INV_DATE;
     }
 
-
-    if(values.arvTime == values.depTime)
-    {
-      errors.depTime = ErrorConstants.CAS_GUI_ERR_INV_TIME_DUR
-      errors.arvTime = ErrorConstants.CAS_GUI_ERR_INV_TIME_DUR
+    if (!values.arvDate) {
+      errors.arvDate = ErrorConstants.CAS_GUI_ERR_INV_DATE;
     }
 
-    if(!values.arvAirport)
-    {
-      errors.arvAirport = ErrorConstants.CAS_GUI_ERR_NO_AIRPORT
+    if (values.arvTime == values.depTime) {
+      errors.depTime = ErrorConstants.CAS_GUI_ERR_INV_TIME_DUR;
+      errors.arvTime = ErrorConstants.CAS_GUI_ERR_INV_TIME_DUR;
     }
 
-    if(!values.depAirport)
-    {
-      errors.depAirport = ErrorConstants.CAS_GUI_ERR_NO_AIRPORT
+    if (!values.arvAirport) {
+      errors.arvAirport = ErrorConstants.CAS_GUI_ERR_NO_AIRPORT;
     }
 
-   if(!values.flightNumber)
-   {
-     errors.flightNumber = ErrorConstants.CAS_GUI_ERR_NO_FLIGHT
-   }
+    if (!values.depAirport) {
+      errors.depAirport = ErrorConstants.CAS_GUI_ERR_NO_AIRPORT;
+    }
 
+    if (!values.flightNumber) {
+      errors.flightNumber = ErrorConstants.CAS_GUI_ERR_NO_FLIGHT;
+    }
 
-   if(!values.resource)
-   {
-     errors.resource = ErrorConstants.CAS_GUI_ERR_NO_RESOURC
-   }
+    if (!values.resource) {
+      errors.resource = ErrorConstants.CAS_GUI_ERR_NO_RESOURC;
+    }
 
-   if(!values.file)
-   {
-     errors.file = ErrorConstants.CAS_GUI_ERR_INV_UPLOAD
-   }
-   console.log(values)
-   return errors;
+    if (!values.file) {
+      errors.file = ErrorConstants.CAS_GUI_ERR_INV_UPLOAD;
+    }
+    console.log(values);
+    return errors;
   }
-  
- 
+
   setAirportsCallBack(airportData) {
     this.setState({
       airportData,
@@ -126,69 +112,62 @@ class CasFlightCreate extends Component {
   componentDidMount() {
     AirportService.getAllAirports(this.setAirportsCallBack);
     let flightId = this.props.match.params.id;
-    if(this.props.match.params.mode==='add')
-    {
+    if (this.props.match.params.mode === "add") {
       this.setCreateMode();
-    }
-    else if(flightId && this.props.match.params.mode === 'edit')
-    {
-        FlightInfoService.getFlightInfoById(flightId,this.setExistingFlightInfo)
+    } else if (flightId && this.props.match.params.mode === "edit") {
+      FlightInfoService.getFlightInfoById(flightId, this.setExistingFlightInfo);
     }
   }
 
-  componentDidUpdate(prevprops)
-  {
-    if(this.props.match.params.mode !== prevprops.match.params.mode)
-    {
+  componentDidUpdate(prevprops) {
+    if (this.props.match.params.mode !== prevprops.match.params.mode) {
       this.setCreateMode();
     }
   }
-
-
 
   submitFlightForm(values, { setSubmitting }) {
     // set is submitting when API gives response back
-    console.log(values)
-    if(!this.state.isEditMode)
-    { 
-    FlightInfoService.createNewFlightInfo(values).then
-    ((data)=>{
-      setSubmitting(false);
-      this.messages.show({severity: 'success', summary: 'Saved->', detail: 'Flight Information has been saved successfully' , life:5000} );
+    console.log(values);
+    if (!this.state.isEditMode) {
+      FlightInfoService.createNewFlightInfo(values).then((data) => {
+        setSubmitting(false);
+        this.messages.show({
+          severity: "success",
+          summary: "Saved->",
+          detail: "Flight Information has been saved successfully",
+          life: 5000,
+        });
+      });
+    } else {
+      FlightInfoService.updateFlightInfo(values).then((data) => {
+        setSubmitting(false);
+        this.messages.show({
+          severity: "success",
+          summary: "Updated->",
+          detail: `Flight info id : ${data.id} has been updated by user`,
+          life: 5000,
+        });
+      });
     }
-    );
-   }
-   else{
-    
-    FlightInfoService.updateFlightInfo(values).then
-    ((data)=>{
-      setSubmitting(false);
-      this.messages.show({severity: 'success', summary: 'Updated->', detail:`Flight info id : ${data.id} has been updated by user`,life: 5000} );
-    }
-    );
-
-   }
-   
   }
 
   render() {
     let label = LabelConstants.flightFormPage;
     const setInitialValues = this.state.flightInfo;
-    let headerLabel = !this.state.isEditMode ? "Create New Flight":"Update The Flight";
+    let headerLabel = !this.state.isEditMode
+      ? "Create New Flight"
+      : "Update The Flight";
 
-   
     return (
-      
       <>
-        
         <Formik
           initialValues={setInitialValues}
-        validate={this.validateFlightForm}
+          validate={this.validateFlightForm}
           onSubmit={this.submitFlightForm}
           validateOnBlur={false}
           validateOnChange={false}
           enableReinitialize={true}
-          >
+        >
           {({
             values,
             errors,
@@ -197,29 +176,34 @@ class CasFlightCreate extends Component {
             handleBlur,
             handleSubmit,
             setFieldValue,
-          
+
             isSubmitting,
 
             /* and other goodies */
           }) => (
-
-          <div className="p-grid form-container">
-            <Messages ref={(el) => this.messages = el} className="forms-message"></Messages>
-            <div className="p-col-12">
-              <div className="card card-w-title">
-                <div className="p-grid">
-                  <div className="p-col-12">
-                    <span ><h1>{headerLabel}</h1> </span>
+            <div className="p-grid form-container">
+              <Messages
+                ref={(el) => (this.messages = el)}
+                className="forms-message"
+              ></Messages>
+              <div className="p-col-12">
+                <div className="card card-w-title">
+                  <div className="p-grid">
+                    <div className="p-col-12">
+                      <span>
+                        <h1>{headerLabel}</h1>{" "}
+                      </span>
+                    </div>
                   </div>
-                </div>
-         
+
                   {/* Row 1 */}
 
                   {/* Row 2 */}
                   <div className="p-grid input-fields-container">
-                  
                     <div className="p-col-6 p-lg-2 p-md-2 form-field-label">
-                      <label htmlFor="flightDepAirport">{label.depAirport}</label>
+                      <label htmlFor="flightDepAirport">
+                        {label.depAirport}
+                      </label>
                     </div>
                     <div className="p-col-6  p-lg-2 p-md-2">
                       <CasAirportInput
@@ -229,9 +213,10 @@ class CasFlightCreate extends Component {
                         name="depAirport"
                         airportData={this.state.airportData}
                         value={values.depAirport}
-                        errorText={errors.depAirport}/>
+                        errorText={errors.depAirport}
+                      />
                     </div>
-                   
+
                     <div className="p-col-6 p-lg-2 p-md-2 form-field-label">
                       <label htmlFor="flightDepDate">{label.depDate}</label>
                     </div>
@@ -243,7 +228,8 @@ class CasFlightCreate extends Component {
                         showIcon={true}
                         numberOfMonths={3}
                         value={values.depDate}
-                        errorText={errors.depDate}/>
+                        errorText={errors.depDate}
+                      />
                     </div>
                     <div className="p-col-6 p-lg-2 p-md-2 form-field-label">
                       <label htmlFor="flightDepTime">{label.depTime}</label>
@@ -254,11 +240,14 @@ class CasFlightCreate extends Component {
                         onChange={handleChange}
                         name="depTime"
                         value={values.depTime}
-                        errorText={errors.depTime}/>
+                        errorText={errors.depTime}
+                      />
                     </div>
 
                     <div className="p-col-6 p-lg-2 p-md-2 form-field-label">
-                      <label htmlFor="flightArrAirport">{label.arvAirport}</label>
+                      <label htmlFor="flightArrAirport">
+                        {label.arvAirport}
+                      </label>
                     </div>
                     <div className="p-col-6 p-lg-2 p-md-2">
                       <CasAirportInput
@@ -268,7 +257,8 @@ class CasFlightCreate extends Component {
                         name="arvAirport"
                         airportData={this.state.airportData}
                         value={values.arvAirport}
-                        errorText={errors.arvAirport}/>
+                        errorText={errors.arvAirport}
+                      />
                     </div>
                     <div className="p-col-6 p-lg-2 p-md-2 form-field-label">
                       <label htmlFor="flightArvDate">{label.arvDate}</label>
@@ -281,7 +271,8 @@ class CasFlightCreate extends Component {
                         showIcon={true}
                         numberOfMonths={3}
                         value={values.arvDate}
-                        errorText={errors.arvDate}/>
+                        errorText={errors.arvDate}
+                      />
                     </div>
                     <div className="p-col-6 p-lg-2 p-md-2 form-field-label">
                       <label htmlFor="flightArvTime">{label.arvTime}</label>
@@ -292,7 +283,8 @@ class CasFlightCreate extends Component {
                         onChange={handleChange}
                         name="arvTime"
                         value={values.arvTime}
-                        errorText={errors.arvTime}/>
+                        errorText={errors.arvTime}
+                      />
                     </div>
                     <div className="p-col-6 p-lg-2 p-md-2 form-field-label">
                       <label htmlFor="flightNumber">{label.flightNum}</label>
@@ -303,7 +295,8 @@ class CasFlightCreate extends Component {
                         id="flightNumber"
                         name="flightNumber"
                         onChange={handleChange}
-                        errorText={errors.flightNumber}/>
+                        errorText={errors.flightNumber}
+                      />
                     </div>
                     <div className="p-col-6 p-lg-2 p-md-2 form-field-label">
                       <label htmlFor="flightResource">{label.resource}</label>
@@ -314,7 +307,8 @@ class CasFlightCreate extends Component {
                         id="flightResource"
                         name="resource"
                         onChange={handleChange}
-                        errorText={errors.resource}/>
+                        errorText={errors.resource}
+                      />
                     </div>
                     <div className="p-col-6 p-lg-4 p-md-4 form-field-label">
                       &nbsp;
@@ -324,33 +318,46 @@ class CasFlightCreate extends Component {
                     </div>
                     <div className="p-lg-6 p-md-6">
                       <div className="p-grid">
-                    <div className="p-col-1">
-          
-                     <FileUpload mode="basic" name="file" auto={true}  url="http://localhost:8080/cas-gui/upload" accept="*" maxFileSize={5000000}  onUpload={(event)=>{ setFieldValue("file", event.files[0].name)}} />
-                    </div>
-                     <div style={{marginLeft:"10px"}} className="form-field-label">
-                  {values.file&& <span>{values.file}</span>}
-                  {errors.file && <span>{errors.file}</span>}
-                    </div>
-                  
-                     </div>
-                     </div>
-                    </div> 
-                
-              
-                  <div className="p-grid form-field-button">  
-                    <div className="p-col-12 ">
-                      <div className="float-right">
-                        <CasButton label="Save" onClick={handleSubmit} disabled={isSubmitting} />
+                        <div className="p-col-2">
+                          <FileUpload
+                            mode="basic"
+                            name="file"
+                            auto={true}
+                            url="http://localhost:8080/cas-gui/upload"
+                            accept="*"
+                            maxFileSize={5000000}
+                            onUpload={(event) => {
+                              setFieldValue("file", event.files[0].name);
+                            }}
+                          />
+                        </div>
+                        <div
+                          style={{ marginLeft: "-1.5rem" }}
+                          className="form-field-label"
+                        >
+                          {values.file && <span>{values.file}</span>}
+                          {errors.file && <span>{errors.file}</span>}
+                        </div>
                       </div>
                     </div>
                   </div>
-                 </div>
+
+                  <div className="p-grid form-field-button">
+                    <div className="p-col-12 ">
+                      <div className="float-right">
+                        <CasButton
+                          label="Save"
+                          onClick={handleSubmit}
+                          disabled={isSubmitting}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
           )}
         </Formik>
-        
       </>
     );
   }
