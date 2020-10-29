@@ -316,19 +316,28 @@ class CasFlightCreate extends Component {
                         onChange={handleChange}
                         errorText={errors.resource}/>
                     </div>
+                    <div className="p-col-6 p-lg-4 p-md-4 form-field-label">
+                      &nbsp;
+                    </div>
                     <div className="p-col-6 p-lg-2 p-md-2 form-field-label">
                       <label htmlFor="flightfile">{label.upload}</label>
                     </div>
-                    <div className="p-col-6 p-lg-2 p-md-2">
-                  
-                     <FileUpload mode="basic" name="file"  url="http://localhost:8080/cas-gui/upload" accept="*" maxFileSize={5000000}  onUpload={(event)=>{ setFieldValue("file", event.files[0].name)}} />
-                    </div> 
-                    
-                    <div className="p-col-6 p-lg-6 p-md-6">
-                    {values.file&& <div> Uploaded File: {values.file}</div>}
+                    <div className="p-lg-6 p-md-6">
+                      <div className="p-grid">
+                    <div className="p-col-1">
+          
+                     <FileUpload mode="basic" name="file" auto={true}  url="http://localhost:8080/cas-gui/upload" accept="*" maxFileSize={5000000}  onUpload={(event)=>{ setFieldValue("file", event.files[0].name)}} />
                     </div>
-                   
-                  </div>
+                     <div style={{marginLeft:"10px"}} className="form-field-label">
+                  {values.file&& <span>{values.file}</span>}
+                  {errors.file && <span>{errors.file}</span>}
+                    </div>
+                  
+                     </div>
+                     </div>
+                    </div> 
+                
+              
                   <div className="p-grid form-field-button">  
                     <div className="p-col-12 ">
                       <div className="float-right">
