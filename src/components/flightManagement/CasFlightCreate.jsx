@@ -9,6 +9,7 @@ import CasInputText from "../common/formfields/CasInputText";
 import CasTimePicker from "../common/formfields/CasTimePicker";
 import { FileUpload } from "primereact/fileupload";
 import { Messages } from "primereact/messages";
+import CasFileUpload from "../common/formfields/CasFileUpload";
 
 class CasFlightCreate extends Component {
   constructor(props) {
@@ -123,7 +124,6 @@ class CasFlightCreate extends Component {
 
   submitFlightForm(values, { setSubmitting }) {
     // set is submitting when API gives response back
-    console.log(values);
     if (!this.state.isEditMode) {
       FlightInfoService.createNewFlightInfo(values).then((data) => {
         setSubmitting(false);
@@ -312,30 +312,13 @@ class CasFlightCreate extends Component {
                     <div className="p-col-6 p-lg-2 p-md-2 form-field-label">
                       <label htmlFor="flightfile">{label.upload}</label>
                     </div>
-                    <div className="p-lg-6 p-md-6">
-                      <div className="p-grid">
-                        <div className="p-col-2">
-                          <FileUpload
-                            mode="basic"
-                            name="file"
-                            auto={true}
-                            url="http://localhost:8080/cas-gui/upload"
-                            accept="*"
-                            maxFileSize={5000000}
-                            onUpload={(event) => {
-                              setFieldValue("file", event.files[0].name);
-                            }}
-                          />
-                        </div>
-                        <div
-                          style={{ marginLeft: "-1.5rem" }}
-                          className="form-field-label"
-                        >
-                          {values.file && <span>{values.file}</span>}
-                          {errors.file && <span>{errors.file}</span>}
-                        </div>
-                      </div>
-                    </div>
+                    <CasFileUpload
+                      onUpload={(event) => {
+                        setFieldValue("file", event.files[0].name);
+                      }}
+                      fileName={values.file}
+                      errorText={errors.file}
+                    />
                   </div>
 
                   <div className="p-grid form-field-button">
@@ -349,6 +332,7 @@ class CasFlightCreate extends Component {
                       </div>
                     </div>
                   </div>
+
                 </div>
               </div>
             </div>
