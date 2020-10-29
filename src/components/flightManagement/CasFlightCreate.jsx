@@ -8,7 +8,6 @@ import CasCalendar from "../common/formfields/CasCalendar";
 import CasInputText from "../common/formfields/CasInputText";
 import CasTimePicker from "../common/formfields/CasTimePicker";
 import { FileUpload } from "primereact/fileupload";
-import PropTypes from "prop-types";
 import { Messages } from "primereact/messages";
 
 class CasFlightCreate extends Component {
@@ -61,9 +60,6 @@ class CasFlightCreate extends Component {
     });
   }
 
-  /*   static propTypes = {
-    callBackToGetFlightInfo:PropTypes.func
-  } */
   validateFlightForm(values) {
     const errors = {};
 
@@ -75,7 +71,7 @@ class CasFlightCreate extends Component {
       errors.arvDate = ErrorConstants.CAS_GUI_ERR_INV_DATE;
     }
 
-    if (values.arvTime == values.depTime) {
+    if (values.arvTime === values.depTime) {
       errors.depTime = ErrorConstants.CAS_GUI_ERR_INV_TIME_DUR;
       errors.arvTime = ErrorConstants.CAS_GUI_ERR_INV_TIME_DUR;
     }
