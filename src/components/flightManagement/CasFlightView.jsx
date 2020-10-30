@@ -5,8 +5,8 @@ import CasDataTable from "../common/datatable/CasDataTable";
 import CasInputText from "../common/formfields/CasInputText";
 import Button from "../common/formfields/CasButton";
 import { Dialog } from 'primereact/dialog';
-import { Messages } from 'primereact/messages';
 import PropTypes from 'prop-types';
+import CasMessage from "../common/messages/CasMessage";
 
 class CasFlightView extends Component {
   constructor() {
@@ -104,7 +104,7 @@ class CasFlightView extends Component {
 
   deleteFlightCallBack(status) {
     if(status ===204){
-      this.messages.show({severity: 'success', summary: 'Flight Deleted Successfully.'});
+      this.flightViewMessage.show({severity: 'success', summary: 'Flight Deleted Successfully.'});
       this.setFlightDetailsCallBack({});
       FlightInfoService.getAllFlightInfo(this.setFlightDetailsCallBack);
     }
@@ -139,7 +139,7 @@ class CasFlightView extends Component {
     return (
       <div className="p-grid flights-view-container">
         <div className="p-col-12">
-          <Messages ref={(el) => this.messages = el} className="forms-message"></Messages>
+          <CasMessage ref={(el) => this.flightViewMessage = el} className="forms-message"></CasMessage>
           <div className="card card-w-title">
             <div className="p-grid">
               <div className="p-col-10">

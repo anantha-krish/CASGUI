@@ -9,8 +9,8 @@ import CasCalendar from "../common/formfields/CasCalendar";
 import CasSelect from "../common/formfields/CasSelect";
 import CasTimePicker from "../common/formfields/CasTimePicker";
 import CasDataTable from "../common/datatable/CasDataTable"
-import { Messages } from 'primereact/messages';
 import classNames from 'classnames';
+import CasMessage from "../common/messages/CasMessage";
 
 class CasReasonApproval extends Component {
   constructor(props) {
@@ -168,7 +168,7 @@ class CasReasonApproval extends Component {
     return (
       <>
         <div className="p-grid form-container">
-            <Messages ref={(el) => this.messages = el} className="forms-message"></Messages>
+            <CasMessage ref={(el) => this.messages = el} className="forms-message"></CasMessage>
             <div className="p-col-12">
               <div className="card card-w-title">
                 <div className="p-grid">

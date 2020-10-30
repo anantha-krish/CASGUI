@@ -10,13 +10,13 @@ import CasTimePicker from "../common/formfields/CasTimePicker";
 import { FileUpload } from "primereact/fileupload";
 import { Messages } from "primereact/messages";
 import CasFileUpload from "../common/formfields/CasFileUpload";
+import CasMessage from "../common/messages/CasMessage";
 
 class CasFlightCreate extends Component {
   constructor(props) {
     super(props);
     this.state = {
       airportData: [],
-      /* mode:"create" */
       isEditMode: false,
       flightInfo: {},
     };
@@ -96,7 +96,6 @@ class CasFlightCreate extends Component {
     if (!values.file) {
       errors.file = ErrorConstants.CAS_GUI_ERR_INV_UPLOAD;
     }
-    console.log(values);
     return errors;
   }
 
@@ -123,11 +122,11 @@ class CasFlightCreate extends Component {
   }
 
   submitFlightForm(values, { setSubmitting }) {
-    // set is submitting when API gives response back
+  
     if (!this.state.isEditMode) {
       FlightInfoService.createNewFlightInfo(values).then((data) => {
         setSubmitting(false);
-        this.messages.show({
+        this.flightCreationMessage.show({
           severity: "success",
           summary: "Saved->",
           detail: "Flight Information has been saved successfully",
@@ -137,7 +136,7 @@ class CasFlightCreate extends Component {
     } else {
       FlightInfoService.updateFlightInfo(values).then((data) => {
         setSubmitting(false);
-        this.messages.show({
+        this.flightCreationMessage.show({
           severity: "success",
           summary: "Updated->",
           detail: `Flight info id : ${data.id} has been updated by user`,
@@ -178,10 +177,9 @@ class CasFlightCreate extends Component {
             /* and other goodies */
           }) => (
             <div className="p-grid form-container">
-              <Messages
-                ref={(el) => (this.messages = el)}
-                className="forms-message"
-              ></Messages>
+             <CasMessage passRef={(el)=>(this.flightCreationMessage=el)}
+              className="forms-message"
+              ></CasMessage>
               <div className="p-col-12">
                 <div className="card card-w-title">
                   <div className="p-grid">

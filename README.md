@@ -1,6 +1,7 @@
 # CAS GUI POC
 
-## Installation 
+## Installation
+
 Packages needed to be installed
 
 ```json
@@ -12,7 +13,7 @@ Packages needed to be installed
    "primereact": "^5.0.1",
 
     "primeflex": "^2.0.0",
-    
+
     // required package for data table
     "react-transition-group": "^4.4.1"
 
@@ -35,22 +36,28 @@ Packages needed to be installed
     "react-test-renderer": "^16.13.1"
 
 ```
-## Added Custom  Libraries
+
+## Added Custom Libraries
+
 - ObjectUtil : isEmpty will check whether an object is empty or not
+
 ## List of CAS Components
+
 ### CasDataTable
+
 Component helps you to display data in table format with sort, filter features.
 
- Props | Type | Description | Required 
- ------ | ------ | ----------- | -------- 
-**`data`** | array | array contains the information to display | Required 
-**`columns`**  | array | array contains the list of field & header to display Ex:{ field: "id", header: "User Id" }| Required 
-**`selection`**  | object | save the row selection to an object | Optional
-**`onSelectionChange`**  | func | function to invoke on selection change |Optional
-**`globalFilter`**  | string | filter the results based on the search string |Optional
-**`rows`** |number| Number of rows to display in first page | Optional (10)
+| Props                   | Type   | Description                                                                                | Required      |
+| ----------------------- | ------ | ------------------------------------------------------------------------------------------ | ------------- |
+| **`data`**              | array  | array contains the information to display                                                  | Required      |
+| **`columns`**           | array  | array contains the list of field & header to display Ex:{ field: "id", header: "User Id" } | Required      |
+| **`selection`**         | object | save the row selection to an object                                                        | Optional      |
+| **`onSelectionChange`** | func   | function to invoke on selection change                                                     | Optional      |
+| **`globalFilter`**      | string | filter the results based on the search string                                              | Optional      |
+| **`rows`**              | number | Number of rows to display in first page                                                    | Optional (10) |
 
-Example Syntax 
+Example Syntax
+
 ```jsx
 <CasDataTable
   data={this.state.userList}
@@ -61,5 +68,24 @@ Example Syntax
   columns={renderColumns}
 />
 ```
+### CasMessage
 
-test commit
+Used for displaying Messages in the top.
+
+```jsx
+
+//function invocation
+submitFlightForm() {
+    this.flightCreationMessage.show({
+    severity: "success",
+    summary: "Saved->",
+    detail: "Flight Information has been saved successfully",
+    life: 5000,
+    });
+  }
+
+ //JSx syntax 
+  <CasMessage passRef={(el)=>(this.flightCreationMessage=el)}
+  className="forms-message"
+  ></CasMessage>
+```
