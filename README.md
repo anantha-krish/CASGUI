@@ -84,7 +84,7 @@ submitFlightForm() {
     });
   }
 
- //JSx syntax 
+ //JSx syntax make sure the propName is passRef  not ref
   <CasMessage passRef={(el)=>(this.flightCreationMessage=el)}
   className="forms-message"
   ></CasMessage>

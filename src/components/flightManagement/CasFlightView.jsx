@@ -103,7 +103,7 @@ class CasFlightView extends Component {
   }
 
   deleteFlightCallBack(status) {
-    if(status ===204){
+    if(status === 204){
       this.flightViewMessage.show({severity: 'success', summary: 'Flight Deleted Successfully.'});
       this.setFlightDetailsCallBack({});
       FlightInfoService.getAllFlightInfo(this.setFlightDetailsCallBack);
@@ -139,7 +139,7 @@ class CasFlightView extends Component {
     return (
       <div className="p-grid flights-view-container">
         <div className="p-col-12">
-          <CasMessage ref={(el) => this.flightViewMessage = el} className="forms-message"></CasMessage>
+          <CasMessage passRef={(el) => this.flightViewMessage = el} className="forms-message"></CasMessage>
           <div className="card card-w-title">
             <div className="p-grid">
               <div className="p-col-10">

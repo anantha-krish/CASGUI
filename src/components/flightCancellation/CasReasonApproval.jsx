@@ -168,7 +168,7 @@ class CasReasonApproval extends Component {
     return (
       <>
         <div className="p-grid form-container">
-            <CasMessage ref={(el) => this.messages = el} className="forms-message"></CasMessage>
+            <CasMessage passRef={(el) => this.messages = el} className="forms-message"></CasMessage>
             <div className="p-col-12">
               <div className="card card-w-title">
                 <div className="p-grid">
