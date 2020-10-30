@@ -6,7 +6,7 @@
     }
 } */
 
-.cas-data-table-header,.p-paginator-bottom{
+.cas-data-table-header:not(td),.p-paginator-bottom{
     background-color: $color-table-header !important;
     color: $color-white !important;
 }
@@ -30,6 +30,34 @@
     }
     
 }
+
+.cancelation-results-container{
+    .flight-type-header {
+        width: 7rem;
+    }
+    .time-header{
+        width: 8.5rem;
+    }
+    .status-header{
+        width: 8rem;
+    }
+    .action-header{
+        width: 6.5rem;
+    }
+    .flight-number-header{
+        width: 9rem;
+    }
+    .date-header{
+        width: 7rem;
+    }
+    .airport-header{
+        width: 9.5rem;
+    }
+    .action-column{
+        padding-top: 0.3rem;
+        margin-bottom: -0.2rem;
+    }
+}
 .forms-message{
     width: 100%;
 }
@@ -47,24 +75,29 @@
     .form-field-button{
         border-top: 1px solid #d5d5d5;
         padding-right: 4rem;
-        margin-top: 1rem;
-        padding-top: 1rem;
+        margin-top: 0.5rem;
 
     }
-    .pending-badge{
+    .status-badge{
         padding: 0.1rem 0.5rem;
-        background-color: #ffcdd2;
-        color: #c63737;
         border-radius: 1rem;
         font-weight: bold;
+
+        &.pending-badge{
+            background-color: #ffd8b2;
+            color: #805b36;
+        }
+        &.approved-badge{
+            background-color: #c8e6c9;
+            color: #256029;
+        }
+    
+        &.rejected-badge{
+            background-color: #ffcdd2;
+            color: #c63737;
+        }
     }
-    .approved-badge{
-        padding: 0.1rem 0.5rem;
-        background-color: #c8e6c9;
-        color: #256029;
-        border-radius: 1rem;
-        font-weight: bold;
-    }
+    
     
 }
 

@@ -18,17 +18,16 @@ export const LabelConstants ={
         search:"Search",
         resultsHeader:"Search Results",
         table:{
-            boardingStartDate: "Brd Date Start",
+            flightType:"Flight Type",
+            boardingStartDate: "Date",
             boardingEndDate: " Brd Date End",
             depAirport : "Dep Airport",
             arrAirport: "Arr Airport",
             carrierCode: "Carrier Code",
             flightNum : "Flight Num",
-            depTimeStart: "Dep Time start",
-            depTimeEnd: "Dep Time End",
-            ArvTimeStart:"Arr Time Start",
-            ArvTimeEnd:"Arr Time End",
-            reason: "Can Reason",
+            depTime: "Dep Time",
+            ArvTime:"Arr Time",
+            reason: "Reason",
             status:"Status"
         }
         
