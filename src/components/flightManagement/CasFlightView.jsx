@@ -63,7 +63,7 @@ class CasFlightView extends Component {
 
   dateTemplate(unFormatedDate){
     let date = new Date(unFormatedDate);
-    let dateString =  date.getFullYear()+"-"+("0"+(date.getDay()+1)).slice(-2)+"-"+("0"+date.getDate()).slice(-2);
+    let dateString =  date.getFullYear()+"-"+("0"+(date.getMonth()+1)).slice(-2)+"-"+("0"+date.getDate()).slice(-2);
     return (
       <React.Fragment>
           <span className="p-column-title">{dateString}</span>

@@ -8,6 +8,7 @@ class CasDataTable extends Component {
   constructor() {
     super();
     this.renderColumns = this.renderColumns.bind(this);
+    this.renderSelectionColumn = this.renderSelectionColumn.bind(this);
   }
     
   static propTypes = {
@@ -17,6 +18,11 @@ class CasDataTable extends Component {
     onSelectionChange: PropTypes.func,
     rows: PropTypes.number,
     globalFilter: PropTypes.string,
+    dataKey: PropTypes.string,
+    selectionMode:PropTypes.string,
+    showSelection:PropTypes.bool,
+    rowHover:PropTypes.bool,
+    editMode:PropTypes.string
   };
 
   static defaultProps = {
@@ -27,6 +33,12 @@ class CasDataTable extends Component {
     globalFilter: "",
     onSelectionChange: () => {},
   };
+
+  renderSelectionColumn(){
+    if(this.props.showSelection){
+      return(<Column className="cas-data-table-header" selectionMode={this.props.selectionMode} headerStyle={{width: '3em'}}></Column>);
+    } 
+  }
 
   renderColumns(columns){
     let headerClassName;
@@ -44,6 +56,7 @@ class CasDataTable extends Component {
         className={col.className}
         headerClassName={headerClassName}
         body={col.body}
+        editor={col.editor}
       />);
       });
     return columList;
@@ -57,12 +70,18 @@ class CasDataTable extends Component {
       onSelectionChange,
       rows,
       globalFilter,
+      dataKey,
+      selectionMode,
+      rowHover,
+      editMode
+      
+      
     } = this.props;
 
     return (
       <DataTable
         value={data}
-        selectionMode="single"
+        selectionMode={selectionMode}
         selection={selection}
         onSelectionChange={onSelectionChange}
         rows={rows}
@@ -70,7 +89,11 @@ class CasDataTable extends Component {
         paginatorPosition="bottom"
         responsive
         globalFilter={globalFilter}
+        dataKey={dataKey}
+        rowHover={rowHover}
+        editMode={editMode}
       >
+      {this.renderSelectionColumn()}
       {this.renderColumns(columns)}
       </DataTable>
     );

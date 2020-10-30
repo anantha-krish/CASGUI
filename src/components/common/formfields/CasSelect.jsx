@@ -13,7 +13,8 @@ class CasSelect extends Component {
         errorText:PropTypes.string,
         filter:PropTypes.bool,
         showClear :PropTypes.bool,
-        filterBy:PropTypes.string
+        filterBy:PropTypes.string,
+        placeholder:PropTypes.string
       };
     
       static defaultProps = {
@@ -26,6 +27,7 @@ class CasSelect extends Component {
         filter:false,
         showClear:false,
         filterBy:"",
+        placeholder:"Please Select",
         onChange: () => {},
       };
     
@@ -37,7 +39,7 @@ class CasSelect extends Component {
       }
     }
     render() {
-        const { id, value, name, onChange,options,optionLabel,filter,showClear,filterBy } = this.props;
+        const { id, value, name, onChange,options,optionLabel,filter,showClear,filterBy,placeholder } = this.props;
         let className = this.props.className;
         if(this.props.errorText){
           className = className + " p-invalid";
@@ -45,8 +47,8 @@ class CasSelect extends Component {
         return (
             <>
             <Dropdown id={id} name={name} value={value} filter={filter} showClear={showClear} filterBy={filterBy}
-            options={options} onChange={onChange} className={className}
-            optionLabel={optionLabel} placeholder="Please Select" />
+            options={options} onChange={onChange} className={className} placeholder={placeholder}
+            optionLabel={optionLabel}  />
             {this.renderErrorText()}
             </>
         )
