@@ -72,37 +72,8 @@ class CasHomeScreen extends Component {
                 to:'/flight-cancellation/approval'
               }
             ],
-          },
-          {
-            label: "Main menu 1",
-            icon: " pi-fw ",  
-            command: () => {
-              window.location = "#/";
-            },
-            items: [
-              {
-                label: "Submenu 1.1",
-                icon: "pi pi-fw pi-bars",
-                command: () => {
-                  window.location = "#/";
-                },
-              },
-              {
-                label: "Submenu 1.2",
-                icon: "pi pi-fw pi-bars",
-                command: () => {
-                  window.location = "#/";
-                },
-              },
-              {
-                label: "Submenu 1.n",
-                icon: "pi pi-fw pi-bars",
-                command: () => {
-                  window.location = "#/";
-                },
-              },
-            ],
-          },
+          }
+         
          
         ];
     
