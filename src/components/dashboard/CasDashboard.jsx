@@ -36,8 +36,7 @@ class CasDashboard extends Component {
       <Toast ref={(el) => { this.toast = el; }}></Toast>
             <div className="card card-w-title">
               <CasUserList  />
-              <h2> Dummy upload and files show</h2>
-              <FileUpload mode="basic" name="file" url="http://localhost:8080/cas-gui/upload" accept="image/*" maxFileSize={5000000} onUpload={this.onBasicUpload} />
+             
             </div>
           </div>
         </div>

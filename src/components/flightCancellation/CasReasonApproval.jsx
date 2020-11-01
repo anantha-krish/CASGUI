@@ -484,7 +484,7 @@ rejectRequest(rowData){
                 <div className="card-w-title">
                   <div className="p-grid">
                     
-                    <div className="p-col-6 float-left">
+                    <div className="p-col-5 float-left">
                       <span className="flights-list-header" ><h1>{label.resultsHeader}</h1> </span>
                     </div>
                     <div className="p-col-2 float-left">
@@ -498,7 +498,7 @@ rejectRequest(rowData){
                       </span>
                     </div>
                     
-                    <div className="p-col-4 float-right">
+                    <div className="p-col-5 float-right">
                       <div style={{width:'35%',float:"right"}}><CasButton className="float-right" disabled={!this.isEnabledUpdateReason()} label="Update Reason" onClick={() => this.updateReason()}  /> </div>
                       <div style={{width:'50%',float:"right",paddingLeft:"3rem"}}>
                         <CasSelect
@@ -520,7 +520,7 @@ rejectRequest(rowData){
                   <CasDataTable
                     data={this.state.searchResults}
                     selection={this.state.selectedData}
-                    rows={8}
+                    rows={5}
                     editMode="cell"
                     rowHover={true}
                     showSelection={true}

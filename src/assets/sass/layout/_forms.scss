@@ -33,26 +33,29 @@
 
 .cancelation-results-container{
     .flight-type-header {
-        width: 7rem;
-    }
-    .time-header{
-        width: 8.5rem;
-    }
-    .status-header{
-        width: 8rem;
-    }
-    .action-header{
-        width: 6.5rem;
-    }
-    .flight-number-header{
-        width: 9rem;
+        width: 9%;
     }
     .date-header{
-        width: 7rem;
+        width: 8%;
     }
     .airport-header{
-        width: 9.5rem;
+        width: 11%;
     }
+    .flight-number-header{
+        width: 11%;
+    }
+    .time-header{
+        width: 9.5%;
+    }
+    .status-header{
+        width: 7.5rem;
+    }
+    .action-header{
+        width: 6rem;
+    }
+    
+    
+    
     .action-column{
         padding-top: 0.3rem;
         margin-bottom: -0.2rem;
