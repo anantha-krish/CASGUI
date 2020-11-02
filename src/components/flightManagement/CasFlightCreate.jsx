@@ -122,6 +122,7 @@ class CasFlightCreate extends Component {
   }
 
   submitFlightForm(values, { setSubmitting }) {
+    debugger;
   
     if (!this.state.isEditMode) {
       FlightInfoService.createNewFlightInfo(values).then((data) => {

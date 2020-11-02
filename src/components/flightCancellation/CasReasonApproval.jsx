@@ -34,7 +34,7 @@ class CasReasonApproval extends Component {
     this.state = {
       airportData: [],
       searchResults:[],
-      selectedData:null,
+      selectedData:[],
       globalFilter:"",
       reasonCommon:null
     };
@@ -88,7 +88,7 @@ class CasReasonApproval extends Component {
     AirportService.getAllAirports(this.setAirportsCallBack);
   }
 
-  searchRecords(values) {
+  searchRecords(values ,{ setSubmitting }) {
     this.values =values;
     let searchObj={};
     searchObj.flightType=values.flightType.code;
@@ -117,9 +117,10 @@ class CasReasonApproval extends Component {
     
    CancellationService.searchCancellationInfo(searchObj).then
     ((data)=>{
+      setSubmitting(false);
      this.setState({
         searchResults:data,
-        selectedData:null
+        selectedData:[]
 
       })
     });
@@ -195,6 +196,7 @@ class CasReasonApproval extends Component {
 }
 
 updateReason() {
+  debugger;
   let updateReasonInfos =[];
   if(this.state.reasonCommon && this.state.selectedData && this.state.selectedData.length){
     this.state.selectedData.map(obj =>{
@@ -224,7 +226,7 @@ updateReason() {
 approveRequest(rowData){
   
   let approveDataList =[];
-  if(this.state.selectedData){
+  if(this.state.selectedData && this.state.selectedData.length){
     approveDataList =this.state.selectedData.filter(data=>data.status ==="PENDING");
   } else {
     approveDataList.push(rowData);
@@ -242,7 +244,7 @@ approveRequest(rowData){
 rejectRequest(rowData){
   
   let approveDataList =[];
-  if(this.state.selectedData){
+  if(this.state.selectedData && this.state.selectedData.length){
     approveDataList =this.state.selectedData.filter(data=>data.status ==="PENDING");
   } else {
     approveDataList.push(rowData);
@@ -309,7 +311,10 @@ rejectRequest(rowData){
                 <Formik
                   initialValues={setInitialValues}
                   validate={this.validateCancelForm}
-                  onSubmit={this.searchRecords}>
+                  onSubmit={this.searchRecords}
+                  validateOnBlur={false}
+                  validateOnChange={false}
+                  enableReinitialize={true}>
                   {({
                     values,
                     errors,
@@ -317,9 +322,10 @@ rejectRequest(rowData){
                     handleChange,
                     handleBlur,
                     handleSubmit,
+                    setFieldValue,
                     isSubmitting
                   }) => (
-                    <form onSubmit={handleSubmit}>
+                    <div>
            
                       <div className="p-grid input-fields-container">
                         <div className="p-col-6 p-lg-2 p-md-2 form-field-label">
@@ -477,7 +483,7 @@ rejectRequest(rowData){
                           
                      
                    
-                    </form>
+                    </div>
               )}
               </Formik>
               <div className="p-col-12 cancelation-results-container">
@@ -507,6 +513,7 @@ rejectRequest(rowData){
                           options={this.cancelReasonOptions}
                           optionLabel="code"
                           filter={true}
+                          showClear={true}
                           placeholder="Select Reason"
                           filterBy="code"
                           value={this.state.reasonCommon}
