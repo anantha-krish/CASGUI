@@ -9,6 +9,7 @@ import CasInputText from "../common/formfields/CasInputText";
 import CasTimePicker from "../common/formfields/CasTimePicker";
 import CasFileUpload from "../common/formfields/CasFileUpload";
 import CasMessage from "../common/messages/CasMessage";
+import CasUploadFlightInfo from "./CasUploadFlightInfo";
 
 class CasFlightCreate extends Component {
   constructor(props) {
@@ -361,6 +362,7 @@ class CasFlightCreate extends Component {
             </div>
           )}
         </Formik>
+        <CasUploadFlightInfo/>
       </>
     );
   }

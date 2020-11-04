@@ -8,6 +8,7 @@ class CasFileUpload extends Component {
     name: "file",
     url: "http://localhost:8080/cas-gui/upload",
     accept: "*",
+    auto:true,
     maxFileSize: 5000000,
     onUpload: () => {},
     files: [],
@@ -31,6 +32,7 @@ class CasFileUpload extends Component {
       mode,
       name,
       url,
+      auto,
       maxFileSize,
       onUpload,
       accept,
@@ -45,7 +47,7 @@ class CasFileUpload extends Component {
             <FileUpload
               mode={mode}
               name={name}
-              auto={true}
+              auto={auto}
               url={url}
               accept={accept}
               maxFileSize={maxFileSize}
