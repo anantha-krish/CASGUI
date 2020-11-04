@@ -7,8 +7,6 @@ import CasButton from "../common/formfields/CasButton";
 import CasCalendar from "../common/formfields/CasCalendar";
 import CasInputText from "../common/formfields/CasInputText";
 import CasTimePicker from "../common/formfields/CasTimePicker";
-import { FileUpload } from "primereact/fileupload";
-import { Messages } from "primereact/messages";
 import CasFileUpload from "../common/formfields/CasFileUpload";
 import CasMessage from "../common/messages/CasMessage";
 
@@ -19,11 +17,14 @@ class CasFlightCreate extends Component {
       airportData: [],
       isEditMode: false,
       flightInfo: {},
+      files:[]
     };
     this.submitFlightForm = this.submitFlightForm.bind(this);
     this.setAirportsCallBack = this.setAirportsCallBack.bind(this);
     this.setExistingFlightInfo = this.setExistingFlightInfo.bind(this);
     this.setCreateMode = this.setCreateMode.bind(this);
+    this.fileUploadHandler = this.fileUploadHandler.bind(this);
+    
   }
 
   setExistingFlightInfo(dbFlightInfo) {
@@ -61,6 +62,15 @@ class CasFlightCreate extends Component {
     });
   }
 
+  fileUploadHandler = ({files}) => {
+    this.setState({
+      files,
+    });
+    //FlightInfoService.uploadFile(files);
+  };
+
+
+
   validateFlightForm(values) {
     const errors = {};
 
@@ -93,9 +103,7 @@ class CasFlightCreate extends Component {
       errors.resource = ErrorConstants.CAS_GUI_ERR_NO_RESOURC;
     }
 
-    if (!values.file) {
-      errors.file = ErrorConstants.CAS_GUI_ERR_INV_UPLOAD;
-    }
+   
     return errors;
   }
 
@@ -122,10 +130,21 @@ class CasFlightCreate extends Component {
   }
 
   submitFlightForm(values, { setSubmitting }) {
-    debugger;
-  
     if (!this.state.isEditMode) {
-      FlightInfoService.createNewFlightInfo(values).then((data) => {
+      debugger;
+      let fileName ="";
+      let formData = new FormData();
+      for(var i=0;i<this.state.files.length ;i++){
+        if(i!==0) fileName = fileName+",";
+        formData.append('file', this.state.files[i] );
+        fileName=fileName+this.state.files[i].name;
+      }
+      if(fileName){
+        values.file =fileName;
+      }
+      
+      formData.append('flightObj', JSON.stringify(values) );
+      FlightInfoService.createNewFlightInfo(formData).then((data) => {
         setSubmitting(false);
         this.flightCreationMessage.show({
           severity: "success",
@@ -309,15 +328,20 @@ class CasFlightCreate extends Component {
                       &nbsp;
                     </div>
                     <div className="p-col-6 p-lg-2 p-md-2 form-field-label">
-                      <label htmlFor="flightfile">{label.upload}</label>
+                        <label htmlFor="flightfile">{label.upload}</label>
                     </div>
-                    <CasFileUpload
-                      onUpload={(event) => {
-                        setFieldValue("file", event.files[0].name);
-                      }}
-                      fileName={values.file}
-                      errorText={errors.file}
-                    />
+                    <div className="p-col-6 p-lg-6 p-md-6 flights-upload-container">
+                      <CasFileUpload
+                        customUpload={true}
+                        uploadHandler={this.fileUploadHandler}
+                        multiple= {true}
+                        files={this.state.files}
+                        errorText={errors.file}
+                        accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                      />
+                    </div>
+
+                   
                   </div>
 
                   <div className="p-grid form-field-button">

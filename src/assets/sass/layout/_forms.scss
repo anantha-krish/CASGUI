@@ -20,13 +20,26 @@
 .flights-view-container{
     
     .flight-number-column-header{
-        width: 12rem;
+        width: 12%;
+    }
+    .airport-column-header{
+        width:10.5%;
+    }
+    .date-column-header{
+        width:9%;
+    }
+    .time-column-header{
+        width:9.5%;
+    }
+    .res-column-header{
+        width:9%;
     }
     .action-column-header{
         width:7rem;
     }
-    .airport-column-header{
-        width: 10rem;
+    
+    .fileName-holder{
+        word-wrap: break-word;
     }
     
 }
@@ -102,6 +115,20 @@
     }
     
     
+}
+
+.flights-upload-container{
+    .p-fileupload-buttonbar{
+        width: 35%;
+        float: left;
+        border-bottom:  1px solid #c8c8c8 !important;
+    }
+    .p-fileupload-content{
+        width: 60%;
+        float: left;
+        margin-left: 0.5rem;
+        min-height: 4.2rem;
+    }
 }
 
 

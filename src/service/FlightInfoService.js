@@ -9,16 +9,15 @@ export const FlightInfoService = {
   updateFlightInfo
 };
 
-function createNewFlightInfo(data) {
+function createNewFlightInfo(formData) {
+  debugger;
   return axios
-    .post("http://localhost:8080/cas-gui/flight-info",data,{
-      headers:{
-        'Content-Type': 'application/json'
-      }
+    .post("http://localhost:8080/cas-gui/flight-info",formData,{
     })
     .then((res) => {
-      if (res.status===201 && res.config.url) {
-          return Promise.resolve(res.config.url)
+      debugger;
+      if (res.status===200 && res.data) {
+          return Promise.resolve(res.data)
       } else {
         let error = [ErrorConstants.CAS_GUI_ERR_01];
         return Promise.reject(error);
@@ -100,4 +99,7 @@ function getFlightInfoById(id,callbackFn) {
       return Promise.reject([ErrorConstants.CAS_GUI_ERR_01]);
     });
 }
+
+
+
 

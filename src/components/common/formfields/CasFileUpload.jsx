@@ -4,15 +4,27 @@ import {FileUpload} from 'primereact/fileupload'
 class CasFileUpload extends Component {
   
     static defaultProps = {
-    mode: "basic",
+   
     name: "file",
     url: "http://localhost:8080/cas-gui/upload",
     accept: "*",
     maxFileSize: 5000000,
     onUpload: () => {},
-    fileName: "",
+    files: [],
     errorText: "",
+    multiple :false,
+    customUpload:false,
+    uploadHandler:() => {}
   };
+
+  renderFileNames(files){
+    if(files && files.length){
+      return (files.map((file) => {
+        return(<span style={{ marginLeft: "1rem" }}>{file.name}</span>)
+      }))
+    }
+    return(<> </>);
+  }
 
   render() {
     const {
@@ -22,14 +34,14 @@ class CasFileUpload extends Component {
       maxFileSize,
       onUpload,
       accept,
-      fileName,
+      files,
       errorText,
+      customUpload,
+      uploadHandler,
+      multiple 
     } = this.props;
 
-    return (
-      <div className="p-lg-6 p-md-6">
-        <div className="p-grid">
-          <div className="p-col-2">
+    return (<>
             <FileUpload
               mode={mode}
               name={name}
@@ -38,14 +50,16 @@ class CasFileUpload extends Component {
               accept={accept}
               maxFileSize={maxFileSize}
               onUpload={onUpload}
+              customUpload={customUpload}
+              uploadHandler={uploadHandler}
+              multiple ={true}
             />
+         
+          <div  className="form-field-label">
+           {errorText && <small className="cas-inline-err-text p-d-block">{errorText}</small>}
           </div>
-          <div style={{ marginLeft: "-2.5rem" }} className="form-field-label">
-            {fileName && <span>{fileName}</span>}
-            {errorText&&!fileName && <small className="cas-inline-err-text p-d-block">{errorText}</small>}
-          </div>
-        </div>
-      </div>
+          </>
+        
     );
   }
 }

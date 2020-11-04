@@ -82,9 +82,15 @@ class CasFlightView extends Component {
     );
   }
 
-  fileTemplate(rowData)
-  { let fileName = rowData.file;
-    return (<a href = {`http://localhost:8080/cas-gui/files/${fileName}`}>{fileName}</a>)
+  fileTemplate(rowData){ 
+    debugger;
+    let fileName = rowData.file;
+    let flightNumber = rowData.flightNumber;
+    let fileNameArray = rowData.file.split(",");
+    return (fileNameArray.map((file)=>{
+      let fileId = flightNumber+"/"+file;
+      return (<div className="fileName-holder"><a href = {`http://localhost:8080/cas-gui/files/${fileId}`}>{file}</a></div>)
+    }))
   }
 
   confirmDeleteFlight(selectedFlight) {
@@ -121,17 +127,17 @@ class CasFlightView extends Component {
           <Button label="Yes" icon="pi pi-check" className="p-button-text" onClick={this.deleteFlight} />
       </React.Fragment>
     );
-
+    
 
     let renderColumns = [
       { field: "flightNumber", header: "Flight Number" ,sortable:true ,headerClassName:"flight-number-column-header"},
       { field: "depAirport", header: "Dep Airport", sortable:true,headerClassName:"airport-column-header" },
       { field: "arvAirport", header: "Arr Airport",sortable:true,headerClassName:"airport-column-header" },
-      { field: "depDate", header: "Dep Date" ,sortable:true,body:this.deptDateBodyTemplate},
-      { field: "depTime", header: "Dep Time",sortable:true },
-      { field: "arvDate", header: "Arr Date",sortable:true,body:this.arrDateBodyTemplate },
-      { field: "arvTime", header: "Arr Time",sortable:true },
-      { field: "resource", header: "Resource",sortable:true },
+      { field: "depDate", header: "Dep Date" ,sortable:true,body:this.deptDateBodyTemplate,headerClassName:"date-column-header"},
+      { field: "depTime", header: "Dep Time",sortable:true,headerClassName:"time-column-header" },
+      { field: "arvDate", header: "Arr Date",sortable:true,body:this.arrDateBodyTemplate,headerClassName:"date-column-header" },
+      { field: "arvTime", header: "Arr Time",sortable:true,headerClassName:"time-column-header" },
+      { field: "resource", header: "Resource",sortable:true,headerClassName:"res-column-header" },
       { field: "file", header: "File",sortable:true , body:this.fileTemplate}, 
       { header: "Action",body:this.actionBodyTemplate,headerClassName:"action-column-header" }
       
