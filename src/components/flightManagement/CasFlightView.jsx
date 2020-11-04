@@ -83,22 +83,15 @@ class CasFlightView extends Component {
   }
 
   fileTemplate(rowData){ 
-    debugger;
-    let fileName = rowData.file;
     let flightNumber = rowData.flightNumber;
-    if(typeof fileName === Array ){
-    let fileNameArray = fileName.split(",");
-    return (fileNameArray.map((file)=>{
-      let fileId = flightNumber+"/"+file;
-      return (<div className="fileName-holder"><a href = {`http://localhost:8080/cas-gui/files/${fileId}`}>{file}</a></div>)
-    }))
-  }
-
-  else{
-    let fileId = flightNumber+"/"+fileName;
-    return (<div className="fileName-holder"><a href = {`http://localhost:8080/cas-gui/files/${fileId}`}>{fileName}</a></div>)
-
-  }
+    if(rowData.file){
+      let fileNameArray = rowData.file.split(",");
+      return (fileNameArray.map((file)=>{
+        let fileId = flightNumber+"/"+file;
+        return (<div className="fileName-holder"><a href = {`http://localhost:8080/cas-gui/files/${fileId}`}>{file}</a></div>)
+      }))
+    }
+   
   }
 
   confirmDeleteFlight(selectedFlight) {
