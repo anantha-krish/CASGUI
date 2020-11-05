@@ -1,9 +1,65 @@
 import React, { Component } from "react";
-import {FileUpload} from 'primereact/fileupload'
+import {FileUpload} from 'primereact/fileupload';
 
 class CasFileUpload extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      invalidFileError:"" 
+    }
+    this.onUpload = this.onUpload.bind(this);
+    this.uploadHandler = this.uploadHandler.bind(this);
+    this.onSelect = this.onSelect.bind(this);
+    this.validateFiles = this.validateFiles.bind(this);
+    this.fileTypes=[];
+    if(this.props.accept){
+      this.fileTypes = this.props.accept.split(",");
+      this.fileTypes = this.fileTypes.map(s => s.trim());
+    }
+    
+  }
+
+  validateFiles(files){
+    let validate = true;
+    let invalidFileError="";
+    for (let i = 0; i < files.length; i++) {
+      let file = files[i];
+      if(!this.fileTypes.includes(file.type)){
+        validate =false;
+        break;
+      }
+    }
+    if(!validate){
+      invalidFileError ="Invalid File(S) Selected.";
+      this.fileInput.clear();
+    }
+    this.setState({
+      invalidFileError
+    });
+    return validate;
+  }
+
+  onUpload (e){
+    if(this.props.onUpload){
+      this.props.onUpload(e);
+    }
+  }
+
+  uploadHandler (files){
+    if(this.props.uploadHandler){
+      this.props.uploadHandler(files);
+    }
+  }
+
+  onSelect (filesEvent){
+    if(this.validateFiles(filesEvent.files) && this.props.onSelect){
+      this.props.onSelect(filesEvent);
+    }
+  }
+
   
-    static defaultProps = {
+  static defaultProps = {
    
     name: "file",
     url: "http://localhost:8080/cas-gui/upload",
@@ -19,15 +75,6 @@ class CasFileUpload extends Component {
     onError:()=>{},
   };
 
-  renderFileNames(files){
-    if(files && files.length){
-      return (files.map((file) => {
-        return(<span style={{ marginLeft: "1rem" }}>{file.name}</span>)
-      }))
-    }
-    return(<> </>);
-  }
-
   render() {
     const {
       mode,
@@ -35,12 +82,9 @@ class CasFileUpload extends Component {
       url,
       auto,
       maxFileSize,
-      onUpload,
       accept,
-      files,
       errorText,
       customUpload,
-      uploadHandler,
       multiple ,
       onError
     } = this.props;
@@ -53,15 +97,18 @@ class CasFileUpload extends Component {
               url={url}
               accept={accept}
               maxFileSize={maxFileSize}
-              onUpload={onUpload}
+              onUpload={this.onUpload}
               customUpload={customUpload}
-              uploadHandler={uploadHandler}
-              multiple ={true}
-              onError={onError}      
+              uploadHandler={this.uploadHandler}
+              multiple ={multiple}
+              onError={onError} 
+              onSelect={this.onSelect} 
+              ref={(el) => this.fileInput = el}    
             />
          
           <div  className="form-field-label">
            {errorText && <small className="cas-inline-err-text p-d-block">{errorText}</small>}
+           {this.state.invalidFileError && <small className="cas-inline-err-text p-d-block">{this.state.invalidFileError}</small>}
           </div>
           </>
         

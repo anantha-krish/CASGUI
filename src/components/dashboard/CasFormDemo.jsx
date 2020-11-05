@@ -21,7 +21,6 @@ class CasFormDemo extends Component {
   }
   validateCancelForm(values) {
     const errors = {};
-    console.log(values);
     if (values.cancelType === "") errors.cancelType = "Please choose the type";
     return errors;
   }

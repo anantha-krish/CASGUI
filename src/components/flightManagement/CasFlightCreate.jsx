@@ -120,7 +120,6 @@ class CasFlightCreate extends Component {
   }
 
   deleteFile(file){
-    debugger;
     let flightInfo = this.state.flightInfo;
     flightInfo.file = flightInfo.file.replace(file,"");
     flightInfo.file = flightInfo.file.replace(",,",",");

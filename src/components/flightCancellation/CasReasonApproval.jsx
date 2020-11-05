@@ -61,7 +61,6 @@ class CasReasonApproval extends Component {
   }
   validateCancelForm(values) {
     const errors = {};
-    console.log(values);
     if (!values.flightType) errors.flightType = ErrorConstants.CAS_GUI_ERR_02;
     return errors;
   }
@@ -196,7 +195,6 @@ class CasReasonApproval extends Component {
 }
 
 updateReason() {
-  debugger;
   let updateReasonInfos =[];
   if(this.state.reasonCommon && this.state.selectedData && this.state.selectedData.length){
     this.state.selectedData.map(obj =>{

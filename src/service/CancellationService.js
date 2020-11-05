@@ -11,11 +11,9 @@ export const CancellationService = {
 
 
 function getAllCancellationInfo(callbackFn) {
-  debugger;
   return axios
     .get("http://localhost:8080/cas-gui/cancel-flight")
     .then((res) => {
-      debugger;
       if (res.data && res.data.length) {
         if (callbackFn) {
           callbackFn(res.data);
@@ -58,8 +56,7 @@ function getAllCancellationInfo(callbackFn) {
         }
       })
       .then((res) => {
-        debugger;
-        if (res.status===204 ) {
+       if (res.status===204 ) {
             return Promise.resolve()
         } else {
           let error = [ErrorConstants.CAS_GUI_ERR_01];
@@ -79,7 +76,6 @@ function getAllCancellationInfo(callbackFn) {
         }
       })
       .then((res) => {
-        debugger;
         if (res.status===204 ) {
             return Promise.resolve()
         } else {
@@ -100,7 +96,6 @@ function getAllCancellationInfo(callbackFn) {
         }
       })
       .then((res) => {
-        debugger;
         if (res.status===204 ) {
             return Promise.resolve()
         } else {
