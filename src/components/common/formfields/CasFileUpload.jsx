@@ -15,7 +15,8 @@ class CasFileUpload extends Component {
     errorText: "",
     multiple :false,
     customUpload:false,
-    uploadHandler:() => {}
+    uploadHandler:() => {},
+    onError:()=>{},
   };
 
   renderFileNames(files){
@@ -40,7 +41,8 @@ class CasFileUpload extends Component {
       errorText,
       customUpload,
       uploadHandler,
-      multiple 
+      multiple ,
+      onError
     } = this.props;
 
     return (<>
@@ -55,6 +57,7 @@ class CasFileUpload extends Component {
               customUpload={customUpload}
               uploadHandler={uploadHandler}
               multiple ={true}
+              onError={onError}      
             />
          
           <div  className="form-field-label">

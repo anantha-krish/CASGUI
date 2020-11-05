@@ -10,6 +10,7 @@ import CasFlightView from '../flightManagement/CasFlightView';
 import CasReasonApproval from '../flightCancellation/CasReasonApproval';
 import classNames from "classnames";
 import CasFormDemo from "../dashboard/CasFormDemo";
+import CasUploadFlightInfo from "../flightManagement/CasUploadFlightInfo";
 
 
 class CasHomeScreen extends Component {
@@ -51,13 +52,19 @@ class CasHomeScreen extends Component {
             items: [
               {
                 label: "Create",
-                icon: "pi pi-fw pi-bars",
+                icon: "pi pi-fw pi-plus",
                 to:'/flight-info/add'
               },
               {
                 label: "View",
-                icon: "pi pi-fw pi-bars",
+                icon: "pi pi-fw pi-list",
                 to:'/flight-info/all'
+                
+              },
+              {
+                label: "Upload",
+                icon: "pi pi-fw pi-upload",
+                to:'/flight-info/upload'
                 
               },
             ],
@@ -97,6 +104,7 @@ class CasHomeScreen extends Component {
             
               <Route path="/home"  component={CasDashboard}/>
               <Route path="/flight-info/all"  component={CasFlightView}/>
+              <Route path="/flight-info/upload"   component={CasUploadFlightInfo} />
               <Route path="/flight-info/:mode/:id?"   component={CasFlightCreate} />
               <Route path="/flight-cancellation/approval"   component={CasReasonApproval} />
               </Switch>

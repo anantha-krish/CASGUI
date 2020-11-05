@@ -5,11 +5,10 @@ import { AirportService, FlightInfoService } from "../../service/services";
 import CasAirportInput from "../common/formfields/CasAirportInput";
 import CasButton from "../common/formfields/CasButton";
 import CasCalendar from "../common/formfields/CasCalendar";
+import CasFileUpload from "../common/formfields/CasFileUpload";
 import CasInputText from "../common/formfields/CasInputText";
 import CasTimePicker from "../common/formfields/CasTimePicker";
-import CasFileUpload from "../common/formfields/CasFileUpload";
 import CasMessage from "../common/messages/CasMessage";
-import CasUploadFlightInfo from "./CasUploadFlightInfo";
 
 class CasFlightCreate extends Component {
   constructor(props) {
@@ -418,7 +417,6 @@ class CasFlightCreate extends Component {
             </div>
           )}
         </Formik>
-        <CasUploadFlightInfo/>
       </>
     );
   }
