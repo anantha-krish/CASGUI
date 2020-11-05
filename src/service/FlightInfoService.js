@@ -14,7 +14,6 @@ function createNewFlightInfo(formData) {
     .post("http://localhost:8080/cas-gui/flight-info",formData,{
     })
     .then((res) => {
-      debugger;
       if (res.status===200 && res.data) {
           return Promise.resolve(res.data)
       } else {
@@ -27,13 +26,10 @@ function createNewFlightInfo(formData) {
     });
 }
 
-function updateFlightInfo(data) {
+function updateFlightInfo(formData) {
   return axios
-    .put("http://localhost:8080/cas-gui/flight-info",data,{
-      headers:{
-        'Content-Type': 'application/json'
-      }
-    })
+    .put("http://localhost:8080/cas-gui/flight-info",formData,{
+     })
     .then((res) => {
     
       if (res.status===200 && res.data) {

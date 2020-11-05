@@ -12,12 +12,12 @@ export class CasUploadFlightInfo extends Component {
                     <div className="p-col-12">
                       <span>
                         <h1>Upload Multiple Flights Information</h1>{" "}
-                        <CasFileUpload mode="basic" auto={false} accept="*" name="file" url={"http://localhost:8080/cas-gui/flight-info/upload"}/>
+                        <CasFileUpload mode="basic" auto={false} accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" name="file" url={"http://localhost:8080/cas-gui/flight-info/upload"}/>
                       </span>
                     </div>
                   </div>
-                  </div>
-                  </div>
+                </div>
+              </div>
         )
     }
 }

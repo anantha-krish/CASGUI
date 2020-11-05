@@ -25,6 +25,10 @@ class CasFlightCreate extends Component {
     this.setExistingFlightInfo = this.setExistingFlightInfo.bind(this);
     this.setCreateMode = this.setCreateMode.bind(this);
     this.fileUploadHandler = this.fileUploadHandler.bind(this);
+    this.renderUploadedFiles = this.renderUploadedFiles.bind(this);
+    this.deleteFile = this.deleteFile.bind(this);
+    
+    
     
   }
 
@@ -41,6 +45,7 @@ class CasFlightCreate extends Component {
         arvAirport: dbFlightInfo.arvAirport,
         resource: dbFlightInfo.resource,
         file: dbFlightInfo.file,
+        deletedFiles:[]
       },
       isEditMode: true,
     });
@@ -59,6 +64,7 @@ class CasFlightCreate extends Component {
         arvAirport: "",
         resource: "",
         file: "",
+        deletedFiles:[]
       },
     });
   }
@@ -114,6 +120,53 @@ class CasFlightCreate extends Component {
     });
   }
 
+  deleteFile(file){
+    debugger;
+    let flightInfo = this.state.flightInfo;
+    flightInfo.file = flightInfo.file.replace(file,"");
+    flightInfo.file = flightInfo.file.replace(",,",",");
+    flightInfo.deletedFiles.push(file);
+    this.setState({
+      flightInfo,
+    });
+
+  }
+
+  renderFileItems(){
+    let flightNumber =this.state.flightInfo.flightNumber;
+      let fileNameArray = this.state.flightInfo.file.split(",");
+      return (fileNameArray.map((file)=>{
+        if(file){
+          let fileId = flightNumber+"/"+file;
+          return (
+            <div >
+              <div className="file-name">
+                <a href = {`http://localhost:8080/cas-gui/files/${fileId}`}>{file}</a>
+              </div>
+              <div className="fileName-delete-btn">
+                <CasButton icon="pi pi-times" className="p-button p-component p-button-icon-only" onClick={() => this.deleteFile(file)} />
+              </div> 
+            </div>
+          
+          )
+        }
+        
+      }))
+  }
+  renderUploadedFiles(label){
+    if (this.state.isEditMode && this.state.flightInfo.file) {
+      
+      return(<>
+          <div className="p-col-12 p-lg-2 p-md-2 form-field-label">
+            <label htmlFor="flightfile">{label.uploaded}</label>
+          </div>
+          <div className="p-col-12 p-lg-3 p-md-3 files-uploaded-container ">
+            {this.renderFileItems()}
+          </div>
+      </>)
+    }
+  }
+
   componentDidMount() {
     AirportService.getAllAirports(this.setAirportsCallBack);
     let flightId = this.props.match.params.id;
@@ -131,19 +184,22 @@ class CasFlightCreate extends Component {
   }
 
   submitFlightForm(values, { setSubmitting }) {
+    let fileName ="";
+    if(values.file){
+      fileName=values.file;
+    }
+    let formData = new FormData();
+    for(var i=0;i<this.state.files.length ;i++){
+      if(fileName) fileName = fileName+",";
+      formData.append('file', this.state.files[i] );
+      fileName=fileName+this.state.files[i].name;
+    }
+    if(fileName){
+      values.file =fileName;
+    }
+    formData.append('flightObj', JSON.stringify(values) );
     if (!this.state.isEditMode) {
-      let fileName ="";
-      let formData = new FormData();
-      for(var i=0;i<this.state.files.length ;i++){
-        if(i!==0) fileName = fileName+",";
-        formData.append('file', this.state.files[i] );
-        fileName=fileName+this.state.files[i].name;
-      }
-      if(fileName){
-        values.file =fileName;
-      }
       
-      formData.append('flightObj', JSON.stringify(values) );
       FlightInfoService.createNewFlightInfo(formData).then((data) => {
         setSubmitting(false);
         this.flightCreationMessage.show({
@@ -154,7 +210,7 @@ class CasFlightCreate extends Component {
         });
       });
     } else {
-      FlightInfoService.updateFlightInfo(values).then((data) => {
+      FlightInfoService.updateFlightInfo(formData).then((data) => {
         setSubmitting(false);
         this.flightCreationMessage.show({
           severity: "success",
@@ -327,10 +383,10 @@ class CasFlightCreate extends Component {
                     <div className="p-col-6 p-lg-4 p-md-4 form-field-label">
                       &nbsp;
                     </div>
-                    <div className="p-col-6 p-lg-2 p-md-2 form-field-label">
+                    <div className="p-col-12 p-lg-2 p-md-2 form-field-label">
                         <label htmlFor="flightfile">{label.upload}</label>
                     </div>
-                    <div className="p-col-6 p-lg-6 p-md-6 flights-upload-container">
+                    <div className="p-col-12 p-lg-5 p-md-5 flights-upload-container">
                       <CasFileUpload
                         customUpload={true}
                         uploadHandler={this.fileUploadHandler}
@@ -340,7 +396,8 @@ class CasFlightCreate extends Component {
                         accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
                       />
                     </div>
-
+                    {this.renderUploadedFiles(label)}
+                   
                    
                   </div>
 

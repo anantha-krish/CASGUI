@@ -42,6 +42,7 @@ export const LabelConstants ={
         depTime: "Departure time",
         arvTime:"Arrival time",
         resource:"Resource",
-        upload: "Upload File"
+        upload: "Upload File",
+        uploaded:"Uploaded Files"
     }
 }

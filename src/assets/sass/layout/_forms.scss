@@ -37,11 +37,10 @@
     .action-column-header{
         width:7rem;
     }
-    
-    .fileName-holder{
-        word-wrap: break-word;
-    }
-    
+}
+
+.fileName-holder{
+    word-wrap: break-word;
 }
 
 .cancelation-results-container{
@@ -119,15 +118,29 @@
 
 .flights-upload-container{
     .p-fileupload-buttonbar{
-        width: 35%;
+        width: 30%;
         float: left;
         border-bottom:  1px solid #c8c8c8 !important;
     }
     .p-fileupload-content{
-        width: 60%;
+        width: 68%;
         float: left;
         margin-left: 0.5rem;
         min-height: 4.2rem;
+    }
+}
+
+.files-uploaded-container{
+    .file-name{
+        word-wrap: break-word !important;
+        width: 80%;
+        float: left;
+        padding-top: 0.5rem;
+    }
+    .fileName-delete-btn{
+        width: 20%;
+        float: left;
+        margin-bottom: 0.1rem;
     }
 }
 
