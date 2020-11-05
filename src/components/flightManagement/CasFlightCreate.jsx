@@ -132,7 +132,6 @@ class CasFlightCreate extends Component {
 
   submitFlightForm(values, { setSubmitting }) {
     if (!this.state.isEditMode) {
-      debugger;
       let fileName ="";
       let formData = new FormData();
       for(var i=0;i<this.state.files.length ;i++){

@@ -10,7 +10,6 @@ export const FlightInfoService = {
 };
 
 function createNewFlightInfo(formData) {
-  debugger;
   return axios
     .post("http://localhost:8080/cas-gui/flight-info",formData,{
     })
