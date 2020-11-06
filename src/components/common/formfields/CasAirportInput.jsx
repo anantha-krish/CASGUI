@@ -17,11 +17,11 @@ class CasAirportInput extends Component {
         selAirport:null,
         regionData:[]
       };
+     
       this.onHide = this.onHide.bind(this);
       this.onPopUpShow = this.onPopUpShow.bind(this);
       this.selectRegion = this.selectRegion.bind(this);
-      
-
+      this.setRegionData = this.setRegionData.bind(this);
     }
     
     static propTypes = {
@@ -96,17 +96,25 @@ class CasAirportInput extends Component {
 
     }
 
+    setRegionData(){
+      console.log("region setting",this.state.regionData);
+      let regionData=[];
+       
+      if(this.props.airportData && this.props.airportData.regions && this.props.airportData.regions.length) {
+        regionData = this.props.airportData.regions;
+      }
+      this.setState({
+        regionData
+      });
+      console.log("region setting",this.state.regionData);
+    }
+    componentDidMount() {
+      this.setRegionData();
+    }
+
     componentDidUpdate(prevProps) {
       if(JSON.stringify(this.props.airportData) !== JSON.stringify(prevProps.airportData) || this.props.value !==prevProps.value ){
-        let regionData=[];
-       
-        if(this.props.airportData && this.props.airportData.regions && this.props.airportData.regions.length) {
-          regionData = this.props.airportData.regions;
-        }
-        this.setState({
-          regionData
-        });
-
+        this.setRegionData();
       }
     }
 
@@ -214,6 +222,7 @@ class CasAirportInput extends Component {
 
     
     renderDialogContent() {
+      console.log("rendering",this.state.regionData);
       return(
         <div className="airport-popup-content">
           <div className="airport-popup-region-container">

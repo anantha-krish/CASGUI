@@ -6,7 +6,8 @@ export const FlightInfoService = {
   getAllFlightInfo,
   getFlightInfoById,
   deleteFlightInfo,
-  updateFlightInfo
+  updateFlightInfo,
+  updateFlightInfos
 };
 
 function createNewFlightInfo(formData) {
@@ -44,13 +45,35 @@ function updateFlightInfo(formData) {
     });
 }
 
-function deleteFlightInfo(id,callbackFn) {
+function updateFlightInfos(data) {
+  return axios
+    .post("http://localhost:8080/cas-gui/flight-infos",data,{
+     })
+    .then((res) => {
+      if (res.status===204 ) {
+          return Promise.resolve(res.status)
+      } else {
+        let error = [ErrorConstants.CAS_GUI_ERR_01];
+        return Promise.reject(error);
+      }
+    })
+    .catch((err) => {
+      return Promise.reject([ErrorConstants.CAS_GUI_ERR_01]);
+    });
+}
+
+
+
+function deleteFlightInfo(id) {
   const url ="http://localhost:8080/cas-gui/flight-info/"+id;
   return axios
     .delete(url)
     .then((res) => {
-      if (callbackFn) {
-        callbackFn(res.status);
+      if (res.status===204 ) {
+        return Promise.resolve(res.status)
+      } else {
+        let error = [ErrorConstants.CAS_GUI_ERR_01];
+        return Promise.reject(error);
       }
     })
     .catch((err) => {

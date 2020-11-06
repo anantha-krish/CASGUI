@@ -15,7 +15,8 @@ class CasCalendar extends Component {
         placeholder:PropTypes.string,
         className: PropTypes.string,
         showIcon : PropTypes.bool,
-        numberOfMonths:PropTypes.number
+        numberOfMonths:PropTypes.number,
+        dateFormat:PropTypes.string
     }
 
     static defaultProps = {
@@ -25,6 +26,7 @@ class CasCalendar extends Component {
         value:'',
         errorText:"",
         placeholder:"",
+        dateFormat:"yy/mm/dd"
     };
 
  
@@ -46,7 +48,8 @@ class CasCalendar extends Component {
         disabled,
         placeholder,
         showIcon,
-        numberOfMonths
+        numberOfMonths,
+        dateFormat
         
       } = this.props;
       let className = this.props.className;
@@ -54,7 +57,7 @@ class CasCalendar extends Component {
         className = className + " p-invalid";
       }
       return (
-        <Calendar id={id} numberOfMonths={numberOfMonths} showIcon={showIcon} placeholder={placeholder} className={className} size={size} value={value} name={name} onChange={onChange} disabled={disabled} />
+        <Calendar id={id} dateFormat={dateFormat} numberOfMonths={numberOfMonths} showIcon={showIcon} placeholder={placeholder} className={className} size={size} value={value} name={name} onChange={onChange} disabled={disabled} />
       )
 
     }

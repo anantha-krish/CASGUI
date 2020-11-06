@@ -1,22 +1,28 @@
 import React, { Component } from "react";
 import { ObjectUtil } from "../../lib/libs";
-import { FlightInfoService } from "../../service/services";
+import { FlightInfoService, AirportService } from "../../service/services";
 import CasDataTable from "../common/datatable/CasDataTable";
 import CasInputText from "../common/formfields/CasInputText";
 import Button from "../common/formfields/CasButton";
 import { Dialog } from 'primereact/dialog';
 import PropTypes from 'prop-types';
 import CasMessage from "../common/messages/CasMessage";
+import CasButton from "../common/formfields/CasButton";
+import CasAirportInput from "../common/formfields/CasAirportInput";
+import CasCalendar from "../common/formfields/CasCalendar";
+import CasTimePicker from "../common/formfields/CasTimePicker";
 
 class CasFlightView extends Component {
   constructor() {
     super();
+    
 
     this.state = {
       flightList: [],
       selectedFlight: {},
       flightFilter: "",
-      deleteFlightDialog:false
+      deleteFlightDialog:false,
+      airportData:[]
 
     };
     this.setFlightDetailsCallBack = this.setFlightDetailsCallBack.bind(this);
@@ -26,10 +32,13 @@ class CasFlightView extends Component {
     this.actionBodyTemplate = this.actionBodyTemplate.bind(this);
     this.confirmDeleteFlight = this.confirmDeleteFlight.bind(this);
     this.hideDeleteFlightDialog = this.hideDeleteFlightDialog.bind(this);
-    this.deleteFlightCallBack = this.deleteFlightCallBack.bind(this);
     this.deleteFlight = this.deleteFlight.bind(this);
     this.editFlight = this.editFlight.bind(this);
     this.fileTemplate = this.fileTemplate.bind(this);
+    this.addNewFlight = this.addNewFlight.bind(this);
+    this.setAirportsCallBack = this.setAirportsCallBack.bind(this);
+    this.isUpdationDisabled = this.isUpdationDisabled.bind(this);
+    this.updateChanges = this.updateChanges.bind(this);
     
   }
   static propTypes = {
@@ -37,9 +46,20 @@ class CasFlightView extends Component {
   }
 
   setFlightDetailsCallBack(flightInfo) {
-    this.setState({
-      flightList: flightInfo,
-    });
+    if(flightInfo && flightInfo.length){
+      flightInfo.forEach((flight) =>{
+        flight.depDate = new Date(flight.depDate);
+        flight.arvDate = new Date(flight.arvDate);
+      })
+      this.setState({
+        flightList: flightInfo,
+      });
+    }
+    
+  }
+
+  addNewFlight(){
+    this.props.history.push("/flight-info/add");
   }
 
 
@@ -48,9 +68,28 @@ class CasFlightView extends Component {
       [event.target.name]: event.target.value,
     });
   }
+  setAirportsCallBack(airportData) {
+    this.setState({
+      airportData,
+    });
+  }
+
+  isUpdationDisabled(){
+    let disabled =true;
+    if(this.state.flightList && this.state.flightList.length){
+      for(var i=0; i<this.state.flightList.length ;i++){
+        if(this.state.flightList[i].edited){
+          disabled = false;
+          break;
+        }
+      }
+    }
+    return disabled;
+  }
 
  
   componentDidMount() {
+    AirportService.getAllAirports(this.setAirportsCallBack);
     FlightInfoService.getAllFlightInfo(this.setFlightDetailsCallBack);
   }
 
@@ -61,8 +100,8 @@ class CasFlightView extends Component {
     return this.dateTemplate(rowData.arvDate);
   }
 
-  dateTemplate(unFormatedDate){
-    let date = new Date(unFormatedDate);
+  dateTemplate(date){
+   
     let dateString =  date.getFullYear()+"-"+("0"+(date.getMonth()+1)).slice(-2)+"-"+("0"+date.getDate()).slice(-2);
     return (
       <React.Fragment>
@@ -105,21 +144,76 @@ class CasFlightView extends Component {
   }
 
   deleteFlight() {
-    FlightInfoService.deleteFlightInfo(this.state.selectedFlight.id,this.deleteFlightCallBack);
+    
+    FlightInfoService.deleteFlightInfo(this.state.selectedFlight.id).then((stat) => {
+      FlightInfoService.getAllFlightInfo(this.setFlightDetailsCallBack);
+      this.flightViewMessage.show({
+        severity: "success",
+        summary: "Deleted->",
+        detail: `Flight Deleted Successfully`,
+        life: 5000,
+      });
+    });
     this.hideDeleteFlightDialog();
   }
 
-  deleteFlightCallBack(status) {
-    if(status === 204){
-      this.flightViewMessage.show({severity: 'success', summary: 'Flight Deleted Successfully.'});
-      this.setFlightDetailsCallBack({});
-      FlightInfoService.getAllFlightInfo(this.setFlightDetailsCallBack);
-    }
-  }
+ 
 
   editFlight(flightInfo){
     this.props.history.push("/flight-info/edit/"+flightInfo.id);
   }
+
+  onEditorValueChange(props, value) {
+    let updatedFlights = [...props.value];
+    updatedFlights[props.rowIndex]["edited"]=true;
+    updatedFlights[props.rowIndex][props.field] = value;
+    this.setState({ flightList: updatedFlights });
+  }
+
+  inputTextEditor(props) {
+    return <CasInputText  value={props.rowData[props.field]} onChange={(e) => this.onEditorValueChange(props, e.target.value)} />;
+  }
+
+  updateChanges(){
+    let updatedFlights = this.state.flightList.filter(flight => flight.edited === true);
+    FlightInfoService.updateFlightInfos(updatedFlights).then(() => {
+      FlightInfoService.getAllFlightInfo(this.setFlightDetailsCallBack);
+      this.flightViewMessage.show({
+        severity: "success",
+        summary: "Updated->",
+        detail: `Flight details updated Successfully`,
+        life: 5000,
+      });
+    });
+  }
+
+ 
+  airportEditor(props) {
+    let airportType ="departure";
+    if(props.field === "arvAirport") airportType = "arrival";
+    return  <CasAirportInput
+      airportType={airportType}
+      onChange={(e) => this.onEditorValueChange(props, e.target.value)}
+      airportData={this.state.airportData}
+      value={props.rowData[props.field]}
+      />;
+  }
+
+  dateEditor(props) {
+    return  <CasCalendar
+    onChange={(e) => this.onEditorValueChange(props, e.target.value)}
+    showIcon={true}
+    numberOfMonths={3}
+    value={props.rowData[props.field]}/>
+  }
+
+  timeEditor(props) {
+    return   <CasTimePicker
+    onChange={(e) => this.onEditorValueChange(props, e.target.value)}
+    value={props.rowData[props.field]}/>
+  }
+
+
   
   render() {
     const deleteFlightDialogFooter = (
@@ -131,14 +225,14 @@ class CasFlightView extends Component {
     
 
     let renderColumns = [
-      { field: "flightNumber", header: "Flight Number" ,sortable:true ,headerClassName:"flight-number-column-header"},
-      { field: "depAirport", header: "Dep Airport", sortable:true,headerClassName:"airport-column-header" },
-      { field: "arvAirport", header: "Arr Airport",sortable:true,headerClassName:"airport-column-header" },
-      { field: "depDate", header: "Dep Date" ,sortable:true,body:this.deptDateBodyTemplate,headerClassName:"date-column-header"},
-      { field: "depTime", header: "Dep Time",sortable:true,headerClassName:"time-column-header" },
-      { field: "arvDate", header: "Arr Date",sortable:true,body:this.arrDateBodyTemplate,headerClassName:"date-column-header" },
-      { field: "arvTime", header: "Arr Time",sortable:true,headerClassName:"time-column-header" },
-      { field: "resource", header: "Resource",sortable:true,headerClassName:"res-column-header" },
+      { field: "flightNumber", header: "Flight Num" ,sortable:true , editor:(props) => this.inputTextEditor(props), headerClassName:"flight-number-column-header"},
+      { field: "depAirport", header: "Dep Airport", sortable:true,headerClassName:"airport-column-header",editor:(props) => this.airportEditor(props) },
+      { field: "arvAirport", header: "Arr Airport",sortable:true,headerClassName:"airport-column-header",editor:(props) => this.airportEditor(props) },
+      { field: "depDate", header: "Dep Date" ,sortable:true,body:this.deptDateBodyTemplate,headerClassName:"date-column-header",editor:(props) => this.dateEditor(props)},
+      { field: "depTime", header: "Dep Time",sortable:true,headerClassName:"time-column-header",editor:(props) => this.timeEditor(props) },
+      { field: "arvDate", header: "Arr Date",sortable:true,body:this.arrDateBodyTemplate,headerClassName:"date-column-header",editor:(props) => this.dateEditor(props) },
+      { field: "arvTime", header: "Arr Time",sortable:true,headerClassName:"time-column-header",editor:(props) => this.timeEditor(props) },
+      { field: "resource", header: "Res",sortable:true,headerClassName:"res-column-header",editor:(props) => this.inputTextEditor(props) },
       { field: "file", header: "File",sortable:true , body:this.fileTemplate}, 
       { header: "Action",body:this.actionBodyTemplate,headerClassName:"action-column-header" }
       
@@ -149,10 +243,10 @@ class CasFlightView extends Component {
           <CasMessage passRef={(el) => this.flightViewMessage = el} className="forms-message"></CasMessage>
           <div className="card card-w-title">
             <div className="p-grid">
-              <div className="p-col-10">
+              <div className="p-col-6">
                 <span className="flights-list-header" ><h1>List of Flights</h1> </span>
               </div>
-              <div className="p-col">
+              <div className="p-col-2">
                 <span className="p-input-icon-right float-right">
                   <i className="pi pi-search" />
                   <CasInputText
@@ -162,11 +256,20 @@ class CasFlightView extends Component {
                     value={this.state.flightFilter}/>
                 </span>
               </div>
+              <div className="p-col-2">
+                <CasButton label="Update Flight(s)" className="p-button p-component float-right" onClick={() => this.updateChanges()} disabled ={this.isUpdationDisabled()} />
+              </div>
+              <div className="p-col-2">
+                <CasButton label="Add New Flight" className="p-button p-component float-right" onClick={() => this.addNewFlight()} />
+              </div>
+              
             </div>
             <CasDataTable
+              editMode="cell" 
+              className="editable-cells-table"
               data={this.state.flightList}
               selection={this.state.selectedFlight}
-              rows={8}
+              rows={7}
               globalFilter={this.state.flightFilter}
               columns={renderColumns}/>
           </div>

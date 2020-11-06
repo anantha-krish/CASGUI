@@ -22,7 +22,8 @@ class CasDataTable extends Component {
     selectionMode:PropTypes.string,
     showSelection:PropTypes.bool,
     rowHover:PropTypes.bool,
-    editMode:PropTypes.string
+    editMode:PropTypes.string,
+    className:PropTypes.string
   };
 
   static defaultProps = {
@@ -73,7 +74,8 @@ class CasDataTable extends Component {
       dataKey,
       selectionMode,
       rowHover,
-      editMode
+      editMode,
+      className
       
       
     } = this.props;
@@ -92,6 +94,7 @@ class CasDataTable extends Component {
         dataKey={dataKey}
         rowHover={rowHover}
         editMode={editMode}
+        className={className}
       >
       {this.renderSelectionColumn()}
       {this.renderColumns(columns)}

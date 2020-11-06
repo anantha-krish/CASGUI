@@ -65,6 +65,9 @@ h2 {
 .p-datepicker table td{
     padding: 0.1rem !important;
 }
+.p-datepicker-multiple-month .p-datepicker-group-container{
+    min-width: 60rem;
+}
 .p-calendar-w-btn .p-datepicker-trigger{
     width: 2.6rem !important;
 }
