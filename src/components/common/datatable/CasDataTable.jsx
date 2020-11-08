@@ -9,6 +9,7 @@ class CasDataTable extends Component {
     super();
     this.renderColumns = this.renderColumns.bind(this);
     this.renderSelectionColumn = this.renderSelectionColumn.bind(this);
+    this.setReference = this.setReference.bind(this);
   }
     
   static propTypes = {
@@ -23,7 +24,9 @@ class CasDataTable extends Component {
     showSelection:PropTypes.bool,
     rowHover:PropTypes.bool,
     editMode:PropTypes.string,
-    className:PropTypes.string
+    className:PropTypes.string,
+    rowClassName:PropTypes.string,
+    referenceFun:PropTypes.func
   };
 
   static defaultProps = {
@@ -33,7 +36,14 @@ class CasDataTable extends Component {
     rows: 10,
     globalFilter: "",
     onSelectionChange: () => {},
+    referenceFun:() => {}
   };
+
+  setReference(el){
+    if(this.props.referenceFun){
+      this.props.referenceFun(el);
+    }
+  }
 
   renderSelectionColumn(){
     if(this.props.showSelection){
@@ -75,7 +85,8 @@ class CasDataTable extends Component {
       selectionMode,
       rowHover,
       editMode,
-      className
+      className,
+      rowClassName
       
       
     } = this.props;
@@ -95,6 +106,8 @@ class CasDataTable extends Component {
         rowHover={rowHover}
         editMode={editMode}
         className={className}
+        rowClassName={rowClassName}
+        ref={(el) => { this.setReference(el) }}
       >
       {this.renderSelectionColumn()}
       {this.renderColumns(columns)}

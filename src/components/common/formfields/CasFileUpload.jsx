@@ -6,12 +6,13 @@ class CasFileUpload extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      invalidFileError:"" 
+      fileError:"" 
     }
     this.onUpload = this.onUpload.bind(this);
     this.uploadHandler = this.uploadHandler.bind(this);
     this.onSelect = this.onSelect.bind(this);
     this.validateFiles = this.validateFiles.bind(this);
+    
     this.fileTypes=[];
     if(this.props.accept){
       this.fileTypes = this.props.accept.split(",");
@@ -20,22 +21,30 @@ class CasFileUpload extends Component {
     
   }
 
+ 
+
   validateFiles(files){
+    console.log("files---",files);
     let validate = true;
     let invalidFileError="";
+    let largeFileError="";
     for (let i = 0; i < files.length; i++) {
       let file = files[i];
       if(!this.fileTypes.includes(file.type)){
         validate =false;
-        break;
+        invalidFileError ="Invalid File(S) Selected.";
+      }
+      if(file.size > 2097152){
+        validate =false;
+        largeFileError="File must be less than 2MB."
       }
     }
     if(!validate){
-      invalidFileError ="Invalid File(S) Selected.";
+      
       this.fileInput.clear();
     }
     this.setState({
-      invalidFileError
+      fileError:invalidFileError +" "+largeFileError
     });
     return validate;
   }
@@ -65,7 +74,7 @@ class CasFileUpload extends Component {
     url: "http://localhost:8080/cas-gui/upload",
     accept: "*",
     auto:true,
-    maxFileSize: 5000000,
+    maxFileSize: 20000000,
     onUpload: () => {},
     files: [],
     errorText: "",
@@ -103,12 +112,13 @@ class CasFileUpload extends Component {
               multiple ={multiple}
               onError={onError} 
               onSelect={this.onSelect} 
-              ref={(el) => this.fileInput = el}    
+              ref={(el) => this.fileInput = el}
+              
             />
          
           <div  className="form-field-label">
            {errorText && <small className="cas-inline-err-text p-d-block">{errorText}</small>}
-           {this.state.invalidFileError && <small className="cas-inline-err-text p-d-block">{this.state.invalidFileError}</small>}
+           {this.state.fileError && <small className="cas-inline-err-text p-d-block">{this.state.fileError}</small>}
           </div>
           </>
         

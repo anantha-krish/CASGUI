@@ -37,6 +37,14 @@
     .action-column-header{
         width:7rem;
     }
+
+    .modified-row{
+        background: $color-table-row-edited !important;
+    }
+
+    .header-contents{
+        margin-left: 0.5rem;
+    }
 }
 
 .fileName-holder{

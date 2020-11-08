@@ -39,6 +39,12 @@ class CasFlightView extends Component {
     this.setAirportsCallBack = this.setAirportsCallBack.bind(this);
     this.isUpdationDisabled = this.isUpdationDisabled.bind(this);
     this.updateChanges = this.updateChanges.bind(this);
+    this.rowStyleProvider = this.rowStyleProvider.bind(this);
+    this.referenceFun = this.referenceFun.bind(this);
+    this.exportCSV = this.exportCSV.bind(this);
+    
+    
+    
     
   }
   static propTypes = {
@@ -56,6 +62,18 @@ class CasFlightView extends Component {
       });
     }
     
+  }
+
+  referenceFun(el){
+    this.refObj = el;
+  }
+
+  exportCSV() {
+    this.refObj.exportCSV();
+  }
+
+  rowStyleProvider(rowData){
+   return {'modified-row':rowData.edited};
   }
 
   addNewFlight(){
@@ -243,10 +261,14 @@ class CasFlightView extends Component {
           <CasMessage passRef={(el) => this.flightViewMessage = el} className="forms-message"></CasMessage>
           <div className="card card-w-title">
             <div className="p-grid">
-              <div className="p-col-6">
+              <div className="p-col-5">
                 <span className="flights-list-header" ><h1>List of Flights</h1> </span>
               </div>
-              <div className="p-col-2">
+              <div className="p-col-7">
+                
+                <CasButton icon="pi pi-external-link " className="float-right header-contents" label="Export" onClick={this.exportCSV}/>
+                <CasButton icon="pi pi-pencil " label="Update Flight(s)" className="p-button p-component float-right header-contents" onClick={() => this.updateChanges()} disabled ={this.isUpdationDisabled()} />
+                <CasButton icon="pi pi-plus " label="Add New Flight" className="p-button p-component float-right header-contents " onClick={() => this.addNewFlight()} />
                 <span className="p-input-icon-right float-right">
                   <i className="pi pi-search" />
                   <CasInputText
@@ -256,12 +278,7 @@ class CasFlightView extends Component {
                     value={this.state.flightFilter}/>
                 </span>
               </div>
-              <div className="p-col-2">
-                <CasButton label="Update Flight(s)" className="p-button p-component float-right" onClick={() => this.updateChanges()} disabled ={this.isUpdationDisabled()} />
-              </div>
-              <div className="p-col-2">
-                <CasButton label="Add New Flight" className="p-button p-component float-right" onClick={() => this.addNewFlight()} />
-              </div>
+             
               
             </div>
             <CasDataTable
@@ -271,6 +288,8 @@ class CasFlightView extends Component {
               selection={this.state.selectedFlight}
               rows={7}
               globalFilter={this.state.flightFilter}
+              rowClassName={this.rowStyleProvider}
+              referenceFun={this.referenceFun}
               columns={renderColumns}/>
           </div>
          
