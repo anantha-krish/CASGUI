@@ -26,7 +26,9 @@ class CasDataTable extends Component {
     editMode:PropTypes.string,
     className:PropTypes.string,
     rowClassName:PropTypes.string,
-    referenceFun:PropTypes.func
+    referenceFun:PropTypes.func,
+    exportFilename :PropTypes.string,
+    exportFunction:PropTypes.string
   };
 
   static defaultProps = {
@@ -36,7 +38,9 @@ class CasDataTable extends Component {
     rows: 10,
     globalFilter: "",
     onSelectionChange: () => {},
-    referenceFun:() => {}
+    referenceFun:() => {},
+    exportFilename:"Table Data",
+    exportFunction:(obj)=>{return String(obj.cellData).replace(/"/g, '""');}
   };
 
   setReference(el){
@@ -86,7 +90,9 @@ class CasDataTable extends Component {
       rowHover,
       editMode,
       className,
-      rowClassName
+      rowClassName,
+      exportFilename ,
+      exportFunction
       
       
     } = this.props;
@@ -108,6 +114,8 @@ class CasDataTable extends Component {
         className={className}
         rowClassName={rowClassName}
         ref={(el) => { this.setReference(el) }}
+        exportFilename ={exportFilename }
+        exportFunction={exportFunction}
       >
       {this.renderSelectionColumn()}
       {this.renderColumns(columns)}

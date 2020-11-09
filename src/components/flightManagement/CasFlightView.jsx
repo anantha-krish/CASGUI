@@ -42,6 +42,8 @@ class CasFlightView extends Component {
     this.rowStyleProvider = this.rowStyleProvider.bind(this);
     this.referenceFun = this.referenceFun.bind(this);
     this.exportCSV = this.exportCSV.bind(this);
+    this.exportFunction = this.exportFunction.bind(this);
+    
     
     
     
@@ -62,6 +64,14 @@ class CasFlightView extends Component {
       });
     }
     
+  }
+
+  exportFunction(cellInfo){
+    let data = cellInfo.data;
+    if(["depDate","arvDate"].includes(cellInfo.field)){
+      data = this.getDateString(cellInfo.data)
+    }
+    return (String(data).replace(/"/g, '""'));
   }
 
   referenceFun(el){
@@ -118,9 +128,13 @@ class CasFlightView extends Component {
     return this.dateTemplate(rowData.arvDate);
   }
 
+  getDateString(date){
+    return date.getFullYear()+"-"+("0"+(date.getMonth()+1)).slice(-2)+"-"+("0"+date.getDate()).slice(-2);
+  }
+
   dateTemplate(date){
    
-    let dateString =  date.getFullYear()+"-"+("0"+(date.getMonth()+1)).slice(-2)+"-"+("0"+date.getDate()).slice(-2);
+    let dateString =  this.getDateString(date);
     return (
       <React.Fragment>
           <span className="p-column-title">{dateString}</span>
@@ -290,6 +304,8 @@ class CasFlightView extends Component {
               globalFilter={this.state.flightFilter}
               rowClassName={this.rowStyleProvider}
               referenceFun={this.referenceFun}
+              exportFilename ="Flight Informations"
+              exportFunction={this.exportFunction}
               columns={renderColumns}/>
           </div>
          
