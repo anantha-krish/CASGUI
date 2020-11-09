@@ -304,7 +304,7 @@ class CasFlightView extends Component {
               globalFilter={this.state.flightFilter}
               rowClassName={this.rowStyleProvider}
               referenceFun={this.referenceFun}
-              exportFilename ="Flight Informations"
+              exportFilename ="Flight Information"
               exportFunction={this.exportFunction}
               columns={renderColumns}/>
           </div>
